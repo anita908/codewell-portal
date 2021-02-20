@@ -6,8 +6,16 @@ class User {
   private _name: string
   private _phone: number
   private _username: string
-  
-  constructor(params: {name: string, email: string, phone: number, age: number, username: string, isActive: boolean, isAdmin: boolean}) {
+
+  constructor(params: {
+    name: string
+    email: string
+    phone: number
+    age: number
+    username: string
+    isActive: boolean
+    isAdmin: boolean
+  }) {
     const { age, email, name, phone, username, isActive, isAdmin } = params
     this._age = age
     this._email = email
@@ -16,22 +24,21 @@ class User {
     this._username = username
     this._isActive = isActive
     this._isAdmin = isAdmin
-  }  
+  }
 
-  
   public set isAdmin(isAdmin: boolean) {
     this._isAdmin = isAdmin
   }
-  
-  public get isAdmin() : boolean {
+
+  public get isAdmin(): boolean {
     return this._isAdmin
   }
-  
+
   public set isActive(isActive: boolean) {
     this._isActive = isActive
   }
-  
-  public set username(username : string) {
+
+  public set username(username: string) {
     this._username = username
   }
 
@@ -55,7 +62,7 @@ class User {
     return this._isActive
   }
 
-  public get username() : string {
+  public get username(): string {
     return this._username
   }
 
@@ -76,4 +83,4 @@ class User {
   }
 }
 
-export default User 
+export default User
