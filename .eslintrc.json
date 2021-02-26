@@ -66,7 +66,8 @@
     "no-warning-comments": "warn", // no todo's or fixme's
     "require-atomic-updates": "off", // See https://github.com/eslint/eslint/issues/11899
     "semi": ["error", "never"],
-    "@typescript-eslint/no-unused-vars": "error", // fixes jsx error
+    "@typescript-eslint/no-unused-vars": "warn", // fixes jsx error
+    "no-unused-vars": "warn",
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "import/newline-after-import": "off",
@@ -119,6 +120,10 @@
     {
       "files": ["**/*.ts"],
       "rules": { "no-undef": "off" } // error with eslint, TS already checks for this so disabling
+    },
+    {
+      "files": ["src/server/**/*.ts"],
+      "rules": { "camelcase": "off" } // the database has some underscored vars
     }
   ]
 }
