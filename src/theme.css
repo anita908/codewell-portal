@@ -1,0 +1,74 @@
+/* global variables */
+
+:root {
+  --background-border-radius: 50px;
+  --font-family: Josefin Sans, sans;
+  --text-border-radius: 12px;
+
+  --primary: #FFF;
+  --warning: #FF0000;
+  --background-color: #B1B1B1;
+
+  --blue-10: #D3E8F9;
+  --blue-20: #9ACEF9;
+  --blue-30: #4897D8;
+  --blue-40: #4f89B9;
+  --blue-50: #2971AD;
+
+  --indigo-10: #D7D8FA;
+  --indigo-20: #A3A5FA;
+  --indigo-30: #565ADE;
+  --indigo-40: #5B5DBE;
+  --indigo-50: #3135B1;
+
+  --yellow-10: #FFFED5; 
+  --yellow-20: #FFE497;
+  --yellow-30: #FFE262;
+  --yellow-40: #DBB855;
+  --yellow-50: #CCA229;
+
+  --tangerine-10: #FFE3D5;
+  --tangerine-20: #FFB897;
+  --tangerine-30: #FF8449;
+  --tangerine-40: #DB8055;
+  --tangerine-50: #CC5E29;
+
+  --green-10: #D0FaEB;
+  --green-20: #93FAD6;
+  --green-30: #3EDBA4;
+  --green-40: #49BB93;
+  --green-50: #24AF7E;
+
+  --text-size-1: 11px;
+  --text-size-2: 13px;
+  --text-size-3: 18px;
+  --text-size-4: 24px;
+  --text-size-5: 30px;
+  --text-size-6: 35px;
+  --text-size-7: 48px;
+  --text-size-8: 60px;
+  --text-size-9: 66px;
+
+  --spacing-1: 2px;
+  --spacing-2: 4px;
+  --spacing-3: 8px;
+  --spacing-4: 12px;
+  --spacing-5: 16px;
+  --spacing-6: 24px;
+  --spacing-7: 32px;
+  --spacing-8: 40px;
+  --spacing-9: 48px;
+
+  --layout-1: 16px;
+  --layout-2: 24px;
+  --layout-3: 32px;
+  --layout-4: 48px;
+  --layout-5: 64px;
+  --layout-6: 96px;
+  --layout-7: 160px;
+}
+
+section {
+  margin: auto;
+  width: 100%;
+}
