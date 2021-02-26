@@ -1,0 +1,129 @@
+{
+  "settings": {
+    "react": {
+      "createClass": "createReactClass", // Regex for Component Factory to use,
+      // default to "createReactClass"
+      "pragma": "React", // Pragma to use, default to "React"
+      "version": "detect", // React version. "detect" automatically picks the version you have installed.
+      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // default to latest and warns if missing
+      // It will default to "detect" in the future
+      "flowVersion": "0.53" // Flow version
+    },
+    "propWrapperFunctions": [
+      // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes
+      // wrapped in a function will be skipped.
+      "forbidExtraProps",
+      { "property": "freeze", "object": "Object" },
+      { "property": "myFavoriteWrapper" }
+    ],
+    "linkComponents": [
+      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+      "Hyperlink",
+      { "name": "Link", "linkAttribute": "to" }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "arrow-body-style": "off",
+    "arrow-parens": "off",
+    "class-methods-use-this": "off",
+    "comma-dangle": ["error", "never"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "max-len": "off",
+    "no-confusing-arrow": "off",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-continue": "off",
+    "no-plusplus": "off",
+    "no-restricted-globals": ["error", "event", "fdescribe"],
+    "no-underscore-dangle": "off",
+    "no-warning-comments": "warn", // no todo's or fixme's
+    "require-atomic-updates": "off", // See https://github.com/eslint/eslint/issues/11899
+    "semi": ["error", "never"],
+    "@typescript-eslint/no-unused-vars": "warn", // fixes jsx error
+    "no-unused-vars": "warn",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/newline-after-import": "off",
+    "jsx-a11y/anchor-has-content": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "jsx-a11y/heading-has-content": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "react/jsx-fragments": ["error", "element"],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-uses-react": "error", // required for react
+    "react/jsx-uses-vars": "error", // required for react
+    "react/jsx-wrap-multilines": "off",
+    "react/no-deprecated": "warn",
+    "react/no-find-dom-node": "warn",
+    "react/no-string-refs": "warn",
+    "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }],
+    "react/prefer-stateless-function": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": false
+      }
+    ],
+    "react/sort-comp": [
+      "error",
+      {
+        "order": [
+          "static-methods",
+          "static-variables",
+          "/^state$/",
+          "instance-variables",
+          "lifecycle",
+          "render",
+          "everything-else"
+        ]
+      }
+    ],
+    "react/state-in-constructor": "off",
+    "react/static-property-placement": ["error", "static public field"]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "rules": { "no-undef": "off" } // error with eslint, TS already checks for this so disabling
+    },
+    {
+      "files": ["src/server/**/*.ts"],
+      "rules": { "camelcase": "off" } // the database has some underscored vars
+    }
+  ]
+}
