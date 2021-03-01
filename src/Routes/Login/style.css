@@ -1,0 +1,9 @@
+#login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+}
+
+.login-illustration {
+  background: var(--tangerine-30);
+}

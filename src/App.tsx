@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Home from './Routes/Home/Home'
 import Login from './Routes/Login/Login'
 import './App.css'
+import './theme.css'
 
 function App(): ReactElement {
   return (
