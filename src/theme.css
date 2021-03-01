@@ -2,8 +2,14 @@
 
 :root {
   --background-border-radius: 50px;
-  --font-family: Josefin Sans, sans;
+  --font-family: 'Nunito', sans-serif;
   --text-border-radius: 12px;
+
+  --sm-text-size: 13px;
+  --m-text-size: 15px;
+  --font-size-h3: 18px;
+  --l-text-size: 22px;
+  --xl-text-size: 28px;
 
   --primary: #FFF;
   --warning: #FF0000;
