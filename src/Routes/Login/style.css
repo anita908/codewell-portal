@@ -4,6 +4,22 @@
   height: 100vh;
 }
 
+.login-inputGroup {
+  border: 1px solid black;
+  margin: auto var(--layout-6);
+  padding: var(--spacing-4) var(--spacing-2);
+  position: relative;
+  top: 40%;
+}
+
+.login-email, .login-password {
+  margin: var(--spacing-4) auto;
+}
+
 .login-illustration {
   background: var(--tangerine-30);
+}
+
+#email, #password {
+  font-size: var(--text-size-3);
 }
