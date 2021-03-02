@@ -23,7 +23,7 @@ class Home extends Component {
             </li>
           </ul>
         </div>
-        <div className='home-summary'></div>
+        <div className='home-profile'>Your Profile</div>
       </div>
     )
   }
