@@ -4,22 +4,30 @@
   height: 100vh;
 }
 
+.login-image {
+  color: var(--illustration-brightOrange);
+  position: relative;
+  top: 10%;
+}
+
 .login-inputGroup {
-  border: 1px solid black;
+  border: 1px solid var(--primary);
+  color: var(--primary);
   margin: auto var(--layout-6);
   padding: var(--spacing-4) var(--spacing-2);
   position: relative;
-  top: 40%;
+  top: 50%;
 }
 
 .login-email, .login-password {
   margin: var(--spacing-4) auto;
 }
 
-.login-illustration {
+.login-input {
   background: var(--tangerine-30);
 }
 
 #email, #password {
+  border: 1px solid var(--black);
   font-size: var(--text-size-3);
 }
