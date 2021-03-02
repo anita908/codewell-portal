@@ -1,10 +1,17 @@
 import React from 'react'
+import loginIllustration from '../../images/login.svg'
 import './style.css'
 
 function Login() {
   return (
     <div id='login'>
-      <div className='login-illustration' />
+      <div className='login-illustration'>
+        <div className='login-image'>
+          <h1>Codewell Learning</h1>
+          <h2>Student Portal</h2>
+          <img alt='login' className='login' src={loginIllustration} />
+        </div>
+      </div>
       <div className='login-input'>
         <div className='login-inputGroup'>
           <div className='login-email'>

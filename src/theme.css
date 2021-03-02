@@ -12,6 +12,7 @@
   --xl-text-size: 28px;
 
   --primary: #FFF;
+  --black: #000;
   --warning: #FF0000;
   --background-color: #B1B1B1;
 
@@ -44,6 +45,17 @@
   --green-30: #3EDBA4;
   --green-40: #49BB93;
   --green-50: #24AF7E;
+
+  --illustration-darkPurple: #73325A;
+  --illustration-purple: #9A3B82;
+  --illustration-chocolate: #A0505A;
+  --illustration-brightOrange: #FE5244;
+  --illustration-dustPink: #E57281;
+  --illustration-lightGrey: #E6E6E6;
+  --illustration-turquoise: #3FB1B5;
+  --illustration-brightYellow: #FFCF2D;
+  --illustration-skyBlue: #66B0F0;
+  --illustration-lightTurquoise: #D0F0E4;
 
   --text-size-1: 11px;
   --text-size-2: 13px;
