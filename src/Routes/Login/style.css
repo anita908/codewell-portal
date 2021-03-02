@@ -16,7 +16,7 @@
   margin: auto var(--layout-6);
   padding: var(--spacing-4) var(--spacing-2);
   position: relative;
-  top: 50%;
+  top: 40%;
 }
 
 .login-email, .login-password {
@@ -28,6 +28,7 @@
 }
 
 #email, #password {
-  border: 1px solid var(--black);
-  font-size: var(--text-size-3);
+  border: none;
+  font-size: var(--xl-text-size);
+  margin: var(--spacing-2);
 }
