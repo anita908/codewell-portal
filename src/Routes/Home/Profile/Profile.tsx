@@ -2,7 +2,7 @@ import React, { Component, ReactElement } from 'react'
 import profileIllustration from '../../../images/profile.svg'
 import './style.css'
 
-class Home extends Component {
+class Profile extends Component {
   render(): ReactElement {
     return (
       <div id='profile'>
@@ -19,4 +19,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default Profile

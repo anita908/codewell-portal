@@ -1,5 +1,7 @@
 import React, { Component, ReactElement } from 'react'
-import Main from './Main/Main'
+import Assignment from './Assignment/Assignment'
+import Lesson from './Lesson/Lesson'
+import Profile from './Profile/Profile'
 import SideNav from './SideNav/SideNav'
 
 class Home extends Component {
@@ -7,7 +9,9 @@ class Home extends Component {
     return (
       <div id='home'>
         <SideNav />
-        <Main />
+        <Profile />
+        <Assignment />
+        <Lesson />
       </div>
     )
   }
