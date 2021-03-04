@@ -1,8 +1,8 @@
 import React, { Component, ReactElement } from 'react'
-import Assignment from './Assignment/Assignment'
-import Lesson from './Lesson/Lesson'
-import Profile from './Profile/Profile'
-import SideNav from './SideNav/SideNav'
+import Assignment from './Assignment'
+import Lesson from './Lesson'
+import Profile from './Profile'
+import SideNav from './SideNav'
 
 class Home extends Component {
   render(): ReactElement {
