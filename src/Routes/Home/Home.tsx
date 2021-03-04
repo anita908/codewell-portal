@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react'
-import Profile from './Profile/Profile'
+import Main from './Main/Main'
 import SideNav from './SideNav/SideNav'
 
 class Home extends Component {
@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <div id='home'>
         <SideNav />
-        <Profile />
+        <Main />
       </div>
     )
   }
