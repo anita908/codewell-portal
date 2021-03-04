@@ -1,4 +1,5 @@
 import React, { Component, ReactElement } from 'react'
+import Card from '../../../Common/Card/Card'
 import './style.css'
 
 class Lesson extends Component {
@@ -9,9 +10,7 @@ class Lesson extends Component {
           <h3>Assignment</h3>
         </div>
         <div className='lesson-content'>
-          <div className='lesson-lessonCard'>Lesson 7: Function</div>
-          <div className='lesson-lessonCard'>Lesson 7: Function</div>
-          <div className='lesson-lessonCard'>Lesson 7: Function</div>
+          <Card header={'Lesson 7: Function'} />
         </div>
       </div>
     )

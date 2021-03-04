@@ -1,4 +1,5 @@
 #sideNav ul {
+  --sideNav-width: 180px;
   background-color: var(--tangerine-30);
   bottom: 0;
   font-size: var(--l-text-size);
@@ -9,12 +10,12 @@
   overflow: auto;
   padding: 0;
   position: fixed;
-  width: 20%;
+  width: var(--sideNav-width);
 }
 #sideNav li a {
   color: var(--black);
   display: block;
-  padding: 8px 16px;
+  padding: var(--spacing-3) var(--spacing-5);
   text-decoration: none;
 }
 #sideNav li a.active {
