@@ -4,13 +4,13 @@
   margin-top: var(--layout-5);
   padding: 0 var(--spacing-4);
 }
-#lesson h3 {
-  border-bottom: 1px solid var(--illustration-turquoise);
-  color: var(--illustration-turquoise);
-}
 
 .lesson-header {
   text-align: left;
+}
+.lesson-header h3 {
+  border-bottom: 1px solid var(--illustration-turquoise);
+  color: var(--illustration-turquoise);
 }
 
 .lesson-content {

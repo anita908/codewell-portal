@@ -1,9 +1,19 @@
 .card {
   --card-height: 150px;
+  --card-width: 180px;
   border: 1px solid var(  --illustration-lightGrey);
   border-radius: var(--background-border-radius);
   box-shadow:  var(--card-shadow);
   height: var(--card-height);
   margin: var(--spacing-3);
   padding: var(--spacing-5);
+  width: var(--card-width);
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-header {
+  font-weight: bold;
 }

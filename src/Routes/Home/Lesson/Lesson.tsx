@@ -7,10 +7,10 @@ class Lesson extends Component {
     return (
       <div id='lesson'>
         <div className='lesson-header'>
-          <h3>Assignment</h3>
+          <h3>Lessons</h3>
         </div>
         <div className='lesson-content'>
-          <Card header={'Lesson 7: Function'} />
+          <Card header={'Lesson 7: Function'} content={'Inclass Activity: Score Analyzer'} />
         </div>
       </div>
     )

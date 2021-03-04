@@ -4,13 +4,13 @@
   margin-top: var(--layout-5);
   padding: 0 var(--spacing-4);
 }
-#assignment h3 {
-  border-bottom: 1px solid var(--illustration-turquoise);
-  color: var(--illustration-turquoise);
-}
 
 .assignment-header {
   text-align: left;
+}
+.assignment-header h3 {
+  border-bottom: 1px solid var(--illustration-turquoise);
+  color: var(--illustration-turquoise);
 }
 
 .assignment-content {
