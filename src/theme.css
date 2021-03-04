@@ -1,9 +1,10 @@
 /* global variables */
 
 :root {
-  --background-border-radius: 50px;
+  --background-border-radius: 25px;
   --font-family: 'Nunito', sans-serif;
   --text-border-radius: 12px;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
   --sm-text-size: 13px;
   --m-text-size: 15px;

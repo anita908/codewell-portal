@@ -1,4 +1,4 @@
-#home ul {
+#sideNav ul {
   background-color: var(--tangerine-30);
   font-size: var(--l-text-size);
   height: 100%;
@@ -9,17 +9,22 @@
   position: fixed;
   width: 20%;
 }
-#home li a {
+#sideNav li a {
   color: var(--black);
   display: block;
   padding: 8px 16px;
   text-decoration: none;
 }
-#home li a.active {
+#sideNav li a.active {
   color: var(--primary);
   font-weight: bold;
 }
-#home li a:hover:not(.active) {
+#sideNav li a:hover:not(.active) {
   background-color: var(--yellow-30);
   color: var(--tangerine-30);
+}
+
+.sideNav-userName {
+  color: var(--illustration-brightYellow);
+  margin-bottom: var(--spacing-4);
 }
