@@ -1,13 +1,18 @@
 import React, { Component, ReactElement } from 'react'
 import './style.css'
 
-class Home extends Component {
+type Props = {
+  name: string
+}
+
+class Home extends Component<Props, {}> {
   render(): ReactElement {
+    const { name } = this.props
     return (
       <div id='sideNav'>
         <ul>
           <li className='sideNav-userName'>
-            <h3>Hi, Sunny!</h3>
+            <h3>Hi, {name}!</h3>
           </li>
           <li>
             <a className='active' href='#home'>
