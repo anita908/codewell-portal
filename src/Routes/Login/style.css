@@ -10,6 +10,12 @@
   top: 10%;
 }
 
+.login-input input[type='text']:focus, .login-input input[type='password']:focus {
+  border-color: var(--link-color);
+  box-shadow: var(--input-box-shadow);
+  outline: none;
+}
+
 .login-inputGroup {
   border: 1px solid var(--primary);
   color: var(--primary);
@@ -19,7 +25,7 @@
   top: 40%;
 }
 
-.login-email, .login-password {
+.login-username, .login-password {
   margin: var(--spacing-4) auto;
 }
 
@@ -27,7 +33,11 @@
   background: var(--tangerine-30);
 }
 
-#email, #password {
+#login-form {
+  display: contents;
+}
+
+#username, #password {
   border: none;
   font-size: var(--xl-text-size);
   margin: var(--spacing-2);
