@@ -1,11 +1,76 @@
 version: 2.1
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
+jobs:
+  Setup Directory:
+    docker:
+      - image: circleci/node:10.16.0
+    steps:
+      - checkout
+      - run: 
+          name: Install npm dependencies
+          command: npm install
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+  Run Unit Tests:
+    docker:
+      - image: circleci/node:10.16.0
+    steps:
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: 
+          name: Run Jest
+          command: npm test
+  Test Build:
+    docker:
+      - image: circleci/node:10.16.0
+    steps:
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          key: dependency_cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Build Project
+          command: CI=false npm run build
+  Deploy App:
+    docker:
+      - image: circleci/node:10.16.0
+    steps:
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: 
+          name: Build Project
+          command: CI=false npm run build
+      - run: 
+          name: Deploy to Google Firebase
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
 workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
+  Test and Deploy:
     jobs:
-      - welcome/run
+      - Setup Directory
+      - Run Unit Tests:
+          requires:
+            - Setup Directory
+          filters:
+            branches:
+              ignore: master
+      - Test Build:
+          requires:
+            - Run Unit Tests
+          filters:
+            branches:
+              ignore: master
+      - Deploy App:
+          requires:
+            - Run Unit Tests
+          filters:
+            branches:
+              only: master
