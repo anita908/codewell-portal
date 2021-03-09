@@ -1,3 +1,4 @@
+import { homeData } from '../../Utilities/Url'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 
 const mockData = {
@@ -84,15 +85,22 @@ class HomePresenter {
   }
 
   public async getHomeData(): Promise<void> {
-    const response = await this.fetcher.fetch({
-      body: {},
-      method: 'GET',
-      url: 'http://localhost:5000/api/v1/user/username/johnnyataisg'
-    })
+    const token =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzYWx0IjoiOTcxYWM4MGUtNzAxZi00ZjYzLWIyN2MtMzY2NzE5N2FjYTQxIiwiaXNzIjoiY29kZXdlbGwtc2VydmVyIiwidXNlcklkIjoiNTBlZDJiZjgtY2U3MS00MWI0LWFiYzctYTEwMWRiZjlmZmI1IiwiZXhwaXJhdGlvbkRhdGUiOiIyMDIxLTAzLTE2VDExOjI2OjIxLjEzMjIwMC0wNzowMCJ9.GvyPtiX0AdZ1ZshiBvzfovXiJsL2PrXy8iYr4IN4Udw'
+    const response = await this.fetcher.fetch(
+      {
+        body: {},
+        method: 'GET',
+        url: homeData
+      },
+      `Bearer ${token}`
+    )
+    console.log('response ', response)
 
     // if (response) {
-    this._firstName = mockData.userData.firstName
-    this._sessions = mockData.enrolledSessions[0].session.lessons
+    this._firstName = 'Johnny'
+    // this._firstName = mockData.userData.firstName
+    // this._sessions = mockData.enrolledSessions[0].session.lessons
     // }
 
     // return null
