@@ -5,6 +5,7 @@
   --font-family: 'Nunito', sans-serif;
   --text-border-radius: 12px;
   --card-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  --card-border-width: 3px;
 
   --sm-text-size: 13px;
   --m-text-size: 15px;

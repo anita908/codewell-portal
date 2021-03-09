@@ -1,18 +1,21 @@
 import React, { Component, ReactElement } from 'react'
 import Assignment from './Assignment'
 import Fetcher from '../../Drivers/Fetcher'
+import HomePresenter from './HomePresenter'
+import ILesson from './Interfaces/ILesson'
 import Lesson from './Lesson'
 import Profile from './Profile'
 import SideNav from './SideNav'
-import HomePresenter from './HomePresenter'
 
 type State = {
   name: string
+  lessons: ILesson[]
 }
 
 class Home extends Component<{}, State> {
   state = {
-    name: ''
+    name: '',
+    lessons: []
   }
 
   async componentDidMount(): Promise<void> {
@@ -20,7 +23,7 @@ class Home extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { name } = this.state
+    const { lessons, name } = this.state
 
     if (!name) {
       return <p>loading</p>
@@ -30,16 +33,17 @@ class Home extends Component<{}, State> {
       <div id='home'>
         <SideNav name={name} />
         <Profile name={name} />
-        <Assignment />
-        <Lesson />
+        <Assignment lessons={lessons} />
+        <Lesson lessons={lessons} />
       </div>
     )
   }
 
   getHomeData = async (): Promise<void> => {
     const presenter = new HomePresenter(new Fetcher())
-    const response = await presenter.getHomeData()
-    this.setState({ name: response.firstName })
+    await presenter.getHomeData()
+
+    this.setState({ name: presenter.firstName, lessons: presenter.sessions })
   }
 }
 

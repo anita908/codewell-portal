@@ -1,7 +1,7 @@
 .card {
   --card-height: 150px;
   --card-width: 180px;
-  border: 1px solid var(  --illustration-lightGrey);
+  border: var(--card-border-width) solid var(  --illustration-lightGrey);
   border-radius: var(--background-border-radius);
   box-shadow:  var(--card-shadow);
   height: var(--card-height);
@@ -16,4 +16,9 @@
 
 .card-header {
   font-weight: bold;
+}
+
+.card a {
+  text-decoration: none;
+
 }
