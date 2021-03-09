@@ -16,7 +16,7 @@ function Login() {
       const loginPresenter = new LoginPresenter(new Fetcher())
       const response = await loginPresenter.login(username, password)
       setInvalidLogin(false)
-      const { AccessToken, IdToken } = response.data.AuthenticationResult
+      // const { AccessToken, IdToken } = response.data.AuthenticationResult
       // saveCredentials(AccessToken, IdToken)
       // dispatch({
       //   accessToken: AccessToken,

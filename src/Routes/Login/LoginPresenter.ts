@@ -1,3 +1,4 @@
+import { login } from '../../Utilities/Url'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 
 class LoginPresenter {
@@ -8,14 +9,17 @@ class LoginPresenter {
   }
 
   public async login(username: string, password: string) {
-    return this.fetcher.fetch({
-      body: {
-        username,
-        password
+    return this.fetcher.fetch(
+      {
+        body: {
+          username,
+          password
+        },
+        method: 'POST',
+        url: ''
       },
-      method: 'POST',
-      url: ''
-    })
+      ''
+    )
   }
 }
 
