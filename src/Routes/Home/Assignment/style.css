@@ -14,7 +14,7 @@
 }
 
 .assignment-content {
-  display: flex;
+  display: inline-flex;
 }
 
 .assignment-lessonCard {
