@@ -1,12 +1,12 @@
 .card {
   --card-height: 150px;
-  --card-width: 180px;
+  --card-width: 150px;
   border: var(--card-border-width) solid var(  --illustration-lightGrey);
   border-radius: var(--background-border-radius);
   box-shadow:  var(--card-shadow);
   height: var(--card-height);
   margin: var(--spacing-3);
-  padding: var(--spacing-5);
+  padding: var(--spacing-3);
   width: var(--card-width);
 }
 
@@ -16,6 +16,10 @@
 
 .card-header {
   font-weight: bold;
+}
+
+.card h3 {
+  margin: var(--spacing-2) auto;
 }
 
 .card a {
