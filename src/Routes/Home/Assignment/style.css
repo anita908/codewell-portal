@@ -1,20 +1,36 @@
 #assignment {
-  height: 25%;
+  /* --section-height: 200px; */
+  height: var(--section-height);
   margin-left: 20%;
   margin-top: var(--layout-5);
   padding: 0 var(--spacing-4);
 }
 
 .assignment-header {
-  text-align: left;
-}
-.assignment-header h3 {
   border-bottom: 1px solid var(--illustration-turquoise);
   color: var(--illustration-turquoise);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+  text-align: left;
+}
+.assignment-toggleExpandButton {
+ display: inline;
+}
+.assignment-toggleExpandButton:hover {
+  cursor: pointer;
+ }
+ .assignment-toggleExpandButton > summary:focus {
+   outline: none;
+ }
+.assignment-header h3 {
+  display: inline;
+  margin: 0;
 }
 
 .assignment-content {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .assignment-lessonCard {
