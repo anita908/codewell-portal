@@ -27,14 +27,8 @@
 
 .assignment-content {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
-
-.assignment-lessonCard {
-  border: 1px solid var(  --illustration-lightGrey);
-  border-radius: var(--background-border-radius);
-  box-shadow:  var(--card-shadow);
-  height: 150px;
-  margin: var(--spacing-3);
-  padding: var(--spacing-5);
+.assignment-content > .card {
+  width: auto
 }
