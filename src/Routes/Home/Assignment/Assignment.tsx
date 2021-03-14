@@ -15,14 +15,18 @@ class Assignment extends Component<Prop, {}> {
       <div id='assignment'>
         <div className='assignment-header'>
           <h3>Assignments</h3>
+          <details className='assignment-toggleExpandButton'>
+            <summary>Expand</summary>
+          </details>
         </div>
         <div className='assignment-content'>
-          {lessons.map((lesson) => {
+          {lessons.map((lesson: ILesson) => {
             return (
-              <Fragment key={lesson.lessonNumber}>
+              <Fragment key={lesson.chapterId}>
                 <Card
-                  activity={lesson.assignmentName}
-                  header={`Lesson ${lesson.lessonNumber}: ${lesson.name}`}
+                  activity={'activity'}
+                  header={`Lesson ${lesson.chapterNo}:`}
+                  title={lesson.chapterName}
                 />
               </Fragment>
             )
