@@ -6,6 +6,9 @@
   --text-border-radius: 12px;
   --card-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   --card-border-width: 3px;
+  --card-height: 150px;
+  --card-width: 150px;
+  --home-width: 800px;
 
   --sm-text-size: 13px;
   --m-text-size: 15px;

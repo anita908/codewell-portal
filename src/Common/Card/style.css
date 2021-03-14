@@ -1,6 +1,4 @@
 .card {
-  --card-height: 150px;
-  --card-width: 150px;
   border: var(--card-border-width) solid var(  --illustration-lightGrey);
   border-radius: var(--background-border-radius);
   box-shadow:  var(--card-shadow);
