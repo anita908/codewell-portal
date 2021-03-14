@@ -7,11 +7,12 @@ type Props = {
   content?: any
   header: string
   link?: string
+  title?: string
 }
 
 class Card extends Component<Props, {}> {
   render(): ReactElement {
-    const { activity, header } = this.props
+    const { activity, header, title } = this.props
     const cardBorderColor = this.getRandomColor()
 
     return (
@@ -20,6 +21,7 @@ class Card extends Component<Props, {}> {
         style={{ border: `var(--card-border-width) solid var(${cardBorderColor})` }}
       >
         <h3 className='card-header'>{header}</h3>
+        <h3 className='card-title'>{title}</h3>
         <a href='https://editor.p5js.org/' target='blank'>
           <p>{activity}</p>
         </a>

@@ -17,12 +17,13 @@ class Lesson extends Component<Prop, {}> {
           <h3>Lessons</h3>
         </div>
         <div className='lesson-content'>
-          {lessons.map((lesson) => {
+          {lessons.map((lesson: ILesson) => {
             return (
-              <Fragment key={lesson.lessonNumber}>
+              <Fragment key={lesson.chapterId}>
                 <Card
-                  header={`Lesson ${lesson.lessonNumber}: ${lesson.name}`}
-                  activity={lesson.inClassActivityName}
+                  header={`Lesson ${lesson.chapterNo}:`}
+                  title={lesson.chapterName}
+                  activity={' activity'}
                 />
               </Fragment>
             )
