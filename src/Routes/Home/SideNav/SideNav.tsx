@@ -5,7 +5,7 @@ type Props = {
   name: string
 }
 
-class Home extends Component<Props, {}> {
+class SideNav extends Component<Props, {}> {
   render(): ReactElement {
     const { name } = this.props
     return (
@@ -34,4 +34,4 @@ class Home extends Component<Props, {}> {
   }
 }
 
-export default Home
+export default SideNav

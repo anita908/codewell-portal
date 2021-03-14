@@ -6,16 +6,19 @@ import ILesson from './Interfaces/ILesson'
 import Lesson from './Lesson'
 import Profile from './Profile'
 import SideNav from './SideNav'
+import './style.css'
 
 type State = {
   name: string
   lessons: ILesson[]
+  // sessions: ISession[]
 }
 
 class Home extends Component<{}, State> {
   state = {
     name: '',
     lessons: []
+    // sessions: []
   }
 
   async componentDidMount(): Promise<void> {
@@ -32,9 +35,11 @@ class Home extends Component<{}, State> {
     return (
       <div id='home'>
         <SideNav name={name} />
-        <Profile name={name} />
-        <Assignment lessons={lessons} />
-        <Lesson lessons={lessons} />
+        <div className='home-content'>
+          <Profile name={name} />
+          <Assignment lessons={lessons} />
+          <Lesson lessons={lessons} />
+        </div>
       </div>
     )
   }
@@ -43,7 +48,11 @@ class Home extends Component<{}, State> {
     const presenter = new HomePresenter(new Fetcher())
     await presenter.getHomeData()
 
-    this.setState({ name: presenter.firstName, lessons: presenter.sessions })
+    this.setState({
+      name: presenter.firstName,
+      lessons: presenter.lessons
+      // sessions: presenter.sessions
+    })
   }
 }
 

@@ -1,7 +1,4 @@
 #assignment {
-  /* --section-height: 200px; */
-  height: var(--section-height);
-  margin-left: 20%;
   margin-top: var(--layout-5);
   padding: 0 var(--spacing-4);
 }
