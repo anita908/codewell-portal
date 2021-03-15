@@ -28,7 +28,6 @@ class LoginPresenter {
     if (Object.prototype.hasOwnProperty.call(response, 'jwt')) {
       localStorage.clear()
       Cookies.set('auth', JSON.stringify(response.jwt), { expires: 1 })
-      window.location.pathname = '/'
     }
   }
 }

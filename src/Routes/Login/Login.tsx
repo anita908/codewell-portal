@@ -1,21 +1,26 @@
 import React, { Component, ReactElement } from 'react'
+import Cookies from '../../Utilities/Cookies'
 import Fetcher from '../../Drivers/Fetcher'
-import LoginPresenter from './LoginPresenter'
 import loginIllustration from '../../images/login.svg'
+import LoginPresenter from './LoginPresenter'
 import './style.css'
 
 type State = {
-  username: string
+  error: string
   password: string
+  username: string
 }
 
-class Login extends Component {
+class Login extends Component<{}, State> {
   state = {
-    username: '',
-    password: ''
+    error: '',
+    password: '',
+    username: ''
   }
 
   render(): ReactElement {
+    const { error } = this.state
+
     return (
       <div id='login'>
         <div className='login-illustration'>
@@ -28,6 +33,7 @@ class Login extends Component {
         <div className='login-input'>
           <form onSubmit={this.submit} id='login-form'>
             <div className='login-inputGroup'>
+              <p className='error'>{error}</p>
               <div className='login-username'>
                 <label htmlFor='username'>User name: </label>
                 <input type='text' id='username' name='username' onChange={this.updateUsername} />
@@ -82,12 +88,14 @@ class Login extends Component {
   }
 
   login = async (params: any) => {
-    try {
-      const { password, username } = params
-      const loginPresenter = new LoginPresenter(new Fetcher())
-      await loginPresenter.login(username, password)
-    } catch (error) {
-      console.log('error ', error)
+    const { password, username } = params
+    const loginPresenter = new LoginPresenter(new Fetcher())
+    await loginPresenter.login(username, password)
+
+    if (Cookies.get('auth')) {
+      window.location.pathname = '/'
+    } else {
+      this.setState({ error: 'Invalid username or password' })
     }
   }
 }

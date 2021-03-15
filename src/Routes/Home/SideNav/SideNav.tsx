@@ -28,6 +28,9 @@ class SideNav extends Component<Props, {}> {
           <li>
             <a href='#about'>Settings</a>
           </li>
+          <li>
+            <a href='#about'>Log out</a>
+          </li>
         </ul>
       </div>
     )

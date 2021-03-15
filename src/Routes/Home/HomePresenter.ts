@@ -1,4 +1,5 @@
 import { homeData } from '../../Utilities/Url'
+import Cookies from '../../Utilities/Cookies'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 import ILesson from './Interfaces/ILesson'
 import ISession from './Interfaces/ISession'
@@ -35,8 +36,7 @@ class HomePresenter {
   }
 
   public async getHomeData(): Promise<void> {
-    const token =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzYWx0IjoiNGYyYmFmZGYtMmMyNi00MjUwLTlkZDYtNGI1ZmNmYzRiN2NlIiwiaXNzIjoiY29kZXdlbGwtc2VydmVyIiwidXNlcklkIjoiNTBlZDJiZjgtY2U3MS00MWI0LWFiYzctYTEwMWRiZjlmZmI1IiwiZXhwaXJhdGlvbkRhdGUiOiIyMDIxLTAzLTE3VDE5OjE2OjQzLjMzOTc5OC0wNzowMCJ9.0DdWPd0MxQ4hdhIbgA9B-cHXNfvWhusWiAlHapQUUgM'
+    const token = Cookies.get('auth')
     const response = await this.fetcher.fetch(
       {
         body: {},
