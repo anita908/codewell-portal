@@ -12,3 +12,9 @@ html, body, #app {
   min-height: 100%;
   overflow: hidden;
 }
+
+.error {
+  background-color: var(--illustration-brightYellow);
+  color: var(--warning);
+  font-size: var(--l-text-size);
+}
