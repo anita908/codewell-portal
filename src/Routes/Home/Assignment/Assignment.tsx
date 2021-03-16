@@ -34,7 +34,7 @@ class Assignment extends Component<Prop, State> {
             return (
               <Fragment key={lesson.chapterId}>
                 <Card
-                  activity={'activity'}
+                  activity={'assignment'}
                   header={`Lesson ${lesson.chapterNo}:`}
                   title={lesson.chapterName}
                 />
@@ -53,7 +53,9 @@ class Assignment extends Component<Prop, State> {
       }),
       () => {
         const assignmentContent = document.querySelector('.assignment-content') as HTMLElement
-        const assignmentCards = document.querySelectorAll('.assignment-content > .card')
+        const assignmentCards = Array.from(
+          document.querySelectorAll('.assignment-content > .card')
+        ) as HTMLElement[]
 
         if (assignmentContent) {
           assignmentContent.style.gridTemplateColumns = this.state.showMore
@@ -62,7 +64,7 @@ class Assignment extends Component<Prop, State> {
         }
 
         if (assignmentCards) {
-          Array.from(assignmentCards).forEach((assignmentCard: HTMLElement) => {
+          assignmentCards.forEach((assignmentCard: HTMLElement) => {
             // eslint-disable-next-line no-param-reassign
             assignmentCard.style.width = this.state.showMore ? 'var(--card-width)' : 'auto'
           })

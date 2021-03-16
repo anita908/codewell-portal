@@ -11,7 +11,6 @@ import './style.css'
 type State = {
   name: string
   lessons: ILesson[]
-  // sessions: ISession[]
 }
 
 class Home extends Component<{}, State> {

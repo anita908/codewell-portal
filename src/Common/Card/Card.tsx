@@ -20,12 +20,11 @@ class Card extends Component<Props, {}> {
         className='card'
         style={{ border: `var(--card-border-width) solid var(${cardBorderColor})` }}
       >
-        <h3 className='card-header'>{header}</h3>
-        <h3 className='card-title'>{title}</h3>
+        <h4 className='card-header'>{header}</h4>
+        <h4 className='card-title'>{title}</h4>
         <a href='https://editor.p5js.org/' target='blank'>
           <p>{activity}</p>
         </a>
-        {/* <p>{content}</p> */}
       </div>
     )
   }

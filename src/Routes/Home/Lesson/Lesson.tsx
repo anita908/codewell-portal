@@ -36,7 +36,7 @@ class Lesson extends Component<Prop, State> {
                 <Card
                   header={`Lesson ${lesson.chapterNo}:`}
                   title={lesson.chapterName}
-                  activity={' activity'}
+                  activity={'inclass activity'}
                 />
               </Fragment>
             )
@@ -53,7 +53,10 @@ class Lesson extends Component<Prop, State> {
       }),
       () => {
         const lessonContent = document.querySelector('.lesson-content') as HTMLElement
-        const lessonCards = document.querySelectorAll('.lesson-content > .card')
+        const lessonCards = Array.from(
+          document.querySelectorAll('.lesson-content > .card')
+        ) as HTMLElement[]
+
         if (lessonContent) {
           lessonContent.style.gridTemplateColumns = this.state.showMore
             ? 'repeat(4, 1fr)'
@@ -61,7 +64,7 @@ class Lesson extends Component<Prop, State> {
         }
 
         if (lessonCards) {
-          Array.from(lessonCards).forEach((lessonCard: HTMLElement) => {
+          lessonCards.forEach((lessonCard: HTMLElement) => {
             // eslint-disable-next-line no-param-reassign
             lessonCard.style.width = this.state.showMore ? 'var(--card-width)' : 'auto'
           })

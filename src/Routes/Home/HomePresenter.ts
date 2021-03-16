@@ -31,7 +31,7 @@ class HomePresenter {
     return this._sessions
   }
 
-  public get lessons(): ILesson[] | null {
+  public get lessons(): ILesson[] {
     return this._lessons
   }
 
