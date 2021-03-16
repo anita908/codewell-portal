@@ -12,10 +12,10 @@ describe('Test login page', () => {
     expect(container.querySelector('#login')).toBeTruthy()
   })
 
-  it('Should have an input box for email', () => {
+  it('Should have an input box for username', () => {
     const container = getContainer()
-    const emailInput = container.querySelector('#email')
-    expect(emailInput).toBeTruthy()
+    const usernameInput = container.querySelector('#username')
+    expect(usernameInput).toBeTruthy()
   })
 
   it('Should have an input box for password', () => {
