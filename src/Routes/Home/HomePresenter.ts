@@ -1,14 +1,9 @@
 import { homeData } from '../../Utilities/Url'
 import Cookies from '../../Utilities/Cookies'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
+import IHomeData from './Interfaces/IHomeData'
 import ILesson from './Interfaces/ILesson'
 import ISession from './Interfaces/ISession'
-import IUserData from './Interfaces/IUserData'
-
-interface IHomeData {
-  enrolledSessions: ISession[]
-  userData: IUserData
-}
 
 class HomePresenter {
   private readonly fetcher: IFetcher
