@@ -1,0 +1,34 @@
+#assignment {
+  margin-top: var(--layout-5);
+  padding: 0 var(--spacing-4);
+}
+
+.assignment-header {
+  border-bottom: 1px solid var(--illustration-turquoise);
+  color: var(--illustration-turquoise);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+  text-align: left;
+}
+.assignment-toggleExpandButton {
+ display: inline;
+}
+.assignment-toggleExpandButton:hover {
+  cursor: pointer;
+ }
+ .assignment-toggleExpandButton > summary:focus {
+   outline: none;
+ }
+.assignment-header h3 {
+  display: inline;
+  margin: 0;
+}
+
+.assignment-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.assignment-content > .card {
+  width: auto
+}

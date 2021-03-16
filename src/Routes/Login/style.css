@@ -1,0 +1,66 @@
+#login {
+  display: grid;
+  font-family: var(--font-family);
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+}
+
+.login-image {
+  color: var(--illustration-brightOrange);
+  position: relative;
+  top: 10%;
+}
+
+.login-input input[type='text']:focus, .login-input input[type='password']:focus {
+  border-color: var(--link-color);
+  box-shadow: var(--input-box-shadow);
+  outline: none;
+}
+
+.login-inputGroup {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  margin: auto var(--layout-4);
+  padding: var(--spacing-4) var(--spacing-2);
+  position: relative;
+  top: 40%;
+}
+
+.login-username, .login-password {
+  margin: var(--spacing-4) auto;
+}
+
+.login-input {
+  background: var(--tangerine-30);
+}
+
+#login-form {
+  display: contents;
+}
+
+#username, #password {
+  border: none;
+  font-size: var(--m-text-size);
+  height: var(--layout-2);
+  margin: var(--spacing-2);
+}
+
+.login-inputGroup > button {
+  background-color: var(--illustration-skyBlue);
+  border: 0;
+  border-radius: var(--button-border-radius);
+  box-shadow: none;
+  color: var(--primary);
+  font-size: var(--m-text-size);
+  font-weight: bold;
+  margin-top: var(--spacing-6);
+  outline: none;
+  padding: var(--spacing-3) var(--spacing-9);
+}
+.login-inputGroup > button:hover {
+  background-color: var(--blue-30);
+  cursor: pointer;
+}
+.login-inputGroup > button:focus {
+  box-shadow: none;
+}

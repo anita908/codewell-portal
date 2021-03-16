@@ -1,0 +1,29 @@
+#profile {
+  border: 1px solid var(  --illustration-lightGrey);
+  border-radius: var(--background-border-radius);
+  box-shadow:  var(--card-shadow);
+  margin: auto;
+  margin-top: 2%;
+  padding: 0 var(--spacing-2) var(--spacing-5);
+}
+#profile h3 {
+  color: var(--illustration-turquoise);
+  display: inline;
+  margin-right: var(--spacing-4);
+}
+#profile img {
+  vertical-align: bottom;
+}
+
+.profile-header {
+  margin-top: var(--spacing-3);
+}
+
+.profile-content {
+  margin-top: var(--spacing-5);
+}
+
+.profile-studentName {
+  color: var(--illustration-turquoise);
+  font-weight: bold;
+}

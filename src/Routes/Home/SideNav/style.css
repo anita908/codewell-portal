@@ -1,0 +1,33 @@
+#sideNav ul {
+  --sideNav-width: 180px;
+  background-color: var(--tangerine-30);
+  bottom: 0;
+  font-size: var(--l-text-size);
+  height: 100%;
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  position: fixed;
+  width: var(--sideNav-width);
+}
+#sideNav li a {
+  color: var(--black);
+  display: block;
+  padding: var(--spacing-3) var(--spacing-5);
+  text-decoration: none;
+}
+#sideNav li a.active {
+  color: var(--primary);
+  font-weight: bold;
+}
+#sideNav li a:hover:not(.active) {
+  background-color: var(--yellow-30);
+  color: var(--tangerine-30);
+}
+
+.sideNav-userName {
+  color: var(--illustration-brightYellow);
+  margin-bottom: var(--spacing-4);
+}

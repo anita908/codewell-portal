@@ -1,0 +1,34 @@
+#lesson {
+  margin-top: var(--layout-5);
+  padding: 0 var(--spacing-4);
+}
+
+.lesson-header {
+  border-bottom: 1px solid var(--illustration-turquoise);
+  color: var(--illustration-turquoise);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+  text-align: left;
+}
+.lesson-toggleExpandButton {
+  display: inline;
+}
+.lesson-toggleExpandButton:hover {
+   cursor: pointer;
+}
+.lesson-toggleExpandButton > summary:focus {
+    outline: none;
+}
+.lesson-header h3 {
+  display: inline;
+  margin: 0;
+}
+
+.lesson-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.lesson-content > .card {
+  width: auto;
+}
