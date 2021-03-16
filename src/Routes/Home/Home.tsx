@@ -50,7 +50,6 @@ class Home extends Component<{}, State> {
     this.setState({
       name: presenter.firstName,
       lessons: presenter.lessons
-      // sessions: presenter.sessions
     })
   }
 }

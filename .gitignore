@@ -26,3 +26,6 @@ yarn-error.log*
 # package locks
 package-lock.json
 yarn.lock
+
+# Firebase deployment cache
+.firebase/
