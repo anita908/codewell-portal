@@ -1,4 +1,4 @@
-import React, { Component, ReactElement, Fragment } from 'react'
+import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card/Card'
 import ILesson from '../Interfaces/ILesson'
 import './style.css'
@@ -57,16 +57,19 @@ class Lesson extends Component<Prop, State> {
           document.querySelectorAll('.lesson-content > .card')
         ) as HTMLElement[]
 
-        if (lessonContent) {
-          lessonContent.style.gridTemplateColumns = this.state.showMore
-            ? 'repeat(4, 1fr)'
-            : 'repeat(2, 1fr)'
+        if (lessonContent && this.state.showMore) {
+          lessonContent.classList.add('lesson-adjustGrid')
+        } else if (lessonCards && !this.state.showMore) {
+          lessonContent.classList.remove('lesson-adjustGrid')
         }
 
-        if (lessonCards) {
+        if (lessonCards && this.state.showMore) {
           lessonCards.forEach((lessonCard: HTMLElement) => {
-            // eslint-disable-next-line no-param-reassign
-            lessonCard.style.width = this.state.showMore ? 'var(--card-width)' : 'auto'
+            lessonCard.classList.add('adjustCardWidth')
+          })
+        } else if (lessonCards && !this.state.showMore) {
+          lessonCards.forEach((lessonCard: HTMLElement) => {
+            lessonCard.classList.remove('adjustCardWidth')
           })
         }
       }

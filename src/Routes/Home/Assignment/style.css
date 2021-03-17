@@ -29,6 +29,30 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.assignment-content > .card {
-  width: auto
+
+.assignment-adjustGrid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media only screen and (min-width: 631px) {
+  .assignment-content > .card {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .assignment-adjustGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .assignment-content {
+    justify-items: center;
+  }
+
+  .assignment-adjustGrid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
 }

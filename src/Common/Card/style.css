@@ -24,3 +24,19 @@
   text-decoration: none;
 
 }
+
+
+@media only screen and (max-width: 410px) {
+  .card {
+    width: 130px;
+  }
+}
+
+@media only screen and (max-width: 370px) {
+  .card {
+    width: 100px;
+  }
+  .card h4 {
+    margin: var(--spacing-1) auto;
+  }
+}

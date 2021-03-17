@@ -6,9 +6,10 @@
 }
 
 .login-image {
+  --logo-margin-top: 200px;
   color: var(--illustration-brightOrange);
   position: relative;
-  top: 10%;
+  top: var(--logo-margin-top);
 }
 
 .login-input input[type='text']:focus, .login-input input[type='password']:focus {
@@ -63,4 +64,25 @@
 }
 .login-inputGroup > button:focus {
   box-shadow: none;
+}
+
+@media only screen and (max-width: 850px) {
+  #login {
+    display: block;
+  }
+
+  .login-inputGroup {
+    top: 35%;
+  }
+
+  .login-input, .login-image {
+    height: 55%;
+  }
+
+  .login-image {
+    top: 0;
+  }
+  .login-image img {
+    height: 300px;
+  }
 }

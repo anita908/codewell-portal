@@ -27,3 +27,13 @@
   color: var(--illustration-turquoise);
   font-weight: bold;
 }
+
+@media only screen and (max-width: 890px) {
+  #profile {
+    margin-top: 5%;
+  }
+
+  .profile-content {
+    padding: 0 var(--spacing-3);
+  }
+}

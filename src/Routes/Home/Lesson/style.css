@@ -29,6 +29,43 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.lesson-content > .card {
+
+.lesson-adjustGrid {
   width: auto;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media only screen and (min-width: 631px) {
+  .lesson-content > .card {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .lesson-adjustGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .lesson-content {
+    justify-items: center;
+  }
+
+  .lesson-adjustGrid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .adjustCardWidth {
+    width: 150px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .adjustCardWidth {
+    width: 100px;
+  }
 }
