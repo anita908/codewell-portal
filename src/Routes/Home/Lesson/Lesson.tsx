@@ -1,4 +1,4 @@
-import React, { Component, ReactElement, Fragment } from 'react'
+import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card/Card'
 import ILesson from '../Interfaces/ILesson'
 import './style.css'
