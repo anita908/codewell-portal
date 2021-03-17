@@ -1,6 +1,26 @@
 .home-content {
   --home-marginLeft: 150px;
+
   display: inline-block;
   margin-left: var(--home-marginLeft);
   width: var(--home-width);
+}
+
+@media only screen and (max-width: 1050px) {
+ .home-content {
+   width: 740px;
+ }
+}
+
+@media only screen and (max-width: 950px) {
+  .home-content {
+    width: 670px;
+  }
+}
+
+@media only screen and (max-width: 890px) {
+  .home-content {
+    margin-left: 0;
+    width: 90%;
+  }
 }

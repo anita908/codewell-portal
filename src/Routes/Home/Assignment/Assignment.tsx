@@ -57,16 +57,21 @@ class Assignment extends Component<Prop, State> {
           document.querySelectorAll('.assignment-content > .card')
         ) as HTMLElement[]
 
-        if (assignmentContent) {
-          assignmentContent.style.gridTemplateColumns = this.state.showMore
-            ? 'repeat(4, 1fr)'
-            : 'repeat(2, 1fr)'
+        if (assignmentContent && this.state.showMore) {
+          assignmentContent.classList.add('lesson-adjustGrid')
+        } else if (assignmentCards && !this.state.showMore) {
+          assignmentContent.classList.remove('lesson-adjustGrid')
         }
 
-        if (assignmentCards) {
+        if (assignmentCards && this.state.showMore) {
           assignmentCards.forEach((assignmentCard: HTMLElement) => {
             // eslint-disable-next-line no-param-reassign
-            assignmentCard.style.width = this.state.showMore ? 'var(--card-width)' : 'auto'
+            assignmentCard.classList.add('adjustCardWidth')
+          })
+        } else if (assignmentCards && !this.state.showMore) {
+          assignmentCards.forEach((assignmentCard: HTMLElement) => {
+            // eslint-disable-next-line no-param-reassign
+            assignmentCard.classList.remove('adjustCardWidth')
           })
         }
       }

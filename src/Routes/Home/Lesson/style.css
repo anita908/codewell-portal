@@ -29,6 +29,33 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.lesson-content > .card {
+
+.lesson-adjustGrid {
   width: auto;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media only screen and (min-width: 420px) {
+  .lesson-content > .card {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .lesson-adjustGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .lesson-adjustGrid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .adjustCardWidth {
+    width: 130px;
+  }
 }
