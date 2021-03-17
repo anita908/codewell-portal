@@ -65,12 +65,10 @@ class Assignment extends Component<Prop, State> {
 
         if (assignmentCards && this.state.showMore) {
           assignmentCards.forEach((assignmentCard: HTMLElement) => {
-            // eslint-disable-next-line no-param-reassign
             assignmentCard.classList.add('adjustCardWidth')
           })
         } else if (assignmentCards && !this.state.showMore) {
           assignmentCards.forEach((assignmentCard: HTMLElement) => {
-            // eslint-disable-next-line no-param-reassign
             assignmentCard.classList.remove('adjustCardWidth')
           })
         }

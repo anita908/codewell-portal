@@ -65,12 +65,10 @@ class Lesson extends Component<Prop, State> {
 
         if (lessonCards && this.state.showMore) {
           lessonCards.forEach((lessonCard: HTMLElement) => {
-            // eslint-disable-next-line no-param-reassign
             lessonCard.classList.add('adjustCardWidth')
           })
         } else if (lessonCards && !this.state.showMore) {
           lessonCards.forEach((lessonCard: HTMLElement) => {
-            // eslint-disable-next-line no-param-reassign
             lessonCard.classList.remove('adjustCardWidth')
           })
         }
