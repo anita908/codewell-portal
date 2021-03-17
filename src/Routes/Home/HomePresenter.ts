@@ -1,5 +1,4 @@
 import { homeData } from '../../Utilities/Url'
-import Cookies from '../../Utilities/Cookies'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 import IHomeData from './Interfaces/IHomeData'
 import ILesson from './Interfaces/ILesson'
@@ -31,15 +30,11 @@ class HomePresenter {
   }
 
   public async getHomeData(): Promise<void> {
-    const token = Cookies.get('auth')
-    const response = await this.fetcher.fetch(
-      {
-        body: {},
-        method: 'GET',
-        url: homeData
-      },
-      `Bearer ${token}`
-    )
+    const response = await this.fetcher.fetch({
+      body: {},
+      method: 'GET',
+      url: homeData
+    })
 
     if (response) {
       this.setHomeData(response)

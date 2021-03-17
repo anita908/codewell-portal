@@ -1,10 +1,14 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card'
+import IAssignmentPresenter from './IAssignmentPresenter'
+import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
 import ILesson from '../Interfaces/ILesson'
 import './style.css'
 
 type Prop = {
   lessons: ILesson[]
+  presenter: IAssignmentPresenter
+  videos: { homeworkId: number; video: IAssignmentVideo[] }[]
 }
 
 type State = {
@@ -17,9 +21,13 @@ class Assignment extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { lessons } = this.props
+    const { lessons, videos } = this.props
     const { showMore } = this.state
     const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // cur & next
+
+    if (!videos.length) {
+      return <div>loading...</div>
+    }
 
     return (
       <div id='assignment'>
@@ -31,11 +39,16 @@ class Assignment extends Component<Prop, State> {
         </div>
         <div className='assignment-content'>
           {displayLessons.map((lesson: ILesson) => {
+            const video: any[] = videos.filter((v) => v.homeworkId === lesson.homeworkId)
+
+            console.log('video ', video)
+
             return (
               <Fragment key={lesson.chapterId}>
                 <Card
                   activity={'assignment'}
                   header={`Lesson ${lesson.chapterNo}:`}
+                  link={video.length ? video[0].storageUrl : ''}
                   title={lesson.chapterName}
                 />
               </Fragment>
