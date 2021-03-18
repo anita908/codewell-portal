@@ -21,6 +21,10 @@ class Lesson extends Component<Prop, State> {
     const { showMore } = this.state
     const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // cur & next
 
+    if (!lessons.length) {
+      return this.renderLoadingState()
+    }
+
     return (
       <div id='lesson'>
         <div className='lesson-header'>
@@ -73,6 +77,22 @@ class Lesson extends Component<Prop, State> {
           })
         }
       }
+    )
+  }
+
+  renderLoadingState = (): ReactElement => {
+    return (
+      <div id='lesson'>
+        <div className='lesson-header'>
+          <h3>Lessons</h3>
+          <details className='lesson-toggleExpandButton loadingButton'>
+            <summary>View More</summary>
+          </details>
+        </div>
+        <div className='lesson-content'>
+          <Card header={''} title={''} activity={''} />
+        </div>
+      </div>
     )
   }
 }
