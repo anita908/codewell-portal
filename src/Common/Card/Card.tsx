@@ -1,4 +1,4 @@
-import React, { Component, ReactElement } from 'react'
+import React, { Component, Fragment, ReactElement } from 'react'
 import colorVariables from './borderColors'
 import './style.css'
 
@@ -14,6 +14,10 @@ class Card extends Component<Props, {}> {
   render(): ReactElement {
     const { activity, header, link, title } = this.props
     const cardBorderColor = this.getRandomColor()
+
+    if (!activity && !header && !title) {
+      return this.renderLoadingState()
+    }
 
     return (
       <div
@@ -31,6 +35,15 @@ class Card extends Component<Props, {}> {
     const randomColorIndex = Math.floor(Math.random() * (colorVariables.length - 1 - 0 + 1)) + 0
 
     return colorVariables[randomColorIndex]
+  }
+
+  renderLoadingState = (): ReactElement => {
+    return (
+      <Fragment>
+        <div className='card card-loading' />
+        <div className='card card-loading' />
+      </Fragment>
+    )
   }
 }
 

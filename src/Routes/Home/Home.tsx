@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react'
-import Assignment from './Assignment'
+import Assignment from './Assignment/Assignment'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Fetcher from '../../Drivers/Fetcher'
 import HomePresenter from './HomePresenter'
@@ -31,8 +31,8 @@ class Home extends Component<{}, State> {
   render(): ReactElement {
     const { lessons, name, videos } = this.state
 
-    if (!name) {
-      return <p>loading</p>
+    if (!name || !lessons) {
+      return this.renderLoadingState()
     }
 
     return (
@@ -72,6 +72,21 @@ class Home extends Component<{}, State> {
         videos: [...prevState.videos, { homeworkId, video: response }]
       }))
     })
+  }
+
+  renderLoadingState = (): ReactElement => {
+    const { name } = this.state
+
+    return (
+      <div id='home'>
+        <SideNav name={name} />
+        <div className='home-content'>
+          <Profile name={name} />
+          <Assignment lessons={[]} presenter={null} videos={[]} />
+          <Lesson lessons={[]} />
+        </div>
+      </div>
+    )
   }
 }
 
