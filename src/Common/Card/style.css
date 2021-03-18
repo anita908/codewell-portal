@@ -25,6 +25,15 @@
 
 }
 
+.card-loading {
+  animation: var(--skeleton-animation);
+  background-color: var(--background-color);
+  border: none;
+}
+.card-loading:hover {
+  box-shadow: var(--card-shadow);
+}
+
 
 @media only screen and (max-width: 410px) {
   .card {

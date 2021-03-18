@@ -18,3 +18,20 @@ html, body, #app {
   color: var(--warning);
   font-size: var(--l-text-size);
 }
+
+.loading {
+  animation: var(--skeleton-animation);
+  background-color: var(--background-color);
+  border-radius: var(--content-border-radius);
+  display: block;
+  height: 3rem;
+  margin: var(--spacing-4) auto;
+  width: 80%;
+}
+
+.loadingButton {
+  opacity: 0.2;
+}
+.loadingButton:hover {
+  cursor: not-allowed;
+}

@@ -28,16 +28,6 @@
   font-weight: bold;
 }
 
-.loading {
-  animation: var(--skeleton-animation);
-  background-color: var(--background-color);
-  border-radius: var(--content-border-radius);
-  display: block;
-  height: 3rem;
-  margin: var(--spacing-4) auto;
-  width: 80%;
-}
-
 @media only screen and (max-width: 890px) {
   #profile {
     margin-top: 5%;

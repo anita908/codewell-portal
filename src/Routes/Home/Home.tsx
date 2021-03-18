@@ -26,7 +26,7 @@ class Home extends Component<{}, State> {
   render(): ReactElement {
     const { lessons, name } = this.state
 
-    if (!name) {
+    if (!name || !lessons) {
       return this.renderLoadingState()
     }
 
@@ -60,7 +60,8 @@ class Home extends Component<{}, State> {
         <SideNav name={name} />
         <div className='home-content'>
           <Profile name={name} />
-          <p>loading</p>
+          <Assignment lessons={[]} />
+          <Lesson lessons={[]} />
         </div>
       </div>
     )

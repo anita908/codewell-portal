@@ -19,7 +19,11 @@ class Assignment extends Component<Prop, State> {
   render(): ReactElement {
     const { lessons } = this.props
     const { showMore } = this.state
-    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // cur & next
+    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // TODO: cur & next
+
+    if (!lessons.length) {
+      return this.renderLoadingState()
+    }
 
     return (
       <div id='assignment'>
@@ -73,6 +77,22 @@ class Assignment extends Component<Prop, State> {
           })
         }
       }
+    )
+  }
+
+  renderLoadingState = (): ReactElement => {
+    return (
+      <div id='assignment'>
+        <div className='assignment-header'>
+          <h3>Assignments</h3>
+          <details className='assignment-toggleExpandButton loadingButton'>
+            <summary>View More</summary>
+          </details>
+        </div>
+        <div className='assignment-content'>
+          <Card activity={''} header={''} title={''} />
+        </div>
+      </div>
     )
   }
 }
