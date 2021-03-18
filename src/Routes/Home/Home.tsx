@@ -82,7 +82,7 @@ class Home extends Component<{}, State> {
         <SideNav name={name} />
         <div className='home-content'>
           <Profile name={name} />
-          <Assignment lessons={[]} presenter={null} videos={[]} />
+          <Assignment lessons={[]} presenter={new AssignmentPresenter(new Fetcher())} videos={[]} />
           <Lesson lessons={[]} />
         </div>
       </div>

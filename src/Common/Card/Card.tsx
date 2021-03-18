@@ -6,13 +6,12 @@ type Props = {
   activity: string
   content?: any
   header: string
-  link?: string
   title?: string
 }
 
 class Card extends Component<Props, {}> {
   render(): ReactElement {
-    const { activity, header, link, title } = this.props
+    const { activity, header, title } = this.props
     const cardBorderColor = this.getRandomColor()
 
     if (!activity && !header && !title) {
@@ -26,7 +25,6 @@ class Card extends Component<Props, {}> {
       >
         <h4 className='card-header'>{header}</h4>
         <h4 className='card-title'>{title}</h4>
-        {/* TODO: go to anogher page */}
       </div>
     )
   }

@@ -35,30 +35,27 @@ class Assignment extends Component<Prop, State> {
 
     return (
       <div id='assignment'>
-        <div className='assignment-header'>
-          <h3>Assignments</h3>
-          <details onClick={this.toggleSection} className='assignment-toggleExpandButton'>
-            <summary>View More</summary>
-          </details>
-        </div>
-        <div className='assignment-content'>
-          {displayLessons.map((lesson: ILesson) => {
-            const video: any[] = videos.filter((v) => v.homeworkId === lesson.homeworkId)
-
-            console.log('video ', video)
-
-            return (
-              <Fragment key={lesson.chapterId}>
-                <Card
-                  activity={'assignment'}
-                  header={`Lesson ${lesson.chapterNo}:`}
-                  link={video.length ? video[0].storageUrl : ''}
-                  title={lesson.chapterName}
-                />
-              </Fragment>
-            )
-          })}
-        </div>
+        <a className='assignment-link' href={`/assignmentInstruction/${lessons[0].homeworkId}`}>
+          <div className='assignment-header'>
+            <h3>Assignments</h3>
+            <details onClick={this.toggleSection} className='assignment-toggleExpandButton'>
+              <summary>View More</summary>
+            </details>
+          </div>
+          <div className='assignment-content'>
+            {displayLessons.map((lesson: ILesson) => {
+              return (
+                <Fragment key={lesson.chapterId}>
+                  <Card
+                    activity={'assignment'}
+                    header={`Lesson ${lesson.chapterNo}:`}
+                    title={lesson.chapterName}
+                  />
+                </Fragment>
+              )
+            })}
+          </div>
+        </a>
       </div>
     )
   }
