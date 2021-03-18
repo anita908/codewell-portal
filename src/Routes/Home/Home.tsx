@@ -7,7 +7,7 @@ import IAssignmentVideo from './Interfaces/IAssignmentVideo'
 import ILesson from './Interfaces/ILesson'
 import Lesson from './Lesson'
 import Profile from './Profile'
-import SideNav from './SideNav'
+import SideNav from '../../Common/SideNav'
 import './style.css'
 
 type State = {

@@ -26,6 +26,9 @@ class SideNav extends Component<Props, {}> {
             <a href='#contact'>Grades</a>
           </li>
           <li>
+            <a href='/assignmentInstruction'>Assignments</a>
+          </li>
+          <li>
             <a href='#about'>Settings</a>
           </li>
           <li>
