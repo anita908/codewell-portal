@@ -17,7 +17,6 @@ class Home extends Component<{}, State> {
   state = {
     name: '',
     lessons: []
-    // sessions: []
   }
 
   async componentDidMount(): Promise<void> {
@@ -28,7 +27,7 @@ class Home extends Component<{}, State> {
     const { lessons, name } = this.state
 
     if (!name) {
-      return <p>loading</p>
+      return this.renderLoadingState()
     }
 
     return (
@@ -51,6 +50,20 @@ class Home extends Component<{}, State> {
       name: presenter.firstName,
       lessons: presenter.lessons
     })
+  }
+
+  renderLoadingState = (): ReactElement => {
+    const { name } = this.state
+
+    return (
+      <div id='home'>
+        <SideNav name={name} />
+        <div className='home-content'>
+          <Profile name={name} />
+          <p>loading</p>
+        </div>
+      </div>
+    )
   }
 }
 

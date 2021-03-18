@@ -4,11 +4,13 @@
   --background-border-radius: 25px;
   --button-border-radius: 8px;
   --card-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  --content-border-radius: 10px;
   --card-border-width: 3px;
   --card-height: 150px;
   --card-width: 150px;
   --font-family: 'Nunito', sans-serif;
   --home-width: 800px;
+  --skeleton-animation: load-skeleton 0.75s infinite alternate;
   --text-border-radius: 12px;
 
   --sm-text-size: 13px;
@@ -96,4 +98,10 @@
 section {
   margin: auto;
   width: 100%;
+}
+
+@keyframes load-skeleton {
+  from {
+    opacity: 0;
+  }
 }
