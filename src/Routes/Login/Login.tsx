@@ -7,6 +7,7 @@ import './style.css'
 
 type State = {
   error: string
+  isLoading: boolean
   password: string
   username: string
 }
@@ -14,12 +15,13 @@ type State = {
 class Login extends Component<{}, State> {
   state = {
     error: '',
+    isLoading: false,
     password: '',
     username: ''
   }
 
   render(): ReactElement {
-    const { error } = this.state
+    const { error, isLoading } = this.state
 
     return (
       <div id='login'>
@@ -33,7 +35,7 @@ class Login extends Component<{}, State> {
         <div className='login-input'>
           <form onSubmit={this.submit} id='login-form'>
             <div className='login-inputGroup'>
-              <p className='error'>{error}</p>
+              <p className='login-error'>{error}</p>
               <div className='login-username'>
                 <label htmlFor='username'>User name: </label>
                 <input type='text' id='username' name='username' onChange={this.updateUsername} />
@@ -47,7 +49,15 @@ class Login extends Component<{}, State> {
                   onChange={this.updatePassword}
                 />
               </div>
-              <button type='submit'>Log in</button>
+              {isLoading ? (
+                <button className='button' type='submit' disabled>
+                  Logging In...
+                </button>
+              ) : (
+                <button className='button' type='submit'>
+                  Login
+                </button>
+              )}
             </div>
           </form>
         </div>
@@ -88,6 +98,7 @@ class Login extends Component<{}, State> {
   }
 
   login = async (params: any) => {
+    this.setState({ isLoading: true })
     const { password, username } = params
     const loginPresenter = new LoginPresenter(new Fetcher())
     await loginPresenter.login(username, password)
@@ -97,6 +108,8 @@ class Login extends Component<{}, State> {
     } else {
       this.setState({ error: 'Invalid username or password' })
     }
+
+    this.setState({ isLoading: false })
   }
 }
 

@@ -2,7 +2,7 @@
 
 :root {
   --background-border-radius: 25px;
-  --button-border-radius: 10px;
+  --button-border-radius: 8px;
   --card-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   --card-border-width: 3px;
   --card-height: 150px;
