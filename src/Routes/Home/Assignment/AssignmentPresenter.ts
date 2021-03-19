@@ -1,4 +1,4 @@
-import { homeworkVideo } from '../../../Utilities/Url'
+import { homeworkVideo, homeworkVideoByCourseId } from '../../../Utilities/Url'
 import IAssignmentPresenter from './IAssignmentPresenter'
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
 import IFetcher from '../../../Drivers/Interfaces/IFetcher'
@@ -16,7 +16,26 @@ class AssignmentPresenter implements IAssignmentPresenter {
       method: 'GET',
       url: `${homeworkVideo}${homeworkId}`
     })
-    return response
+
+    if (response && response.length) {
+      return response
+    }
+
+    return []
+  }
+
+  public async getHomeworkVideosByCourseId(courseId: number): Promise<IAssignmentVideo[]> {
+    const response = await this.fetcher.fetch({
+      body: {},
+      method: 'GET',
+      url: `${homeworkVideoByCourseId}${courseId}`
+    })
+
+    if (response && response.length) {
+      return response
+    }
+
+    return []
   }
 }
 

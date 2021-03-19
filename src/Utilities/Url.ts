@@ -6,3 +6,5 @@ export const logout = 'http://localhost:5000/api/v1/auth/logout/johnnyataisg'
 export const updateUser = 'http://localhost:5000/api/v1/user/update'
 export const userData = 'http://localhost:5000/api/v1/user'
 export const homeworkVideo = 'http://localhost:5000/api/v1/homework/videos?homeworkId='
+export const homeworkVideoByCourseId =
+  'http://localhost:5000/api/v1/homework/videos/course?courseId='
