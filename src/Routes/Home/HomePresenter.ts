@@ -36,7 +36,7 @@ class HomePresenter {
       url: homeData
     })
 
-    if (response) {
+    if (response && response.length) {
       this.setHomeData(response)
     }
   }
