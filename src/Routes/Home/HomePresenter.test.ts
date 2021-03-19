@@ -341,11 +341,41 @@ describe('Test home presenter', () => {
     expect(presenter.sessions).toEqual([])
   })
 
+  it('Should be able to handle invalid request - 2', async () => {
+    mockFetcher.fetch = jest.fn().mockReturnValue({
+      userData: null,
+      enrolledSessions: null
+    })
+    presenter = new HomePresenter(mockFetcher)
+    await presenter.getHomeData()
+
+    expect(mockFetcher.fetch).toHaveBeenCalled()
+    expect(presenter.firstName).toEqual('user')
+    expect(presenter.lessons).toEqual([])
+    expect(presenter.sessions).toEqual([])
+  })
+
   it('Should be able to get course ids', async () => {
     mockFetcher.fetch = jest.fn().mockReturnValue(getMockData())
     presenter = new HomePresenter(mockFetcher)
     await presenter.getHomeData()
 
     expect(presenter.courseIds).toEqual([1])
+  })
+
+  it('Should be able to set sessions', async () => {
+    mockFetcher.fetch = jest.fn().mockReturnValue(getMockData())
+    presenter = new HomePresenter(mockFetcher)
+    await presenter.getHomeData()
+
+    expect(presenter.lessons).toEqual(getMockData().enrolledSessions[0].sessionProgressModel)
+  })
+
+  it('Should be able to set lessons', async () => {
+    mockFetcher.fetch = jest.fn().mockReturnValue(getMockData())
+    presenter = new HomePresenter(mockFetcher)
+    await presenter.getHomeData()
+
+    expect(presenter.sessions).toEqual(getMockData().enrolledSessions)
   })
 })

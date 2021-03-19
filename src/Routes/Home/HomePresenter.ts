@@ -20,14 +20,8 @@ class HomePresenter implements IHomePresenter {
     this._courseIds = []
   }
 
-  public getCourseIds(): number[] {
-    console.log(this._courseIds)
-
+  public get courseIds(): number[] {
     return this._courseIds
-  }
-
-  private setCourseIds(courseId: number): void {
-    this._courseIds.push(courseId)
   }
 
   public get firstName(): string {
@@ -50,7 +44,6 @@ class HomePresenter implements IHomePresenter {
     })
 
     if (response) {
-      console.log('response ', response)
       this.setHomeData(response)
     }
   }
@@ -64,14 +57,20 @@ class HomePresenter implements IHomePresenter {
     if (response.enrolledSessions) {
       const { enrolledSessions } = response
 
-      this._sessions = enrolledSessions
-      this._lessons = enrolledSessions[0].sessionProgressModel // TODO
-
-      enrolledSessions.forEach((session: ISession) => {
-        console.log('session ', session)
-        this.setCourseIds(session.courseId)
-      })
+      this.setEnrolledSessions(enrolledSessions)
     }
+  }
+
+  private setEnrolledSessions(sessions: ISession[]): void {
+    this._sessions = sessions
+
+    sessions.forEach((session: ISession) => {
+      this._courseIds = [...this._courseIds, session.courseId]
+
+      session.sessionProgressModel.forEach((lesson: ILesson) => {
+        this._lessons = [...this._lessons, lesson]
+      })
+    })
   }
 }
 
