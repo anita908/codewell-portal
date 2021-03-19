@@ -5,6 +5,7 @@ import './style.css'
 
 type Prop = {
   lessons: ILesson[]
+  userName: string
 }
 
 type State = {
@@ -17,7 +18,7 @@ class Lesson extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { lessons } = this.props
+    const { lessons, userName } = this.props
     const { showMore } = this.state
     const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // cur & next
 
@@ -38,9 +39,12 @@ class Lesson extends Component<Prop, State> {
             return (
               <Fragment key={lesson.chapterId}>
                 <Card
-                  header={`Lesson ${lesson.chapterNo}:`}
-                  title={lesson.chapterName}
                   activity={'inclass activity'}
+                  endPoint={''}
+                  header={`Lesson ${lesson.chapterNo}:`}
+                  pathId={''}
+                  title={lesson.chapterName}
+                  userName={userName}
                 />
               </Fragment>
             )
@@ -81,6 +85,8 @@ class Lesson extends Component<Prop, State> {
   }
 
   renderLoadingState = (): ReactElement => {
+    const { userName } = this.props
+
     return (
       <div id='lesson'>
         <div className='lesson-header'>
@@ -90,7 +96,14 @@ class Lesson extends Component<Prop, State> {
           </details>
         </div>
         <div className='lesson-content'>
-          <Card header={''} title={''} activity={''} />
+          <Card
+            activity={''}
+            endPoint={''}
+            header={''}
+            pathId={''}
+            title={''}
+            userName={userName}
+          />
         </div>
       </div>
     )

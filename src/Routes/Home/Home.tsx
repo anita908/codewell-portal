@@ -42,10 +42,11 @@ class Home extends Component<{}, State> {
           <Profile name={name} />
           <Assignment
             lessons={lessons}
+            userName={name}
             presenter={new AssignmentPresenter(new Fetcher())}
             videos={videos}
           />
-          <Lesson lessons={lessons} />
+          <Lesson lessons={lessons} userName={name} />
         </div>
       </div>
     )
@@ -82,8 +83,13 @@ class Home extends Component<{}, State> {
         <SideNav name={name} />
         <div className='home-content'>
           <Profile name={name} />
-          <Assignment lessons={[]} presenter={new AssignmentPresenter(new Fetcher())} videos={[]} />
-          <Lesson lessons={[]} />
+          <Assignment
+            lessons={[]}
+            presenter={new AssignmentPresenter(new Fetcher())}
+            userName={name}
+            videos={[]}
+          />
+          <Lesson lessons={[]} userName={name} />
         </div>
       </div>
     )
