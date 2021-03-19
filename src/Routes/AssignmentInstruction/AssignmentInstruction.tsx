@@ -1,6 +1,5 @@
 import React, { Component, ReactElement } from 'react'
 import SideNav from '../../Common/SideNav/SideNav'
-import './style.css'
 
 type Props = {
   location: any
