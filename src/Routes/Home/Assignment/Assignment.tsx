@@ -52,14 +52,16 @@ class Assignment extends Component<Prop, State> {
             } = lesson
 
             return (
-              <Card
-                activity={'assignment'}
-                endPoint={'assignmentInstruction'}
-                header={`Lesson ${chapterNo}:`}
-                pathId={homeworkId?.toString() || ''}
-                title={chapterName}
-                userName={userName}
-              />
+              <Fragment key={lesson.chapterId}>
+                <Card
+                  activity={'assignment'}
+                  endPoint={'assignmentInstruction'}
+                  header={`Lesson ${chapterNo}:`}
+                  pathId={homeworkId?.toString() || ''}
+                  title={chapterName}
+                  userName={userName}
+                />
+              </Fragment>
             )
           })}
         </div>

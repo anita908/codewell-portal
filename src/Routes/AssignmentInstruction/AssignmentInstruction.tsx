@@ -1,10 +1,16 @@
 import React, { Component, ReactElement } from 'react'
 import ReactPlayer from 'react-player'
 import SideNav from '../../Common/SideNav/SideNav'
+import './style.css'
 
 type Props = {
-  location: any
-  userName: string
+  location: {
+    state: {
+      lessonId: number
+      lessonName: string
+      userName: string
+    }
+  }
 }
 
 class AssignmentInstruction extends Component<Props, {}> {
@@ -15,16 +21,14 @@ class AssignmentInstruction extends Component<Props, {}> {
       <div id='assignmentInstruction'>
         <SideNav name={userName} />
         <div className='assignmentInstruction-content'>
-          <p>
-            Lesson {lessonId}: {lessonName}
-          </p>
-          <div>assignment instruction</div>
-          <div className='player-wrapper'>
+          <h2>
+            Lesson {lessonId}: {lessonName} Assignment Instruction
+          </h2>
           <ReactPlayer
-            url={'https://codewell-homework-videos.s3.us-east-2.amazonaws.com/Lesson+3/Homework+video+3-1.mp4'}
+            className='assignmentInstruction-player'
             controls
-            />
-            </div>
+            url={`https://codewell-homework-videos.s3.us-east-2.amazonaws.com/Lesson+3/Homework+video+3-1.mp4`}
+          />
         </div>
       </div>
     )

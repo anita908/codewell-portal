@@ -24,8 +24,7 @@ class Home extends Component<{}, State> {
   }
 
   async componentDidMount(): Promise<void> {
-    await this.getHomeData()
-    await this.getAssignmentVideos()
+    await this.getHomeData().then(this.getAssignmentVideos)
   }
 
   render(): ReactElement {
@@ -63,16 +62,13 @@ class Home extends Component<{}, State> {
   }
 
   getAssignmentVideos = async () => {
-    const { lessons } = this.state
+    const presenter = new HomePresenter(new Fetcher())
 
-    lessons.forEach(async (lesson: ILesson) => {
-      const { homeworkId } = lesson
-
-      const response = await new AssignmentPresenter(new Fetcher()).getHomeworkVideos(homeworkId)
-      this.setState((prevState) => ({
-        videos: [...prevState.videos, { homeworkId, video: response }]
-      }))
-    })
+    const response = await new AssignmentPresenter(new Fetcher()).getHomeworkVideosByCourseId(1)
+    console.log('response ', response)
+    // this.setState((prevState) => ({
+    //   videos: [...prevState.videos, { homeworkId, video: response }]
+    // }))
   }
 
   renderLoadingState = (): ReactElement => {

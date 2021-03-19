@@ -340,4 +340,12 @@ describe('Test home presenter', () => {
     expect(presenter.lessons).toEqual([])
     expect(presenter.sessions).toEqual([])
   })
+
+  it('Should be able to get course ids', async () => {
+    mockFetcher.fetch = jest.fn().mockReturnValue(getMockData())
+    presenter = new HomePresenter(mockFetcher)
+    await presenter.getHomeData()
+
+    expect(presenter.courseIds).toEqual([1])
+  })
 })
