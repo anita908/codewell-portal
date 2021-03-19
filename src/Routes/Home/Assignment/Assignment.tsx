@@ -22,9 +22,9 @@ class Assignment extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { lessons, userName, videos } = this.props
+    const { lessons, userName } = this.props
     const { showMore } = this.state
-    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // TODO: cur & next
+    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]]
 
     if (!lessons.length || !displayLessons) {
       return this.renderLoadingState()
@@ -40,16 +40,7 @@ class Assignment extends Component<Prop, State> {
         </div>
         <div className='assignment-content'>
           {displayLessons.map((lesson: ILesson) => {
-            const {
-              activities,
-              chapterId,
-              chapterName,
-              chapterNo,
-              homeworkId,
-              homeworkLink,
-              homeworkName,
-              homeworkScore
-            } = lesson
+            const { chapterName, chapterNo, homeworkId } = lesson
 
             return (
               <Fragment key={lesson.chapterId}>

@@ -13,7 +13,7 @@ import './style.css'
 type State = {
   name: string
   lessons: ILesson[]
-  videos: { homeworkId: number; video: IAssignmentVideo[] }[]
+  videos: { courseId: number; video: IAssignmentVideo[] }[]
 }
 
 class Home extends Component<{}, State> {
@@ -64,11 +64,16 @@ class Home extends Component<{}, State> {
   getAssignmentVideos = async () => {
     const presenter = new HomePresenter(new Fetcher())
 
-    const response = await new AssignmentPresenter(new Fetcher()).getHomeworkVideosByCourseId(1)
-    console.log('response ', response)
-    // this.setState((prevState) => ({
-    //   videos: [...prevState.videos, { homeworkId, video: response }]
-    // }))
+    presenter.courseIds.forEach(async (courseId: number) => {
+      const response = await new AssignmentPresenter(new Fetcher()).getHomeworkVideosByCourseId(
+        courseId
+      )
+      console.log('response ', response)
+
+      this.setState((prevState) => ({
+        videos: [...prevState.videos, { courseId, video: response }]
+      }))
+    })
   }
 
   renderLoadingState = (): ReactElement => {
