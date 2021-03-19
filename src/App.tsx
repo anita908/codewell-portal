@@ -12,7 +12,7 @@ function App(): ReactElement {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
-        <Route path='/assignmentInstruction' component={AssignmentInstruction} />
+        <Route path='/assignmentInstruction/:homeworkId?' component={AssignmentInstruction} />
       </Switch>
     </BrowserRouter>
   )
