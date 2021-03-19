@@ -1,10 +1,11 @@
 import { homeData } from '../../Utilities/Url'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 import IHomeData from './Interfaces/IHomeData'
+import IHomePresenter from './IHomePresenter'
 import ILesson from './Interfaces/ILesson'
 import ISession from './Interfaces/ISession'
 
-class HomePresenter {
+class HomePresenter implements IHomePresenter {
   private readonly fetcher: IFetcher
   private _firstName: string
   private _sessions: ISession[]
@@ -12,7 +13,7 @@ class HomePresenter {
 
   constructor(fetcher: IFetcher) {
     this.fetcher = fetcher
-    this._firstName = ''
+    this._firstName = 'user'
     this._sessions = []
     this._lessons = []
   }
@@ -36,16 +37,23 @@ class HomePresenter {
       url: homeData
     })
 
-    if (response && response.length) {
+    if (response) {
       this.setHomeData(response)
     }
   }
 
   private setHomeData(response: IHomeData): void {
-    const { userData, enrolledSessions } = response
-    this._firstName = userData.firstName
-    this._sessions = enrolledSessions
-    this._lessons = enrolledSessions[0].sessionProgressModel
+    if (response.userData) {
+      const { userData } = response
+      this._firstName = userData.firstName
+    }
+
+    if (response.enrolledSessions) {
+      const { enrolledSessions } = response
+
+      this._sessions = enrolledSessions
+      this._lessons = enrolledSessions[0].sessionProgressModel
+    }
   }
 }
 
