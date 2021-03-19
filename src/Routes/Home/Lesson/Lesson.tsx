@@ -42,6 +42,7 @@ class Lesson extends Component<Prop, State> {
                   activity={'inclass activity'}
                   endPoint={''}
                   header={`Lesson ${lesson.chapterNo}:`}
+                  linkTitle={''}
                   pathId={''}
                   title={lesson.chapterName}
                   userName={userName}
@@ -100,6 +101,7 @@ class Lesson extends Component<Prop, State> {
             activity={''}
             endPoint={''}
             header={''}
+            linkTitle={''}
             pathId={''}
             title={''}
             userName={userName}

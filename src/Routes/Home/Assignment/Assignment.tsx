@@ -9,7 +9,7 @@ type Prop = {
   lessons: ILesson[]
   userName: string
   presenter: IAssignmentPresenter
-  videos: { homeworkId: number; video: IAssignmentVideo[] }[]
+  videos: { homeworkId: number; videos: IAssignmentVideo[] }[]
 }
 
 type State = {
@@ -18,12 +18,13 @@ type State = {
 
 class Assignment extends Component<Prop, State> {
   state = {
-    showMore: false
+    showMore: false,
+    videos: []
   }
 
   render(): ReactElement {
     const { lessons, userName } = this.props
-    const { showMore } = this.state
+    const { showMore, videos } = this.state
     const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]]
 
     if (!lessons.length || !displayLessons) {
@@ -41,13 +42,16 @@ class Assignment extends Component<Prop, State> {
         <div className='assignment-content'>
           {displayLessons.map((lesson: ILesson) => {
             const { chapterName, chapterNo, homeworkId } = lesson
+            const video = videos.find((v: IAssignmentVideo) => v.homeworkId === homeworkId)
 
             return (
               <Fragment key={lesson.chapterId}>
                 <Card
                   activity={'assignment'}
+                  content={video}
                   endPoint={'assignmentInstruction'}
                   header={`Lesson ${chapterNo}:`}
+                  linkTitle={'Go To Assignment Instruction'}
                   pathId={homeworkId?.toString() || ''}
                   title={chapterName}
                   userName={userName}
@@ -106,6 +110,7 @@ class Assignment extends Component<Prop, State> {
             activity={''}
             endPoint={''}
             header={''}
+            linkTitle={''}
             pathId={''}
             title={''}
             userName={userName}

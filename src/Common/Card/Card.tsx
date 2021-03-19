@@ -8,6 +8,7 @@ type Props = {
   content?: any
   endPoint: string
   header: string
+  linkTitle: string
   pathId: string
   title?: string
   userName: string
@@ -15,7 +16,7 @@ type Props = {
 
 class Card extends Component<Props, {}> {
   render(): ReactElement {
-    const { activity, endPoint, header, pathId, title, userName } = this.props
+    const { activity, content, endPoint, header, linkTitle, pathId, title, userName } = this.props
     const cardBorderColor = this.getRandomColor()
 
     if (!activity && !header && !title) {
@@ -33,6 +34,7 @@ class Card extends Component<Props, {}> {
           to={{
             pathname: `/${endPoint}/${pathId}`,
             state: {
+              videos: content,
               lessonId: pathId,
               lessonName: title,
               userName
@@ -40,7 +42,7 @@ class Card extends Component<Props, {}> {
           }}
           className='assignment-link'
         >
-          Go To Assignment Instruction
+          {linkTitle}
         </Link>
       </div>
     )
