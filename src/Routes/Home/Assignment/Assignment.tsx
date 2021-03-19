@@ -7,6 +7,7 @@ import './style.css'
 
 type Prop = {
   lessons: ILesson[]
+  userName: string
   presenter: IAssignmentPresenter
   videos: { homeworkId: number; video: IAssignmentVideo[] }[]
 }
@@ -21,41 +22,47 @@ class Assignment extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { lessons, videos } = this.props
+    const { lessons, userName, videos } = this.props
     const { showMore } = this.state
     const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // TODO: cur & next
 
-    if (!lessons.length) {
+    if (!lessons.length || !displayLessons) {
       return this.renderLoadingState()
-    }
-
-    if (!videos.length) {
-      return <div>loading...</div>
     }
 
     return (
       <div id='assignment'>
-        <a className='assignment-link' href={`/assignmentInstruction/${lessons[0].homeworkId}`}>
-          <div className='assignment-header'>
-            <h3>Assignments</h3>
-            <details onClick={this.toggleSection} className='assignment-toggleExpandButton'>
-              <summary>View More</summary>
-            </details>
-          </div>
-          <div className='assignment-content'>
-            {displayLessons.map((lesson: ILesson) => {
-              return (
-                <Fragment key={lesson.chapterId}>
-                  <Card
-                    activity={'assignment'}
-                    header={`Lesson ${lesson.chapterNo}:`}
-                    title={lesson.chapterName}
-                  />
-                </Fragment>
-              )
-            })}
-          </div>
-        </a>
+        <div className='assignment-header'>
+          <h3>Assignments</h3>
+          <details onClick={this.toggleSection} className='assignment-toggleExpandButton'>
+            <summary>View More</summary>
+          </details>
+        </div>
+        <div className='assignment-content'>
+          {displayLessons.map((lesson: ILesson) => {
+            const {
+              activities,
+              chapterId,
+              chapterName,
+              chapterNo,
+              homeworkId,
+              homeworkLink,
+              homeworkName,
+              homeworkScore
+            } = lesson
+
+            return (
+              <Card
+                activity={'assignment'}
+                endPoint={'assignmentInstruction'}
+                header={`Lesson ${chapterNo}:`}
+                pathId={homeworkId?.toString() || ''}
+                title={chapterName}
+                userName={userName}
+              />
+            )
+          })}
+        </div>
       </div>
     )
   }
@@ -91,6 +98,8 @@ class Assignment extends Component<Prop, State> {
   }
 
   renderLoadingState = (): ReactElement => {
+    const { userName } = this.props
+
     return (
       <div id='assignment'>
         <div className='assignment-header'>
@@ -100,7 +109,14 @@ class Assignment extends Component<Prop, State> {
           </details>
         </div>
         <div className='assignment-content'>
-          <Card activity={''} header={''} title={''} />
+          <Card
+            activity={''}
+            endPoint={''}
+            header={''}
+            pathId={''}
+            title={''}
+            userName={userName}
+          />
         </div>
       </div>
     )
