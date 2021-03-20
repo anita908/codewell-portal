@@ -100,21 +100,12 @@ function getMockData() {
 
 describe('Test assignment presenter', () => {
   const courseId: number = 1
-  const videoId: number = 2
   let fetcher: IFetcher
   let presenter: IAssignmentPresenter
   beforeEach(() => {
     fetcher = {
       fetch: jest.fn()
     }
-  })
-
-  it('Should be able to get assignment videos by video id', async () => {
-    fetcher.fetch = jest.fn().mockReturnValue(getMockData())
-    presenter = new AssignmentPresenter(fetcher)
-    await presenter.getHomeworkVideos(videoId)
-
-    expect(fetcher.fetch).toHaveBeenCalled()
   })
 
   it('Should be able to get assignment videos by course id', async () => {

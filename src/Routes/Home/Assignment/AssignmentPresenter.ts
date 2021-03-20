@@ -17,7 +17,11 @@ class AssignmentPresenter implements IAssignmentPresenter {
       url: `${homeworkVideoByCourseId}${courseId}`
     })
 
-    return videos
+    if (videos && videos.length) {
+      return videos
+    }
+
+    return []
   }
 }
 
