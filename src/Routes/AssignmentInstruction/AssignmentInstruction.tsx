@@ -23,14 +23,18 @@ class AssignmentInstruction extends Component<Props, {}> {
       <div id='assignmentInstruction'>
         <SideNav name={userName} />
         <div className='assignmentInstruction-content'>
-          <h2>
-            Lesson {lessonId}: {lessonName} Assignment Instruction
+          <h2 className='assignmentInstruction-contentTitle'>Lesson {lessonId}: </h2>
+          <h2 className='assignmentInstruction-contentTitle'>
+            {lessonName} Assignment Instruction
           </h2>
           {videos.map((v: IAssignmentVideo) => {
             return (
-              <div>
-                <p>{v.name}</p>
-                <ReactPlayer className='assignmentInstruction-player' controls url={v.storageUrl} />
+              <div className='assignmentInstruction-playerContent'>
+                <p className='assignmentInstruction-videoTitle'>{v.name}</p>
+                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                <video controls>
+                  <source src={v.storageUrl} type='video/mp4' />
+                </video>
               </div>
             )
           })}

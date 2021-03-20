@@ -1,3 +1,50 @@
-.assignmentInstruction-player {
-  margin: var(--layout-4) auto;
+.assignmentInstruction-playerContent {
+  margin: 0 auto;
+  width: var(--home-width);
 }
+.assignmentInstruction-playerContent video {
+  margin-bottom: var(--layout-4);
+  width: var(--home-width);
+}
+
+.assignmentInstruction-videoTitle {
+  font-size: var(--l-text-size);
+  margin-bottom: var(--spacing-2);
+  text-align: left;
+}
+
+@media only screen and (max-width: 1250px) {
+  .assignmentInstruction-playerContent { 
+    width: 500px;
+  }
+  .assignmentInstruction-playerContent video {
+    width: 500px;
+  }
+ }
+
+ @media only screen and (max-width: 890px) {
+  .assignmentInstruction-playerContent { 
+    margin: 0 auto;
+    width: 400px;
+  }
+ }
+
+ @media only screen and (max-width: 680px) {
+  .assignmentInstruction-contentTitle {
+    font-size: var(--m-text-size);
+  }
+
+  .assignmentInstruction-playerContent { 
+    margin: 0 auto;
+    width: 300px;
+  }
+  .assignmentInstruction-playerContent video {
+    width: 450px;
+  }
+ }
+
+ @media only screen and (max-width: 650px) {
+  .assignmentInstruction-playerContent video {
+    width: 300px;
+  }
+ }
