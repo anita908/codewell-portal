@@ -3,8 +3,8 @@ import Assignment from './Assignment/Assignment'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Fetcher from '../../Drivers/Fetcher'
 import HomePresenter from './HomePresenter'
+import IAssignmentPresenter from './Assignment/IAssignmentPresenter'
 import IAssignmentVideo from './Interfaces/IAssignmentVideo'
-import IHomePresenter from './IHomePresenter'
 import ILesson from './Interfaces/ILesson'
 import Lesson from './Lesson'
 import Profile from './Profile'
@@ -12,15 +12,15 @@ import SideNav from '../../Common/SideNav'
 import './style.css'
 
 type State = {
-  name: string
   lessons: ILesson[]
-  videos: { courseId: number; videos: IAssignmentVideo[] }[]
+  name: string
+  videos: IAssignmentVideo[]
 }
 
 class Home extends Component<{}, State> {
   state = {
-    name: '',
     lessons: [],
+    name: '',
     videos: []
   }
 
@@ -31,7 +31,7 @@ class Home extends Component<{}, State> {
   render(): ReactElement {
     const { lessons, name, videos } = this.state
 
-    if (!name || !lessons) {
+    if (!name || !lessons || !videos) {
       return this.renderLoadingState()
     }
 
@@ -41,10 +41,10 @@ class Home extends Component<{}, State> {
         <div className='home-content'>
           <Profile name={name} />
           <Assignment
+            courseVideos={videos}
             lessons={lessons}
             userName={name}
             presenter={new AssignmentPresenter(new Fetcher())}
-            videos={videos}
           />
           <Lesson lessons={lessons} userName={name} />
         </div>
@@ -54,6 +54,7 @@ class Home extends Component<{}, State> {
 
   getHomeData = async (): Promise<void> => {
     const presenter = new HomePresenter(new Fetcher())
+    const assignmentPresenter = new AssignmentPresenter(new Fetcher())
     await presenter.getHomeData()
 
     this.setState(
@@ -61,20 +62,13 @@ class Home extends Component<{}, State> {
         name: presenter.firstName,
         lessons: presenter.lessons
       },
-      () => this.getAssignmentVideos(presenter)
+      () => this.getAssignmentVideos(assignmentPresenter)
     )
   }
 
-  getAssignmentVideos = async (presenter: IHomePresenter) => {
-    presenter.courseIds.forEach(async (courseId: number) => {
-      const response = await new AssignmentPresenter(new Fetcher()).getHomeworkVideosByCourseId(
-        courseId
-      )
-
-      this.setState((prevState) => ({
-        videos: [...prevState.videos, { courseId, videos: response }]
-      }))
-    })
+  getAssignmentVideos = async (assignmentPresenter: IAssignmentPresenter) => {
+    const response = await assignmentPresenter.getHomeworkVideosByCourseId(1) // TODO
+    this.setState({ videos: response })
   }
 
   renderLoadingState = (): ReactElement => {
@@ -86,10 +80,10 @@ class Home extends Component<{}, State> {
         <div className='home-content'>
           <Profile name={name} />
           <Assignment
+            courseVideos={[]}
             lessons={[]}
             presenter={new AssignmentPresenter(new Fetcher())}
             userName={name}
-            videos={[]}
           />
           <Lesson lessons={[]} userName={name} />
         </div>

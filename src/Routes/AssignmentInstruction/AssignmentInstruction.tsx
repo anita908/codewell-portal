@@ -10,7 +10,7 @@ type Props = {
       lessonId: number
       lessonName: string
       userName: string
-      videos: { homeworkId: number; videos: IAssignmentVideo[] }
+      videos: IAssignmentVideo[]
     }
   }
 }
@@ -26,9 +26,12 @@ class AssignmentInstruction extends Component<Props, {}> {
           <h2>
             Lesson {lessonId}: {lessonName} Assignment Instruction
           </h2>
-          {videos?.videos.forEach((v: IAssignmentVideo) => {
+          {videos.map((v: IAssignmentVideo) => {
             return (
-              <ReactPlayer className='assignmentInstruction-player' controls url={v.storageUrl} />
+              <div>
+                <p>{v.name}</p>
+                <ReactPlayer className='assignmentInstruction-player' controls url={v.storageUrl} />
+              </div>
             )
           })}
         </div>

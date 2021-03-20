@@ -6,10 +6,10 @@ import ILesson from '../Interfaces/ILesson'
 import './style.css'
 
 type Prop = {
+  courseVideos: IAssignmentVideo[]
   lessons: ILesson[]
   userName: string
   presenter: IAssignmentPresenter
-  videos: { homeworkId: number; videos: IAssignmentVideo[] }[]
 }
 
 type State = {
@@ -18,13 +18,12 @@ type State = {
 
 class Assignment extends Component<Prop, State> {
   state = {
-    showMore: false,
-    videos: []
+    showMore: false
   }
 
   render(): ReactElement {
-    const { lessons, userName } = this.props
-    const { showMore, videos } = this.state
+    const { courseVideos, lessons, userName } = this.props
+    const { showMore } = this.state
     const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]]
 
     if (!lessons.length || !displayLessons) {
@@ -41,18 +40,20 @@ class Assignment extends Component<Prop, State> {
         </div>
         <div className='assignment-content'>
           {displayLessons.map((lesson: ILesson) => {
-            const { chapterName, chapterNo, homeworkId } = lesson
-            const video = videos.find((v: IAssignmentVideo) => v.homeworkId === homeworkId)
+            const { chapterName, chapterNo, chapterId } = lesson
+            const videos = courseVideos.filter(
+              (video: IAssignmentVideo) => video.homeworkId === chapterId
+            )
 
             return (
               <Fragment key={lesson.chapterId}>
                 <Card
                   activity={'assignment'}
-                  content={video}
+                  content={videos}
                   endPoint={'assignmentInstruction'}
                   header={`Lesson ${chapterNo}:`}
                   linkTitle={'Go To Assignment Instruction'}
-                  pathId={homeworkId?.toString() || ''}
+                  pathId={chapterId?.toString() || ''}
                   title={chapterName}
                   userName={userName}
                 />
