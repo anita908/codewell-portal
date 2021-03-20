@@ -20,22 +20,12 @@
   margin: var(--spacing-2) auto;
 }
 
-.card a {
-  text-decoration: none;
-
-}
-
-.card-linkButton {
+.card-link {
   border: none;
-  border-radius: var(--button-border-radius);
   font-family: var(--font-family);
   font-size: var(--m-text-size);
-  padding: var(--spacing-2) var(--spacing-3);
-}
-
-.card-link {
-  color: var(--primary);
-  text-decoration: none;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .card-loading {

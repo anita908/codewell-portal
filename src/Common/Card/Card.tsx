@@ -31,26 +31,21 @@ class Card extends Component<Props, {}> {
         <h4 className='card-header'>{header}</h4>
         <h4 className='card-title'>{title}</h4>
         {linkTitle && (
-          <button
-            style={{ background: `var(${cardBorderColor})` }}
-            className='card-linkButton'
-            type='button'
+          <Link
+            to={{
+              pathname: `/${endPoint}/${pathId}`,
+              state: {
+                videos: content,
+                lessonId: pathId,
+                lessonName: title,
+                userName
+              }
+            }}
+            className='card-link'
+            style={{ color: `var(${cardBorderColor})` }}
           >
-            <Link
-              to={{
-                pathname: `/${endPoint}/${pathId}`,
-                state: {
-                  videos: content,
-                  lessonId: pathId,
-                  lessonName: title,
-                  userName
-                }
-              }}
-              className='card-link'
-            >
-              {linkTitle}
-            </Link>
-          </button>
+            {linkTitle}
+          </Link>
         )}
       </div>
     )
