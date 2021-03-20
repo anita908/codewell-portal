@@ -1,4 +1,5 @@
 import React, { Component, ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import './style.css'
 
 type Props = {
@@ -12,27 +13,32 @@ class SideNav extends Component<Props, {}> {
       <div id='sideNav'>
         <ul>
           <li className='sideNav-userName'>
-            <h3>Hi, {name}!</h3>
+            <h3>{name ? `Hi, ${name}!` : 'Hi!'}</h3>
           </li>
           <li>
-            <a className='active' href='#home'>
+            <Link
+              className='active'
+              to={{
+                pathname: `/`
+              }}
+            >
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href='#news'>Course Slides</a>
+            <a href='#'>Course Slides</a>
           </li>
           <li>
-            <a href='#contact'>Grades</a>
+            <a href='#'>Grades</a>
           </li>
           <li>
-            <a href='/assignmentInstruction'>Assignments</a>
+            <a href='#'>Assignments</a>
           </li>
           <li>
-            <a href='#about'>Settings</a>
+            <a href='#'>Settings</a>
           </li>
           <li>
-            <a href='#about'>Log out</a>
+            <a href='#'>Log out</a>
           </li>
         </ul>
       </div>
