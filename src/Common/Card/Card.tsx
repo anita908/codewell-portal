@@ -30,27 +30,34 @@ class Card extends Component<Props, {}> {
       >
         <h4 className='card-header'>{header}</h4>
         <h4 className='card-title'>{title}</h4>
-        <Link
-          to={{
-            pathname: `/${endPoint}/${pathId}`,
-            state: {
-              videos: content,
-              lessonId: pathId,
-              lessonName: title,
-              userName
-            }
-          }}
-          className='assignment-link'
-        >
-          {linkTitle}
-        </Link>
+        {linkTitle && (
+          <button
+            style={{ background: `var(${cardBorderColor})` }}
+            className='card-linkButton'
+            type='button'
+          >
+            <Link
+              to={{
+                pathname: `/${endPoint}/${pathId}`,
+                state: {
+                  videos: content,
+                  lessonId: pathId,
+                  lessonName: title,
+                  userName
+                }
+              }}
+              className='card-link'
+            >
+              {linkTitle}
+            </Link>
+          </button>
+        )}
       </div>
     )
   }
 
   getRandomColor = (): string => {
     const randomColorIndex = Math.floor(Math.random() * (colorVariables.length - 1 - 0 + 1)) + 0
-
     return colorVariables[randomColorIndex]
   }
 

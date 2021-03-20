@@ -3,9 +3,6 @@
   padding: 0 var(--spacing-4);
 }
 
-.assignment-link {
-  text-decoration: none;
-}
 .assignment-link:visited {
   color: var(--blue-50);
   text-decoration: none;

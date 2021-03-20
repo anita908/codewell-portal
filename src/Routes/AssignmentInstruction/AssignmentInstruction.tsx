@@ -1,5 +1,4 @@
 import React, { Component, ReactElement } from 'react'
-import ReactPlayer from 'react-player'
 import IAssignmentVideo from 'Routes/Home/Interfaces/IAssignmentVideo'
 import SideNav from '../../Common/SideNav/SideNav'
 import './style.css'

@@ -5,8 +5,7 @@ const colorVariables = [
   '--illustration-dustPink',
   '--illustration-turquoise',
   '--illustration-brightYellow',
-  '--illustration-skyBlue',
-  '--illustration-lightTurquoise'
+  '--illustration-skyBlue'
 ]
 
 export default colorVariables
