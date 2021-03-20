@@ -26,9 +26,15 @@ class AssignmentInstruction extends Component<Props, {}> {
           <h2 className='assignmentInstruction-contentTitle'>
             {lessonName} Assignment Instruction
           </h2>
-          {videos.map((v: IAssignmentVideo) => {
+
+          {videos.map((v: IAssignmentVideo, index: number) => {
             return (
               <div className='assignmentInstruction-playerContent'>
+                {index === 0 && (
+                  <button className='assignmentInstruction-back' onClick={this.back} type='button'>
+                    Back
+                  </button>
+                )}
                 <p className='assignmentInstruction-videoTitle'>{v.name}</p>
                 {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                 <video controls>
@@ -40,6 +46,10 @@ class AssignmentInstruction extends Component<Props, {}> {
         </div>
       </div>
     )
+  }
+
+  back = (): void => {
+    window.history.back()
   }
 }
 

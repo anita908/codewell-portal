@@ -13,6 +13,22 @@
   text-align: left;
 }
 
+.assignmentInstruction-back {
+  background-color: var(--primary);
+  border: none;
+  color: var(--illustration-brightOrange);
+  display: inherit;
+  font-family: var(--font-family);
+  font-size: var(--l-text-size);
+  text-align: left;
+}
+.assignmentInstruction-back:focus {
+  outline: none;
+}
+.assignmentInstruction-back:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1250px) {
   .assignmentInstruction-playerContent { 
     width: 500px;
@@ -26,6 +42,10 @@
   .assignmentInstruction-playerContent { 
     margin: 0 auto;
     width: 400px;
+  }
+
+  .assignmentInstruction-back {
+    font-size: var(--m-text-size);
   }
  }
 
