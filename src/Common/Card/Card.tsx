@@ -35,7 +35,7 @@ class Card extends Component<Props, {}> {
             to={{
               pathname: `/${endPoint}/${pathId}`,
               state: {
-                videos: content,
+                content,
                 lessonId: pathId,
                 lessonName: title,
                 userName

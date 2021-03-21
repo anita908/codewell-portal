@@ -9,14 +9,15 @@ type Props = {
       lessonId: number
       lessonName: string
       userName: string
-      videos: IAssignmentVideo[]
+      content: any
     }
   }
 }
 
 class AssignmentInstruction extends Component<Props, {}> {
   render(): ReactElement {
-    const { lessonId, lessonName, userName, videos } = this.props.location.state
+    const { lessonId, lessonName, userName, content } = this.props.location.state
+    const { videos } = content
 
     return (
       <div id='assignmentInstruction'>
