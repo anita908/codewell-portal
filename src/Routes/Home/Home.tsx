@@ -1,5 +1,7 @@
 import React, { Component, ReactElement } from 'react'
+import { Redirect } from 'react-router-dom'
 import Assignment from './Assignment'
+import Cookies from '../../Utilities/Cookies'
 import Fetcher from '../../Drivers/Fetcher'
 import HomePresenter from './HomePresenter'
 import ILesson from './Interfaces/ILesson'
@@ -25,6 +27,10 @@ class Home extends Component<{}, State> {
 
   render(): ReactElement {
     const { lessons, name } = this.state
+
+    if (!Cookies.get('auth')) {
+      return <Redirect to={'/login'} />
+    }
 
     if (!name || !lessons) {
       return this.renderLoadingState()
