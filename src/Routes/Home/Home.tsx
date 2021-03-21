@@ -19,6 +19,7 @@ type State = {
   videos: IAssignmentVideo[]
 }
 
+const presenter = new HomePresenter(new Fetcher())
 class Home extends Component<{}, State> {
   state = {
     lessons: [],
@@ -41,6 +42,11 @@ class Home extends Component<{}, State> {
       return this.renderLoadingState()
     }
 
+    if (presenter.sessions.length > 1) {
+      return <div>choose one section</div>
+      // TODO: need to choose one session
+    }
+
     return (
       <div id='home'>
         <SideNav name={name} />
@@ -60,7 +66,6 @@ class Home extends Component<{}, State> {
 
   getHomeData = async (): Promise<void> => {
     const assignmentPresenter = new AssignmentPresenter(new Fetcher())
-    const presenter = new HomePresenter(new Fetcher())
     await presenter.getHomeData()
 
     this.setState(
