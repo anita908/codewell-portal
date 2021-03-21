@@ -20,7 +20,7 @@ class SideNav extends Component<Props, {}> {
             </a>
           </li>
           <li>
-            <a href='#news'>Course Slides</a>
+            <a href='/courslides'>Course Slides</a>
           </li>
           <li>
             <a href='#contact'>Grades</a>
