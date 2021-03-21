@@ -1,3 +1,5 @@
+import IHomeworkProgress from './IHomeworkProgress'
+
 interface ILesson {
   activities: string[]
   chapterId: number
@@ -6,7 +8,7 @@ interface ILesson {
   homeworkId: number
   homeworkLink: string
   homeworkName: string
-  homeworkScore: number
+  homeworkProgress: IHomeworkProgress[]
 }
 
 export default ILesson

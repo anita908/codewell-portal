@@ -1,0 +1,70 @@
+.assignmentInstruction-playerContent {
+  margin: 0 auto;
+  width: var(--home-width);
+}
+.assignmentInstruction-playerContent video {
+  margin-bottom: var(--layout-4);
+  width: var(--home-width);
+}
+
+.assignmentInstruction-videoTitle {
+  font-size: var(--l-text-size);
+  margin-bottom: var(--spacing-2);
+  text-align: left;
+}
+
+.assignmentInstruction-back {
+  background-color: var(--primary);
+  border: none;
+  color: var(--illustration-brightOrange);
+  display: inherit;
+  font-family: var(--font-family);
+  font-size: var(--l-text-size);
+  text-align: left;
+}
+.assignmentInstruction-back:focus {
+  outline: none;
+}
+.assignmentInstruction-back:hover {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1250px) {
+  .assignmentInstruction-playerContent { 
+    width: 500px;
+  }
+  .assignmentInstruction-playerContent video {
+    width: 500px;
+  }
+ }
+
+ @media only screen and (max-width: 890px) {
+  .assignmentInstruction-playerContent { 
+    margin: 0 auto;
+    width: 400px;
+  }
+
+  .assignmentInstruction-back {
+    font-size: var(--m-text-size);
+  }
+ }
+
+ @media only screen and (max-width: 680px) {
+  .assignmentInstruction-contentTitle {
+    font-size: var(--m-text-size);
+  }
+
+  .assignmentInstruction-playerContent { 
+    margin: 0 auto;
+    width: 300px;
+  }
+  .assignmentInstruction-playerContent video {
+    width: 450px;
+  }
+ }
+
+ @media only screen and (max-width: 650px) {
+  .assignmentInstruction-playerContent video {
+    width: 300px;
+  }
+ }

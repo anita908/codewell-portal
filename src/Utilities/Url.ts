@@ -5,5 +5,8 @@ export const login = 'http://localhost:5000/api/v1/auth/login'
 export const logout = 'http://localhost:5000/api/v1/auth/logout/'
 export const updateUser = 'http://localhost:5000/api/v1/user/update'
 export const userData = 'http://localhost:5000/api/v1/user'
+export const homeworkVideo = 'http://localhost:5000/api/v1/homework/videos?homeworkId='
+export const homeworkVideoByCourseId =
+  'http://localhost:5000/api/v1/homework/videos/course?courseId='
 export const getLearningProgress = 'http://localhost:5000/api/v1/learning/progress'
 export const redirectLogin = 'http://localhost:3000/login'

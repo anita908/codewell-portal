@@ -1,10 +1,16 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card'
+import IAssignmentPresenter from './IAssignmentPresenter'
+import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
+import IHomeworkProgress from '../Interfaces/IHomeworkProgress'
 import ILesson from '../Interfaces/ILesson'
 import './style.css'
 
 type Prop = {
+  courseVideos: IAssignmentVideo[]
   lessons: ILesson[]
+  userName: string
+  presenter: IAssignmentPresenter
 }
 
 type State = {
@@ -17,11 +23,14 @@ class Assignment extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { lessons } = this.props
+    const { courseVideos, lessons, userName } = this.props
     const { showMore } = this.state
-    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // TODO: cur & next
+    const allAssignments = this.getAllAssignments()
+    const displayAssignments: IHomeworkProgress[] = showMore
+      ? allAssignments
+      : [allAssignments[0], allAssignments[1]]
 
-    if (!lessons.length) {
+    if (!lessons.length || !displayAssignments) {
       return this.renderLoadingState()
     }
 
@@ -34,13 +43,35 @@ class Assignment extends Component<Prop, State> {
           </details>
         </div>
         <div className='assignment-content'>
-          {displayLessons.map((lesson: ILesson) => {
+          {displayAssignments.map((homework: IHomeworkProgress) => {
+            const lesson = lessons.find((l: ILesson) =>
+              l.homeworkProgress.find(
+                (homeworkProgress: IHomeworkProgress) =>
+                  homeworkProgress.homeworkName === homework.homeworkName
+              )
+            ) as ILesson
+
+            const videos = courseVideos.filter(
+              (video: IAssignmentVideo) => video.homeworkId === lesson?.chapterId
+            )
+
             return (
               <Fragment key={lesson.chapterId}>
                 <Card
                   activity={'assignment'}
-                  header={`Lesson ${lesson.chapterNo}:`}
-                  title={lesson.chapterName}
+                  content={{
+                    videos
+                  }}
+                  endPoint={'assignmentInstruction'}
+                  header={
+                    lesson?.chapterNo
+                      ? `Lesson ${lesson?.chapterNo} Assignment ${homework.homeworkId}:`
+                      : 'Lesson:'
+                  }
+                  linkTitle={`Do Assignment: ${homework.homeworkName}`}
+                  pathId={lesson?.chapterId?.toString() || ''}
+                  title={lesson?.chapterName || ''}
+                  userName={userName}
                 />
               </Fragment>
             )
@@ -81,6 +112,8 @@ class Assignment extends Component<Prop, State> {
   }
 
   renderLoadingState = (): ReactElement => {
+    const { userName } = this.props
+
     return (
       <div id='assignment'>
         <div className='assignment-header'>
@@ -90,10 +123,29 @@ class Assignment extends Component<Prop, State> {
           </details>
         </div>
         <div className='assignment-content'>
-          <Card activity={''} header={''} title={''} />
+          <Card
+            activity={''}
+            endPoint={''}
+            header={''}
+            linkTitle={''}
+            pathId={''}
+            title={''}
+            userName={userName}
+          />
         </div>
       </div>
     )
+  }
+
+  getAllAssignments = (): IHomeworkProgress[] => {
+    const { lessons } = this.props
+    const allAssignments: IHomeworkProgress[] = []
+
+    lessons.map((lesson: ILesson) => {
+      return allAssignments.push(...lesson.homeworkProgress)
+    })
+
+    return allAssignments
   }
 }
 

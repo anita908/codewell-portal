@@ -3,6 +3,11 @@
   padding: 0 var(--spacing-4);
 }
 
+.assignment-link:visited {
+  color: var(--blue-50);
+  text-decoration: none;
+}
+
 .assignment-header {
   border-bottom: 1px solid var(--illustration-turquoise);
   color: var(--illustration-turquoise);
@@ -36,6 +41,12 @@
 
 @media only screen and (min-width: 631px) {
   .assignment-content > .card {
+    height: auto;
+    width: auto;
+  }
+
+  .assignment-content > .card-loading {
+    height: var(--card-height);
     width: auto;
   }
 }

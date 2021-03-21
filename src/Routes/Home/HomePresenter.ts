@@ -1,21 +1,27 @@
 import { homeData } from '../../Utilities/Url'
-import Cookies from '../../Utilities/Cookies'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 import IHomeData from './Interfaces/IHomeData'
+import IHomePresenter from './IHomePresenter'
 import ILesson from './Interfaces/ILesson'
 import ISession from './Interfaces/ISession'
 
-class HomePresenter {
+class HomePresenter implements IHomePresenter {
   private readonly fetcher: IFetcher
   private _firstName: string
   private _sessions: ISession[]
   private _lessons: ILesson[]
+  private _courseIds: number[]
 
   constructor(fetcher: IFetcher) {
     this.fetcher = fetcher
-    this._firstName = ''
+    this._firstName = 'user'
     this._sessions = []
     this._lessons = []
+    this._courseIds = []
+  }
+
+  public get courseIds(): number[] {
+    return this._courseIds
   }
 
   public get firstName(): string {
@@ -31,15 +37,11 @@ class HomePresenter {
   }
 
   public async getHomeData(): Promise<void> {
-    const token = Cookies.get('auth')
-    const response = await this.fetcher.fetch(
-      {
-        body: {},
-        method: 'GET',
-        url: homeData
-      },
-      `Bearer ${token}`
-    )
+    const response = await this.fetcher.fetch({
+      body: {},
+      method: 'GET',
+      url: homeData
+    })
 
     if (response) {
       this.setHomeData(response)
@@ -47,10 +49,28 @@ class HomePresenter {
   }
 
   private setHomeData(response: IHomeData): void {
-    const { userData, enrolledSessions } = response
-    this._firstName = userData.firstName
-    this._sessions = enrolledSessions
-    this._lessons = enrolledSessions[0].sessionProgressModel
+    if (response.userData) {
+      const { userData } = response
+      this._firstName = userData.firstName
+    }
+
+    if (response.enrolledSessions) {
+      const { enrolledSessions } = response
+
+      this.setEnrolledSessions(enrolledSessions)
+    }
+  }
+
+  private setEnrolledSessions(sessions: ISession[]): void {
+    this._sessions = sessions
+
+    sessions.forEach((session: ISession) => {
+      this._courseIds = [...this._courseIds, session.courseId]
+
+      session.sessionProgressModel.forEach((lesson: ILesson) => {
+        this._lessons = [...this._lessons, lesson]
+      })
+    })
   }
 }
 

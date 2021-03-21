@@ -53,6 +53,7 @@
     "arrow-body-style": "off",
     "arrow-parens": "off",
     "class-methods-use-this": "off",
+    "comma-dangle": ["error", "never"],
     "jsx-quotes": ["error", "prefer-single"],
     "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
     "max-len": "off",
@@ -62,6 +63,7 @@
     "no-plusplus": "off",
     "no-restricted-globals": ["error", "event", "fdescribe"],
     "no-underscore-dangle": "off",
+    "no-empty-function": "off",
     "no-warning-comments": "warn", // no todo's or fixme's
     "require-atomic-updates": "off", // See https://github.com/eslint/eslint/issues/11899
     "semi": ["error", "never"],
@@ -122,7 +124,7 @@
     },
     {
       "files": ["src/server/**/*.ts"],
-      "rules": { "camelcase": "off" } // the database has some underscored vars
+      "rules": { "camelcase": "off" } 
     }
   ]
 }

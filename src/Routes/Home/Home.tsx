@@ -1,27 +1,30 @@
 import React, { Component, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import Assignment from './Assignment'
+import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Cookies from '../../Utilities/Cookies'
 import Fetcher from '../../Drivers/Fetcher'
 import HomePresenter from './HomePresenter'
+import IAssignmentPresenter from './Assignment/IAssignmentPresenter'
+import IAssignmentVideo from './Interfaces/IAssignmentVideo'
 import ILesson from './Interfaces/ILesson'
-import ISession from './Interfaces/ISession'
 import Lesson from './Lesson'
 import Profile from './Profile'
-import SideNav from './SideNav'
+import SideNav from '../../Common/SideNav'
 import './style.css'
 
 type State = {
-  name: string
   lessons: ILesson[]
-  sessions: ISession[]
+  name: string
+  videos: IAssignmentVideo[]
 }
 
+const presenter = new HomePresenter(new Fetcher())
 class Home extends Component<{}, State> {
   state = {
-    name: '',
     lessons: [],
-    sessions: []
+    name: '',
+    videos: []
   }
 
   async componentDidMount(): Promise<void> {
@@ -29,49 +32,66 @@ class Home extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { lessons, name, sessions } = this.state
+    const { lessons, name, videos } = this.state
 
     if (!Cookies.get('auth')) {
       return <Redirect to={'/login'} />
     }
 
-    if (!name || !lessons) {
+    if (!name || !lessons || !videos) {
       return this.renderLoadingState()
     }
 
     return (
       <div id='home'>
-        <SideNav name={name} session={sessions} />
+        <SideNav name={name} />
         <div className='home-content'>
           <Profile name={name} />
-          <Assignment lessons={lessons} />
-          <Lesson lessons={lessons} />
+          <Lesson lessons={lessons} userName={name} />
+          <Assignment
+            courseVideos={videos}
+            lessons={lessons}
+            userName={name}
+            presenter={new AssignmentPresenter(new Fetcher())}
+          />
         </div>
       </div>
     )
   }
 
   getHomeData = async (): Promise<void> => {
-    const presenter = new HomePresenter(new Fetcher())
+    const assignmentPresenter = new AssignmentPresenter(new Fetcher())
     await presenter.getHomeData()
 
-    this.setState({
-      name: presenter.firstName,
-      lessons: presenter.lessons,
-      sessions: presenter.sessions
-    })
+    this.setState(
+      {
+        name: presenter.firstName,
+        lessons: presenter.lessons
+      },
+      () => this.getAssignmentVideos(assignmentPresenter)
+    )
+  }
+
+  getAssignmentVideos = async (assignmentPresenter: IAssignmentPresenter) => {
+    const response = await assignmentPresenter.getHomeworkVideosByCourseId(1)
+    this.setState({ videos: response })
   }
 
   renderLoadingState = (): ReactElement => {
-    const { name, sessions } = this.state
+    const { name } = this.state
 
     return (
       <div id='home'>
-        <SideNav name={name} session={sessions} />
+        <SideNav name={name} />
         <div className='home-content'>
           <Profile name={name} />
-          <Assignment lessons={[]} />
-          <Lesson lessons={[]} />
+          <Lesson lessons={[]} userName={name} />
+          <Assignment
+            courseVideos={[]}
+            lessons={[]}
+            presenter={new AssignmentPresenter(new Fetcher())}
+            userName={name}
+          />
         </div>
       </div>
     )

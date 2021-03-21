@@ -1,18 +1,22 @@
 import React, { Component, Fragment, ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import colorVariables from './borderColors'
 import './style.css'
 
 type Props = {
   activity: string
   content?: any
+  endPoint: string
   header: string
-  link?: string
+  linkTitle: string
+  pathId: string
   title?: string
+  userName: string
 }
 
 class Card extends Component<Props, {}> {
   render(): ReactElement {
-    const { activity, header, title } = this.props
+    const { activity, content, endPoint, header, linkTitle, pathId, title, userName } = this.props
     const cardBorderColor = this.getRandomColor()
 
     if (!activity && !header && !title) {
@@ -26,16 +30,29 @@ class Card extends Component<Props, {}> {
       >
         <h4 className='card-header'>{header}</h4>
         <h4 className='card-title'>{title}</h4>
-        <a href='https://editor.p5js.org/' target='blank'>
-          <p>{activity}</p>
-        </a>
+        {linkTitle && (
+          <Link
+            to={{
+              pathname: `/${endPoint}/${pathId}`,
+              state: {
+                content,
+                lessonId: pathId,
+                lessonName: title,
+                userName
+              }
+            }}
+            className='card-link'
+            style={{ color: `var(${cardBorderColor})` }}
+          >
+            {linkTitle}
+          </Link>
+        )}
       </div>
     )
   }
 
   getRandomColor = (): string => {
     const randomColorIndex = Math.floor(Math.random() * (colorVariables.length - 1 - 0 + 1)) + 0
-
     return colorVariables[randomColorIndex]
   }
 
