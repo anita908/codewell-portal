@@ -40,13 +40,13 @@ class Home extends Component<{}, State> {
         <SideNav name={name} />
         <div className='home-content'>
           <Profile name={name} />
+          <Lesson lessons={lessons} userName={name} />
           <Assignment
             courseVideos={videos}
             lessons={lessons}
             userName={name}
             presenter={new AssignmentPresenter(new Fetcher())}
           />
-          <Lesson lessons={lessons} userName={name} />
         </div>
       </div>
     )
@@ -79,13 +79,13 @@ class Home extends Component<{}, State> {
         <SideNav name={name} />
         <div className='home-content'>
           <Profile name={name} />
+          <Lesson lessons={[]} userName={name} />
           <Assignment
             courseVideos={[]}
             lessons={[]}
             presenter={new AssignmentPresenter(new Fetcher())}
             userName={name}
           />
-          <Lesson lessons={[]} userName={name} />
         </div>
       </div>
     )

@@ -2,6 +2,7 @@ import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card'
 import IAssignmentPresenter from './IAssignmentPresenter'
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
+import IHomeworkProgress from '../Interfaces/IHomeworkProgress'
 import ILesson from '../Interfaces/ILesson'
 import './style.css'
 
@@ -24,9 +25,18 @@ class Assignment extends Component<Prop, State> {
   render(): ReactElement {
     const { courseVideos, lessons, userName } = this.props
     const { showMore } = this.state
-    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]]
+    // TODO: when not show more, display current and future lesson
+    /* 
+      ? So if there are more than 1 homework, how do I know which is the current class? 
+      isCurrent: boolean
+    */
 
-    if (!lessons.length || !displayLessons) {
+    const allAssignments = this.getAllAssignments()
+    const displayAssignments: IHomeworkProgress[] = showMore
+      ? allAssignments
+      : [allAssignments[0], allAssignments[1]]
+
+    if (!lessons.length || !displayAssignments) {
       return this.renderLoadingState()
     }
 
@@ -39,22 +49,34 @@ class Assignment extends Component<Prop, State> {
           </details>
         </div>
         <div className='assignment-content'>
-          {displayLessons.map((lesson: ILesson) => {
-            const { chapterName, chapterNo, chapterId } = lesson
+          {displayAssignments.map((homework: IHomeworkProgress) => {
+            const lesson = lessons.find((l: ILesson) =>
+              l.homeworkProgress.find(
+                (homeworkProgress: IHomeworkProgress) =>
+                  homeworkProgress.homeworkName === homework.homeworkName
+              )
+            ) as ILesson
+
             const videos = courseVideos.filter(
-              (video: IAssignmentVideo) => video.homeworkId === chapterId
+              (video: IAssignmentVideo) => video.homeworkId === lesson?.chapterId
             )
 
             return (
               <Fragment key={lesson.chapterId}>
                 <Card
                   activity={'assignment'}
-                  content={videos}
+                  content={{
+                    videos
+                  }}
                   endPoint={'assignmentInstruction'}
-                  header={`Lesson ${chapterNo}:`}
-                  linkTitle={'Go To Assignment Instruction'}
-                  pathId={chapterId?.toString() || ''}
-                  title={chapterName}
+                  header={
+                    lesson?.chapterNo
+                      ? `Lesson ${lesson?.chapterNo} Assignment ${homework.homeworkId}:`
+                      : 'Lesson:'
+                  }
+                  linkTitle={`Do Assignment: ${homework.homeworkName}`}
+                  pathId={lesson?.chapterId?.toString() || ''}
+                  title={lesson?.chapterName || ''}
                   userName={userName}
                 />
               </Fragment>
@@ -119,6 +141,17 @@ class Assignment extends Component<Prop, State> {
         </div>
       </div>
     )
+  }
+
+  getAllAssignments = (): IHomeworkProgress[] => {
+    const { lessons } = this.props
+    const allAssignments: IHomeworkProgress[] = []
+
+    lessons.map((lesson: ILesson) => {
+      return allAssignments.push(...lesson.homeworkProgress)
+    })
+
+    return allAssignments
   }
 }
 
