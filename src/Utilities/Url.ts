@@ -8,4 +8,3 @@ export const userData = 'http://localhost:5000/api/v1/user'
 export const homeworkVideo = 'http://localhost:5000/api/v1/homework/videos?homeworkId='
 export const homeworkVideoByCourseId =
   'http://localhost:5000/api/v1/homework/videos/course?courseId='
-export const redirectLogin = 'http://localhost:3000/login'
