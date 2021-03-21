@@ -20,7 +20,7 @@ class Lesson extends Component<Prop, State> {
   render(): ReactElement {
     const { lessons, userName } = this.props
     const { showMore } = this.state
-    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]] // cur & next
+    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]]
 
     if (!lessons.length) {
       return this.renderLoadingState()

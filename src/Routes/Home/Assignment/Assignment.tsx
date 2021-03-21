@@ -25,12 +25,6 @@ class Assignment extends Component<Prop, State> {
   render(): ReactElement {
     const { courseVideos, lessons, userName } = this.props
     const { showMore } = this.state
-    // TODO: when not show more, display current and future lesson
-    /* 
-      ? So if there are more than 1 homework, how do I know which is the current class? 
-      isCurrent: boolean
-    */
-
     const allAssignments = this.getAllAssignments()
     const displayAssignments: IHomeworkProgress[] = showMore
       ? allAssignments

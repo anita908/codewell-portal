@@ -59,8 +59,8 @@ class Home extends Component<{}, State> {
   }
 
   getHomeData = async (): Promise<void> => {
-    const presenter = new HomePresenter(new Fetcher())
     const assignmentPresenter = new AssignmentPresenter(new Fetcher())
+    const presenter = new HomePresenter(new Fetcher())
     await presenter.getHomeData()
 
     this.setState(
@@ -73,7 +73,7 @@ class Home extends Component<{}, State> {
   }
 
   getAssignmentVideos = async (assignmentPresenter: IAssignmentPresenter) => {
-    const response = await assignmentPresenter.getHomeworkVideosByCourseId(1) // TODO
+    const response = await assignmentPresenter.getHomeworkVideosByCourseId(1)
     this.setState({ videos: response })
   }
 
