@@ -1,5 +1,9 @@
 import React, { Component, ReactElement } from 'react'
+import { redirectLogin } from '../../../Utilities/Url'
+import Cookies from '../../../Utilities/Cookies'
+import Fetcher from '../../../Drivers/Fetcher'
 import ISession from '../Interfaces/ISession'
+import LogoutPresenter from '../../Logout/LogoutPresenter'
 import './style.css'
 
 type Props = {
@@ -31,11 +35,23 @@ class SideNav extends Component<Props, {}> {
             <a href='#about'>Settings</a>
           </li>
           <li>
-            <a href='#about'>Log out</a>
+            <a type='button' className='sideNav-mouseChange' onClick={this.logout}>
+              Log out
+            </a>
           </li>
         </ul>
       </div>
     )
+  }
+
+  logout = (): void => {
+    const username = this.props.name
+    const logoutPresenter = new LogoutPresenter(new Fetcher())
+    logoutPresenter.logout(username)
+    Cookies.remove('auth')
+    if (typeof window !== 'undefined') {
+      window.location.href = redirectLogin
+    }
   }
 }
 

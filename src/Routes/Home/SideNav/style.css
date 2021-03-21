@@ -32,6 +32,10 @@
   margin-bottom: var(--spacing-4);
 }
 
+.sideNav-mouseChange {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 890px) {
   #sideNav ul {
     font-size: var(--m-text-size);
