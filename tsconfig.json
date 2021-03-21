@@ -17,7 +17,6 @@
       "esnext"
     ],
     "allowJs": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
