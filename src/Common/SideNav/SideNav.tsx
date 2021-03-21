@@ -1,5 +1,9 @@
+import Fetcher from 'Drivers/Fetcher'
 import React, { Component, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
+import Cookies from 'Utilities/Cookies'
+import { redirectLogin } from '../../Utilities/Url'
+import LogoutPresenter from '../../Routes/Logout/LogoutPresenter'
 import './style.css'
 
 type Props = {
@@ -65,7 +69,9 @@ class SideNav extends Component<Props, {}> {
             </Link>
           </li>
           <li onClick={this.setActiveLink} className='logout'>
-            <a href='#'>Log out</a>
+            <a type='button' className='sideNav-mouseChange' onClick={this.logout}>
+              Log out
+            </a>
           </li>
         </ul>
       </nav>
@@ -83,6 +89,18 @@ class SideNav extends Component<Props, {}> {
         }
       }
     })
+  }
+
+  logout = (): void => {
+    const username = this.props.name
+    const logoutPresenter = new LogoutPresenter(new Fetcher())
+
+    logoutPresenter.logout(username)
+    Cookies.remove('auth')
+
+    if (typeof window !== 'undefined') {
+      window.location.href = redirectLogin
+    }
   }
 }
 
