@@ -42,11 +42,6 @@ class Home extends Component<{}, State> {
       return this.renderLoadingState()
     }
 
-    if (presenter.sessions.length > 1) {
-      return <div>choose one section</div>
-      // TODO: need to choose one session
-    }
-
     return (
       <div id='home'>
         <SideNav name={name} />
