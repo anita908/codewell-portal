@@ -1,6 +1,8 @@
 import React, { Component, ReactElement } from 'react'
-import Assignment from './Assignment/Assignment'
+import { Redirect } from 'react-router-dom'
+import Assignment from './Assignment'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
+import Cookies from '../../Utilities/Cookies'
 import Fetcher from '../../Drivers/Fetcher'
 import HomePresenter from './HomePresenter'
 import IAssignmentPresenter from './Assignment/IAssignmentPresenter'
@@ -30,6 +32,10 @@ class Home extends Component<{}, State> {
 
   render(): ReactElement {
     const { lessons, name, videos } = this.state
+
+    if (!Cookies.get('auth')) {
+      return <Redirect to={'/login'} />
+    }
 
     if (!name || !lessons || !videos) {
       return this.renderLoadingState()
