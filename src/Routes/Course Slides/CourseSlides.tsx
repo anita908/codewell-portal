@@ -1,8 +1,12 @@
 import React, { Component, ReactElement } from 'react'
 import Fetcher from '../../Drivers/Fetcher'
 import CourseSlidesPresenter from '../Course Slides/CourseSlidesPresenter'
+import ISession from '../Home/Interfaces/ISession'
 
-class CourseSlides extends Component {
+type Props = {
+  sessions: ISession[]
+}
+class CourseSlides extends Component<Props, {}> {
   render(): ReactElement {
     return (
       <div>

@@ -1,8 +1,10 @@
 import React, { Component, ReactElement } from 'react'
+import ISession from '../Interfaces/ISession'
 import './style.css'
 
 type Props = {
   name: string
+  session: ISession[]
 }
 
 class SideNav extends Component<Props, {}> {

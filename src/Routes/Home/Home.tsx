@@ -3,6 +3,7 @@ import Assignment from './Assignment'
 import Fetcher from '../../Drivers/Fetcher'
 import HomePresenter from './HomePresenter'
 import ILesson from './Interfaces/ILesson'
+import ISession from './Interfaces/ISession'
 import Lesson from './Lesson'
 import Profile from './Profile'
 import SideNav from './SideNav'
@@ -11,12 +12,14 @@ import './style.css'
 type State = {
   name: string
   lessons: ILesson[]
+  sessions: ISession[]
 }
 
 class Home extends Component<{}, State> {
   state = {
     name: '',
-    lessons: []
+    lessons: [],
+    sessions: []
   }
 
   async componentDidMount(): Promise<void> {
@@ -24,7 +27,7 @@ class Home extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { lessons, name } = this.state
+    const { lessons, name, sessions } = this.state
 
     if (!name || !lessons) {
       return this.renderLoadingState()
@@ -32,7 +35,7 @@ class Home extends Component<{}, State> {
 
     return (
       <div id='home'>
-        <SideNav name={name} />
+        <SideNav name={name} session={sessions} />
         <div className='home-content'>
           <Profile name={name} />
           <Assignment lessons={lessons} />
@@ -48,16 +51,17 @@ class Home extends Component<{}, State> {
 
     this.setState({
       name: presenter.firstName,
-      lessons: presenter.lessons
+      lessons: presenter.lessons,
+      sessions: presenter.sessions
     })
   }
 
   renderLoadingState = (): ReactElement => {
-    const { name } = this.state
+    const { name, sessions } = this.state
 
     return (
       <div id='home'>
-        <SideNav name={name} />
+        <SideNav name={name} session={sessions} />
         <div className='home-content'>
           <Profile name={name} />
           <Assignment lessons={[]} />
