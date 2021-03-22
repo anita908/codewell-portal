@@ -42,7 +42,6 @@ class CourseSlidesPresenter implements ICourseSlidesPresenter {
         )
       )
     )
-    console.log(slides)
     this.setSlides(<ICourseSlide[][]>slides)
   }
 

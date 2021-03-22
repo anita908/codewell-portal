@@ -21,8 +21,6 @@ class CourseSlides extends Component {
       <div id='courseSlides'>
         <SideNav name={''} />
         <div className='courseSlides-content'>Course Slides</div>
-<<<<<<< HEAD
-=======
         <div>
           {slides.map((e: ICourseSlide[]) => (
             <div>
@@ -32,7 +30,6 @@ class CourseSlides extends Component {
             </div>
           ))}
         </div>
->>>>>>> receieve class slide from back end
       </div>
     )
   }
