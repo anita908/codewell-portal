@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react'
-import SideNav from 'Common/SideNav'
+import SideNav from '../../Common/SideNav'
 
 class Grades extends Component {
   render(): ReactElement {
