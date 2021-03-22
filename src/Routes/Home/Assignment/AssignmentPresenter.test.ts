@@ -1,4 +1,4 @@
-import IFetcher from 'Drivers/Interfaces/IFetcher'
+import IFetcher from '../../../Drivers/Interfaces/IFetcher'
 import AssignmentPresenter from './AssignmentPresenter'
 import IAssignmentPresenter from './IAssignmentPresenter'
 
