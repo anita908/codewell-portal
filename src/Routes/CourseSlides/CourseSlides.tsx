@@ -10,6 +10,12 @@ class CourseSlides extends Component {
       </div>
     )
   }
+
+  getCourseSlides = async (): Promise<void> => {
+    const courseSlidesPresenter = new CourseSlidesPresenter(new Fetcher())
+    const slides = await courseSlidesPresenter.getCourseSlides()
+    this.setState({ slides })
+  }
 }
 
 export default CourseSlides
