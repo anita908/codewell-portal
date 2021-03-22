@@ -1,4 +1,4 @@
-import { getLearningProgress } from '../../Utilities/Url'
+import { courseSlide } from '../../Utilities/Url'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 import ICourseSlidesPresenter from './ICourseSlidesPresenter'
 
@@ -9,13 +9,17 @@ class CourseSlidesPresenter implements ICourseSlidesPresenter {
     this.fetcher = fetcher
   }
 
-  public async getCourseSlides(): Promise<object> {
-    const response = await this.fetcher.fetch({
+  public async getCourseSlides(courseId: number): Promise<Array<object>> {
+    const slide = await this.fetcher.fetch({
       body: {},
       method: 'GET',
-      url: getLearningProgress
+      url: `${courseSlide}${courseId}`
     })
-    return response
+    if (slide && slide.length) {
+      return slide
+    }
+
+    return []
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Assignments from 'Routes/Assignments/Assignments'
+import Assignments from 'Routes/CourseSlides/Assignments'
 import Grades from 'Routes/Grades/Grades'
 import CourseSlides from 'Routes/CourseSlides/CourseSlides'
 import Settings from 'Routes/Settings/Settings'
