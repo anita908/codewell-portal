@@ -7,11 +7,11 @@ class Fetcher implements IFetcher {
     const token = Cookies.get('auth')
     const headers = url.includes('login')
       ? {
-          Authorization: `Bearer ${token}`,
+          Authorization: '',
           'Content-Type': 'application/json'
         }
       : {
-          Authorization: '',
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
 
