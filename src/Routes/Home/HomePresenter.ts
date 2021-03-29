@@ -45,7 +45,7 @@ class HomePresenter implements IHomePresenter {
 
     if (response) {
       if (response.userData) {
-        this.setUsername(response.userData)
+        this.setUserFirstName(response.userData)
       }
 
       if (response.enrolledSessions) {
@@ -62,8 +62,8 @@ class HomePresenter implements IHomePresenter {
     this.update()
   }
 
-  private setUsername(userData: IUserData): void {
-    localStorage.setItem('username', userData.firstName)
+  private setUserFirstName(userData: IUserData): void {
+    localStorage.setItem('firstname', userData.firstName)
   }
 
   private setSessionIds(sessions: ISession[]): void {

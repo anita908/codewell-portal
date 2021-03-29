@@ -41,7 +41,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
   render(): ReactElement {
     const { lessons, name } = this.state
-    const username = LocalStorageHelper.getUsername()
+    const username = LocalStorageHelper.getUserFirstName()
 
     if (!Cookies.get('auth')) {
       return <Redirect to={'/login'} />
@@ -112,7 +112,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
   setCurrentSession = (sessionId: number): void => {
     presenter.setCurrentSession(sessionId)
-    const name = LocalStorageHelper.getUsername()
+    const name = LocalStorageHelper.getUserFirstName()
 
     this.setState(
       {

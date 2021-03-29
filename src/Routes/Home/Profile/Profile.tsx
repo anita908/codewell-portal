@@ -5,7 +5,7 @@ import './style.css'
 
 class Profile extends Component {
   render(): ReactElement {
-    const name = LocalStorageHelper.getUsername()
+    const name = LocalStorageHelper.getUserFirstName()
 
     if (!name) {
       return this.renderLoadingState()

@@ -1,6 +1,6 @@
 class LocalStorageHelper {
-  public static getUsername(): string {
-    const localStorageUsername = localStorage.getItem('username')
+  public static getUserFirstName(): string {
+    const localStorageUsername = localStorage.getItem('firstname')
 
     if (localStorageUsername) {
       return localStorageUsername
