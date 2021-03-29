@@ -101,7 +101,7 @@ class SideNav extends Component<Props, {}> {
     const username = LocalStorageHelper.getUserFirstName()
     const logoutPresenter = new LogoutPresenter(new Fetcher())
 
-    logoutPresenter.logout(username)
+    logoutPresenter.logout()
     Cookies.remove('auth')
 
     if (typeof window !== 'undefined') {
