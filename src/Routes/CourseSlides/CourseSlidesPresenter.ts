@@ -1,25 +1,25 @@
 import Cookies from 'Utilities/Cookies'
 import { courseSlides, enrollments } from '../../Utilities/Url'
-import ICourseSlide from './Interfaces/ICourseSlide'
+import ICourseWithChapters from './Interfaces/ICourseWithChapters'
 import ICourseSlidesPresenter from './ICourseSlidesPresenter'
 import IEnrollment from './Interfaces/IEnrollment'
 import IFetcher from '../../Drivers/Interfaces/IFetcher'
 
 class CourseSlidesPresenter implements ICourseSlidesPresenter {
-  private _slides: ICourseSlide[][]
+  private _courseWithChapters: ICourseWithChapters[]
 
   private readonly fetcher: IFetcher
 
   constructor(fetcher: IFetcher) {
-    this._slides = []
+    this._courseWithChapters = []
     this.fetcher = fetcher
   }
 
-  public get slides(): ICourseSlide[][] {
-    return this._slides
+  public get courseWithChapters(): ICourseWithChapters[] {
+    return this._courseWithChapters
   }
 
-  public async getCourseSlides(): Promise<void> {
+  public async fetchAndAssignCourseWithChapters(): Promise<void> {
     const token = Cookies.get('auth')
     const getEnrollments = await this.fetcher.fetch(
       {
@@ -30,23 +30,28 @@ class CourseSlidesPresenter implements ICourseSlidesPresenter {
       `Bearer ${token}`
     )
 
-    const slides = await Promise.all(
-      getEnrollments.map((e: IEnrollment) =>
-        this.fetcher.fetch(
-          {
-            body: {},
-            method: 'GET',
-            url: `${courseSlides}${e.session.course.id}`
-          },
-          Cookies.get('auth')
-        )
-      )
+    const output: ICourseWithChapters[] = await Promise.all(
+      getEnrollments.map(async (e: IEnrollment) => {
+        return {
+          id: e.session.course.id,
+          courseName: e.session.course.name,
+          chapters: await this.fetcher.fetch(
+            {
+              body: {},
+              method: 'GET',
+              url: `${courseSlides}${e.session.course.id}`
+            },
+            `Bearer ${token}`
+          )
+        }
+      })
     )
-    this.setSlides(<ICourseSlide[][]>slides)
+
+    this.setCourseWithChapters(<ICourseWithChapters[]>output)
   }
 
-  private setSlides(slides: ICourseSlide[][]): void {
-    this._slides = slides
+  private setCourseWithChapters(courseWithChapters: ICourseWithChapters[]): void {
+    this._courseWithChapters = courseWithChapters
   }
 }
 

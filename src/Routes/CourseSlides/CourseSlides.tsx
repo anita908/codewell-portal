@@ -1,31 +1,34 @@
 import React, { Component, ReactElement } from 'react'
 import CourseSlidesPresenter from '../CourseSlides/CourseSlidesPresenter'
 import Fetcher from '../../Drivers/Fetcher'
-import ICourseSlide from './Interfaces/ICourseSlide'
+import IChapter from './Interfaces/IChapter'
+import ICourseWithChapters from './Interfaces/ICourseWithChapters'
 
 type State = {
-  slides: ICourseSlide[][]
+  courses: ICourseWithChapters[]
 }
 class CourseSlides extends Component<{}, State> {
   state = {
-    slides: []
+    courses: []
   }
 
   componentDidMount() {
     this.getCourseSlides()
   }
 
-class CourseSlides extends Component {
   render(): ReactElement {
+    const { courses } = this.state
     return (
       <div id='courseSlides'>
-        <SideNav name={''} />
         <div className='courseSlides-content'>Course Slides</div>
         <div>
-          {slides.map((e: ICourseSlide[]) => (
-            <div>
-              {e.map((c: ICourseSlide) => (
-                <p>{c.slidesLink}</p>
+          {courses.map((course: ICourseWithChapters) => (
+            <div key={course.id}>
+              <h2>{course.courseName}</h2>
+              {course.chapters.map((chapter: IChapter) => (
+                <div key={chapter.id}>
+                  <a href={chapter.slidesLink}>{chapter.name}</a>
+                </div>
               ))}
             </div>
           ))}
@@ -36,8 +39,8 @@ class CourseSlides extends Component {
 
   getCourseSlides = async (): Promise<void> => {
     const courseSlidesPresenter = new CourseSlidesPresenter(new Fetcher())
-    await courseSlidesPresenter.getCourseSlides()
-    this.setState({ slides: courseSlidesPresenter.slides })
+    await courseSlidesPresenter.fetchAndAssignCourseWithChapters()
+    this.setState({ courses: courseSlidesPresenter.courseWithChapters })
   }
 }
 

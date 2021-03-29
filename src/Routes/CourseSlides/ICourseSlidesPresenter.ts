@@ -1,8 +1,8 @@
-import ICourseSlide from './Interfaces/ICourseSlide'
+import ICourseWithChapters from './Interfaces/ICourseWithChapters'
 
 interface ICourseSlidesPresenter {
-  getCourseSlides(): Promise<void>
-  slides: ICourseSlide[][]
+  fetchAndAssignCourseWithChapters(): Promise<void>
+  courseWithChapters: ICourseWithChapters[]
 }
 
 export default ICourseSlidesPresenter
