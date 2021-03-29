@@ -3,6 +3,7 @@ interface IHomeworkProgress {
   homeworkLink: string
   homeworkName: string
   homeworkScore: number
+  submitted: boolean
 }
 
 export default IHomeworkProgress

@@ -5,7 +5,7 @@ class Assignments extends Component {
   render(): ReactElement {
     return (
       <div id='assignments'>
-        <SideNav name={''} />
+        <SideNav />
         <div className='assignments-content'>Assignments</div>
       </div>
     )

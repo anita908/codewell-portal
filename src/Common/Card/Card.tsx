@@ -4,19 +4,19 @@ import colorVariables from './borderColors'
 import './style.css'
 
 type Props = {
-  activity: string
+  activity?: string
   content?: any
-  endPoint: string
+  endPoint?: string
   header: string
   linkTitle: string
-  pathId: string
+  onClick?: any
+  pathId?: string
   title?: string
-  userName: string
 }
 
 class Card extends Component<Props, {}> {
   render(): ReactElement {
-    const { activity, content, endPoint, header, linkTitle, pathId, title, userName } = this.props
+    const { activity, content, endPoint, header, linkTitle, onClick, pathId, title } = this.props
     const cardBorderColor = this.getRandomColor()
 
     if (!activity && !header && !title) {
@@ -30,15 +30,14 @@ class Card extends Component<Props, {}> {
       >
         <h4 className='card-header'>{header}</h4>
         <h4 className='card-title'>{title}</h4>
-        {linkTitle && (
+        {endPoint ? (
           <Link
             to={{
               pathname: `/${endPoint}/${pathId}`,
               state: {
                 content,
                 lessonId: pathId,
-                lessonName: title,
-                userName
+                lessonName: title
               }
             }}
             className='card-link'
@@ -46,6 +45,10 @@ class Card extends Component<Props, {}> {
           >
             {linkTitle}
           </Link>
+        ) : (
+          <a href='#' onClick={onClick}>
+            {linkTitle}
+          </a>
         )}
       </div>
     )

@@ -1,14 +1,12 @@
+import IActivities from './IActivities'
 import IHomeworkProgress from './IHomeworkProgress'
 
-interface ILesson {
-  activities: string[]
+interface ISessionProgress {
+  activities: IActivities[]
   chapterId: number
   chapterName: string
   chapterNo: number
-  homeworkId: number
-  homeworkLink: string
-  homeworkName: string
   homeworkProgress: IHomeworkProgress[]
 }
 
-export default ILesson
+export default ISessionProgress

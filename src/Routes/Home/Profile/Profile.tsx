@@ -1,14 +1,11 @@
 import React, { Component, ReactElement } from 'react'
+import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 import profileIllustration from '../../../images/profile.svg'
 import './style.css'
 
-type Props = {
-  name: string
-}
-
-class Profile extends Component<Props, {}> {
+class Profile extends Component {
   render(): ReactElement {
-    const { name } = this.props
+    const name = LocalStorageHelper.getUsername()
 
     if (!name) {
       return this.renderLoadingState()

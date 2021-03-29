@@ -1,27 +1,37 @@
-import { homeworkVideoByCourseId } from '../../../Utilities/Url'
+import assignmentDataStore from 'Model/AssignmentDataStore'
 import IAssignmentPresenter from './IAssignmentPresenter'
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
-import IFetcher from '../../../Drivers/Interfaces/IFetcher'
+import IFetcher from 'Drivers/Interfaces/IFetcher'
+import ISubscriber from 'UseCases/ISubscriber'
 
 class AssignmentPresenter implements IAssignmentPresenter {
-  private readonly fetcher: IFetcher
+  private subscribers: ISubscriber[]
 
-  constructor(fetcher: IFetcher) {
-    this.fetcher = fetcher
+  constructor(private readonly assignmentDataStore: any) {
+    this.subscribers = []
   }
 
-  public async getHomeworkVideosByCourseId(courseId: number): Promise<IAssignmentVideo[]> {
-    const videos = await this.fetcher.fetch({
-      body: {},
-      method: 'GET',
-      url: `${homeworkVideoByCourseId}${courseId}`
-    })
+  getHomeworkVideosByLessonId(lessonId: number): IAssignmentVideo[] {
+    return this.assignmentDataStore.getVideosByLessonId(lessonId)
+  }
 
-    if (videos && videos.length) {
-      return videos
-    }
+  public getVideos(): IAssignmentVideo[] {
+    return assignmentDataStore.videos
+  }
 
-    return []
+  public subscribe(subscriber: ISubscriber): void {
+    this.subscribers.push(subscriber)
+  }
+
+  public update(): void {
+    this.subscribers.forEach((subscriber) => subscriber.update())
+  }
+
+  public async getHomeworkVideosByCourseId(
+    courseId: number,
+    fetcher: IFetcher
+  ): Promise<IAssignmentVideo[]> {
+    return assignmentDataStore.getAssignmentInstructionVideosByCourseId(courseId, fetcher)
   }
 }
 

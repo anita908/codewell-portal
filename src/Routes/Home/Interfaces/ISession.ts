@@ -1,16 +1,17 @@
-import ILesson from './ILesson'
+import ISessionProgress from './ISessionProgress'
 
 interface ISession {
   beginDate: string
   courseId: number
   courseName: string
+  currentChapter: number
   endDate: string
   enrollDate: string
   enrollmentId: number
-  graduated: boolean
+  graduated: string
   overallGrade: number
   sessionId: number
-  sessionProgressModel: ILesson[]
+  sessionProgressModel: ISessionProgress[]
 }
 
 export default ISession

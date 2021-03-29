@@ -1,10 +1,10 @@
 interface IUserData {
   age: number
   city: string
-  email: string
+  email?: string
   firstName: string
   id: number
-  isAdmin: boolean
+  isAdmin: string
   lastName: string
   userId: string
 }
