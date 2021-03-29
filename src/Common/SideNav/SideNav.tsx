@@ -98,7 +98,7 @@ class SideNav extends Component<Props, {}> {
   }
 
   logout = (): void => {
-    const username = LocalStorageHelper.getUsername()
+    const username = LocalStorageHelper.getUserFirstName()
     const logoutPresenter = new LogoutPresenter(new Fetcher())
 
     logoutPresenter.logout(username)
