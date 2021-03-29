@@ -3,7 +3,6 @@ import React, { Component, Fragment, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'Utilities/Cookies'
 import LocalStorageHelper from 'Utilities/LocalStorageHelper'
-import { redirectLogin } from '../../Utilities/Url'
 import LogoutPresenter from '../../Routes/Logout/LogoutPresenter'
 import './style.css'
 
@@ -106,7 +105,7 @@ class SideNav extends Component<Props, {}> {
     Cookies.remove('auth')
 
     if (typeof window !== 'undefined') {
-      window.location.href = redirectLogin
+      window.location.pathname = '/'
     }
   }
 }
