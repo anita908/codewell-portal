@@ -3,13 +3,19 @@ import CourseSlidesPresenter from '../CourseSlides/CourseSlidesPresenter'
 import Fetcher from '../../Drivers/Fetcher'
 import IChapter from './Interfaces/IChapter'
 import ICourseWithChapters from './Interfaces/ICourseWithChapters'
+import SideNav from '../../Common/SideNav'
+import './style.css'
 
 type State = {
   courses: ICourseWithChapters[]
+  isLoading: boolean
+  name: string
 }
 class CourseSlides extends Component<{}, State> {
   state = {
-    courses: []
+    courses: [],
+    isLoading: false,
+    name: ''
   }
 
   componentDidMount() {
@@ -17,30 +23,49 @@ class CourseSlides extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { courses } = this.state
+    const { courses, isLoading, name } = this.state
     return (
       <div id='courseSlides'>
-        <div className='courseSlides-content'>Course Slides</div>
-        <div>
-          {courses.map((course: ICourseWithChapters) => (
-            <div key={course.id}>
-              <h2>{course.courseName}</h2>
-              {course.chapters.map((chapter: IChapter) => (
-                <div key={chapter.id}>
-                  <a href={chapter.slidesLink}>{chapter.name}</a>
+        <SideNav name={name} />
+        <div className='courseSlides-content'>
+          <div className='courseSlides-header'>Course Slides</div>
+          {isLoading ? (
+            <h3>Slides are loading</h3>
+          ) : (
+            <div>
+              {courses.map((course: ICourseWithChapters) => (
+                <div key={course.id} className='courseSlides-course'>
+                  <div className='courseSlides-course-title'>
+                    <h2>{course.courseName}</h2>
+                  </div>
+                  {course.chapters.map((chapter: IChapter) => (
+                    <div key={chapter.id} className='courseSlides-links'>
+                      <a
+                        href={chapter.slidesLink}
+                        className='courseSlides-link'
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        Lesson.
+                        {chapter.id}: {chapter.name}
+                      </a>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-          ))}
+          )}
         </div>
       </div>
     )
   }
 
   getCourseSlides = async (): Promise<void> => {
+    this.setState({ isLoading: true })
     const courseSlidesPresenter = new CourseSlidesPresenter(new Fetcher())
     await courseSlidesPresenter.fetchAndAssignCourseWithChapters()
     this.setState({ courses: courseSlidesPresenter.courseWithChapters })
+    this.setState({ isLoading: false })
   }
 }
 
