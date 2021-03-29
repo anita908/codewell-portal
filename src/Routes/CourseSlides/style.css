@@ -55,15 +55,6 @@
   color: var(--blue-50);
 }
 
-.assignment-header {
-  border-bottom: 1px solid var(--illustration-turquoise);
-  color: var(--illustration-turquoise);
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--spacing-4);
-  text-align: left;
-}
-
 @media only screen and (max-width: 1050px) {
   .courseSlides-content {
     width: 740px;
@@ -80,6 +71,5 @@
   .courseSlides-content {
     width: 670px;
     margin-left: 0;
-
   }
 }
