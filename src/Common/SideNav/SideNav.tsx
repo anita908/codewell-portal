@@ -71,13 +71,13 @@ class SideNav extends Component<Props, {}> {
                   Settings
                 </Link>
               </li>
-              <li onClick={this.setActiveLink} className='logout'>
-                <a type='button' className='sideNav-mouseChange' onClick={this.logout}>
-                  Log out
-                </a>
-              </li>
             </Fragment>
           )}
+          <li onClick={this.setActiveLink} className='logout'>
+            <a type='button' className='sideNav-mouseChange' onClick={this.logout}>
+              Log out
+            </a>
+          </li>
         </ul>
       </nav>
     )

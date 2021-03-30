@@ -15,10 +15,12 @@ interface IHomeDataStore {
   }
   setCourseChapters(courseChapters: IChapter[]): void
   setEnrolledSessions(enrolledSessions: ISession[]): void
+  setHomeData(response: IHomeData): void
   setLessons(session: ISessionProgress[]): void
   setSelectedSession(session: ISession): void
+  setUserFirstName(firstName: string): void
   setUserData(userData: IUserData): void
-  syncHomeData(fetcher: IFetcher): Promise<IHomeData>
+  syncHomeData(fetcher: IFetcher): Promise<void>
 }
 
 export default IHomeDataStore

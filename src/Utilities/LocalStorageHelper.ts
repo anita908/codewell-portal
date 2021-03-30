@@ -10,9 +10,10 @@ class LocalStorageHelper {
   }
 
   public static getCurrentSessionId(): number {
-    const currentSessionId = localStorage.getItem('selectedSessionId')
-    if (currentSessionId) {
-      return parseInt('selectedSessionId', 10)
+    const selectedSessionId = localStorage.getItem('selectedSessionId')
+
+    if (selectedSessionId) {
+      return parseInt(selectedSessionId, 10)
     }
 
     return -1

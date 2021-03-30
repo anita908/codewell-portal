@@ -1,5 +1,6 @@
 import { observable } from 'mobx'
 import { homeData } from '../Utilities/Url'
+import CacheHelper from 'Utilities/CacheHelper'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
 import IHomeData from 'Routes/Home/Interfaces/IHomeData'
@@ -23,36 +24,53 @@ const homeDataStore: IHomeDataStore = observable({
       enrollmentId: -1,
       graduated: '',
       overallGrade: -1,
-      sessionId: -1,
+      sessionId: LocalStorageHelper.getCurrentSessionId() || -1,
       sessionProgressModel: []
     } as ISession,
     courseChapters: [] as IChapter[],
     lessons: [] as ISessionProgress[]
   },
-  syncHomeData: async (fetcher: IFetcher): Promise<IHomeData> => {
-    const userLearningModel: IHomeData = await fetcher.fetch({
+  syncHomeData: async (fetcher: IFetcher): Promise<void> => {
+    const routeName = 'homeData'
+    const response: IHomeData = await fetcher.fetch({
       body: {},
       method: 'GET',
       url: homeData
     })
 
-    homeDataStore.setUserData(userLearningModel.userData)
-    homeDataStore.setEnrolledSessions(userLearningModel.enrolledSessions)
-    const selectedSessionId = LocalStorageHelper.getCurrentSessionId()
-    if (userLearningModel.enrolledSessions.length === 1) {
-      homeDataStore.setSelectedSession(userLearningModel.enrolledSessions[0])
-      localStorage.setItem(
-        'selectedSessionId',
-        userLearningModel.enrolledSessions[0].sessionId.toString()
-      )
-    } else if (selectedSessionId > 0) {
-      homeDataStore.setSelectedSession(
-        userLearningModel.enrolledSessions.find(
-          (session: ISession) => session.sessionId === selectedSessionId
-        ) || userLearningModel.enrolledSessions[0]
-      )
+    if (CacheHelper.hasValidCache(routeName)) {
+      homeDataStore.setHomeData(CacheHelper.getCache(routeName).data)
     }
-    if (homeDataStore.home.selectedSession.sessionId !== -1) {
+
+    if (response) {
+      CacheHelper.cacheRouteData(routeName, response)
+      homeDataStore.setHomeData(response)
+    }
+  },
+  setHomeData: (response: IHomeData): void => {
+    const selectedSessionId = LocalStorageHelper.getCurrentSessionId()
+
+    if (response.userData) {
+      homeDataStore.setUserData(response.userData)
+    }
+
+    if (response.enrolledSessions) {
+      homeDataStore.setEnrolledSessions(response.enrolledSessions)
+    }
+
+    if (response.enrolledSessions.length === 1) {
+      homeDataStore.setSelectedSession(response.enrolledSessions[0])
+      localStorage.setItem('selectedSessionId', response.enrolledSessions[0].sessionId.toString())
+    } else if (selectedSessionId > 0) {
+      const enrolledSession =
+        response.enrolledSessions.find(
+          (session: ISession) => session.sessionId === selectedSessionId
+        ) || response.enrolledSessions[0]
+
+      homeDataStore.setSelectedSession(enrolledSession)
+    }
+
+    if (homeDataStore.home.selectedSession.sessionId >= 0) {
       homeDataStore.setCourseChapters(
         homeDataStore.home.selectedSession.sessionProgressModel.map(
           (progressModel: ISessionProgress) => {
@@ -66,10 +84,13 @@ const homeDataStore: IHomeDataStore = observable({
         )
       )
     }
-    return userLearningModel
   },
   setUserData: (userData: IUserData): void => {
     homeDataStore.home.userData = userData
+    homeDataStore.setUserFirstName(userData.firstName)
+  },
+  setUserFirstName(firstName: string): void {
+    localStorage.setItem('firstname', firstName)
   },
   setEnrolledSessions: (enrolledSessions: ISession[]): void => {
     homeDataStore.home.enrolledSessions = enrolledSessions
@@ -77,6 +98,8 @@ const homeDataStore: IHomeDataStore = observable({
   setSelectedSession: (session: ISession): void => {
     homeDataStore.home.selectedSession = session
     homeDataStore.setLessons(session.sessionProgressModel)
+
+    localStorage.setItem('selectedSessionId', session.sessionId.toString())
   },
   setLessons: (sessionProgresses: ISessionProgress[]): void => {
     homeDataStore.home.lessons = sessionProgresses

@@ -5,7 +5,6 @@ import IHomePresenter from './IHomePresenter'
 import ISession from './Interfaces/ISession'
 import ISessionProgress from './Interfaces/ISessionProgress'
 import ISubscriber from 'UseCases/ISubscriber'
-import IUserData from './Interfaces/IUserData'
 
 class HomePresenter implements IHomePresenter {
   private readonly homeDataStore: IHomeDataStore
@@ -38,16 +37,7 @@ class HomePresenter implements IHomePresenter {
 
   public async getHomeData(): Promise<void> {
     await this.homeDataStore.syncHomeData(new Fetcher())
-
-    if (this.homeDataStore.home.userData) {
-      this.setUserFirstName(this.homeDataStore.home.userData)
-    }
-
     this.update()
-  }
-
-  private setUserFirstName(userData: IUserData): void {
-    localStorage.setItem('firstname', userData.firstName)
   }
 
   public setSelectedSession(session: ISession): void {
