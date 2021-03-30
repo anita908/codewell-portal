@@ -1,7 +1,7 @@
 import ISettings from "./Interfaces/ISettings";
 
 interface ISettingsPresenter {
-    getUserSettings(): Promise<void>
+    getUserSettings(): Promise<ISettings>
     updateUserSettings(newSettings: ISettings): Promise<void>
   }
   

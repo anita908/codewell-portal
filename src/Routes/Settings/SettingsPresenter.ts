@@ -1,33 +1,21 @@
-import { userData, updateUser } from 'Utilities/Url'
-import IFetcher from '../../Drivers/Interfaces/IFetcher'
+import { updateUser } from 'Utilities/Url'
+import Fetcher from 'Drivers/Fetcher'
+import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
 import ISettings from './Interfaces/ISettings'
 import ISettingsPresenter from './ISettingsPresenter'
 
 class SettingsPresenter implements ISettingsPresenter {
-  private readonly fetcher: IFetcher
-  private _settings: ISettings
+  private readonly homeDataStore: IHomeDataStore
 
-  constructor(fetcher: IFetcher) {
-    this.fetcher = fetcher
-    this._settings = {
-      email: '',
-      firstName: '',
-      lastName: '',
-      age: null,
-      city: ''
+  constructor(homeDataStore: IHomeDataStore) {
+    this.homeDataStore = homeDataStore
+  }
+
+  public async getUserSettings(): Promise<ISettings> {
+    if (Object.keys(this.homeDataStore.home.userData).length === 0) {
+      await this.homeDataStore.syncHomeData(new Fetcher())
     }
-  }
-
-  public get settings(): ISettings {
-    return this._settings
-  }
-
-  public async getUserSettings(): Promise<void> {
-    this._settings = await this.fetcher.fetch({
-      body: {},
-      method: 'GET',
-      url: userData
-    })
+    return this.homeDataStore.home.userData as ISettings
   }
 
   public async updateUserSettings(newSettings: ISettings): Promise<void> {

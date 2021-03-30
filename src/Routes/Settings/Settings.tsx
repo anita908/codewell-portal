@@ -3,12 +3,13 @@ import SideNav from 'Common/SideNav'
 import Fetcher from 'Drivers/Fetcher'
 import ISettings from './Interfaces/ISettings'
 import SettingsPresenter from './SettingsPresenter'
+import homeDataStore from 'Model/HomeDataStore'
 
 type State = {
   userSettings: ISettings
 }
 
-const presenter = new SettingsPresenter(new Fetcher())
+const presenter = new SettingsPresenter(homeDataStore)
 
 class Settings extends Component<{}, State> {
   state = {
@@ -54,8 +55,8 @@ class Settings extends Component<{}, State> {
   }
 
   getUserSettings = async (): Promise<void> => {
-    await presenter.getUserSettings()
-    this.setState({ userSettings: presenter.settings })
+    const settings = await presenter.getUserSettings()
+    this.setState({ userSettings: settings })
   }
 }
 
