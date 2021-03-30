@@ -1,0 +1,22 @@
+.lessonDetails-slideContent {
+  margin: 0 auto;
+  width: var(--home-width);
+}
+
+.lessonDetails-back {
+  background-color: var(--primary);
+  border: none;
+  color: var(--illustration-brightOrange);
+  display: inherit;
+  font-family: var(--font-family);
+  font-size: var(--l-text-size);
+  text-align: left;
+}
+
+.lessonDetails-slide {
+  --lessonDetails-height: 600px;
+
+  height: var(--lessonDetails-height);
+  margin-left: var(--mainPage-marginLeft);
+  width: 80%;
+}

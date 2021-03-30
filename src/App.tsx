@@ -6,6 +6,7 @@ import CourseSlides from './Routes/CourseSlides/CourseSlides'
 import Settings from './Routes/Settings/Settings'
 import AssignmentInstruction from './Routes/AssignmentInstruction/AssignmentInstruction'
 import Home from './Routes/Home/Home'
+import LessonDetails from './Routes/LessonDetails/LessonDetails'
 import Login from './Routes/Login/Login'
 import './App.css'
 import './theme.css'
@@ -16,6 +17,7 @@ function App(): ReactElement {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/assignmentInstruction/:homeworkId?' component={AssignmentInstruction} />
+        <Route path='/lessonDetails/:lessonId?' component={LessonDetails} />
         <Route path='/login' component={Login} />
         <Route path='/grades' component={Grades} />
         <Route path='/courseSlides' component={CourseSlides} />
