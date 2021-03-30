@@ -9,13 +9,11 @@ import './style.css'
 type State = {
   courses: ICourseWithChapters[]
   isLoading: boolean
-  name: string
 }
 class CourseSlides extends Component<{}, State> {
   state = {
     courses: [],
-    isLoading: false,
-    name: ''
+    isLoading: false
   }
 
   componentDidMount() {
