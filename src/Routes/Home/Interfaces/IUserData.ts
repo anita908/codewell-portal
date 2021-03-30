@@ -1,12 +1,12 @@
 interface IUserData {
-  id: number
-  userId: string
-  email?: string
-  firstName: string
-  lastName: string
   age: number
   city: string
+  email?: string
+  firstName: string
+  id: number
   isAdmin: string
+  lastName: string
+  userId: string
 }
 
 export default IUserData
