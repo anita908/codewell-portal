@@ -1,5 +1,6 @@
 import { observable } from 'mobx'
 import { homeData } from '../Utilities/Url'
+import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
 import IHomeData from 'Routes/Home/Interfaces/IHomeData'
 import IHomeDataStore from './Interfaces/IHomeDataStore'
@@ -28,6 +29,18 @@ const homeDataStore: IHomeDataStore = observable({
     const { sessionProgressModel } = session
     homeDataStore.home.lessons.push(...sessionProgressModel)
   },
+  setCourseSlides: (session: ISession): void => {
+    const { sessionProgressModel } = session
+
+    sessionProgressModel.forEach((progressModel: ISessionProgress) => {
+      homeDataStore.home.courseSlides.push({
+        id: progressModel.chapterId,
+        chapterNo: progressModel.chapterNo,
+        name: progressModel.chapterName,
+        slidesLink: progressModel.slidesLink
+      })
+    })
+  },
   home: {
     currentSession: {
       beginDate: '',
@@ -45,6 +58,7 @@ const homeDataStore: IHomeDataStore = observable({
     allSessions: [] as ISession[],
     allSessionIds: [] as number[],
     courseId: -1,
+    courseSlides: [] as IChapter[],
     sessionId: -1,
     lessons: [] as ISessionProgress[]
   }

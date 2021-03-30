@@ -7,6 +7,7 @@ interface ISessionProgress {
   chapterName: string
   chapterNo: number
   homeworkProgress: IHomeworkProgress[]
+  slidesLink: string
 }
 
 export default ISessionProgress
