@@ -21,7 +21,7 @@ class HomePresenter implements IHomePresenter {
   }
 
   public get courseId(): number {
-    return 0
+    return this.homeDataStore.home.selectedSession.courseId
   }
 
   public get sessions(): ISession[] {

@@ -1,6 +1,5 @@
 import React, { Component, ReactElement } from 'react'
 import SideNav from 'Common/SideNav'
-import Fetcher from 'Drivers/Fetcher'
 import homeDataStore from 'Model/HomeDataStore'
 import ISettings from './Interfaces/ISettings'
 import SettingsPresenter from './SettingsPresenter'
@@ -10,7 +9,6 @@ type State = {
 }
 
 const presenter = new SettingsPresenter(homeDataStore)
-
 class Settings extends Component<{}, State> {
   state = {
     userSettings: {

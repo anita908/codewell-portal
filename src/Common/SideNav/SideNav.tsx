@@ -2,7 +2,6 @@ import Fetcher from 'Drivers/Fetcher'
 import React, { Component, Fragment, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'Utilities/Cookies'
-import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 import LogoutPresenter from '../../Routes/Logout/LogoutPresenter'
 import './style.css'
 

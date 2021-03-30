@@ -7,6 +7,7 @@ import IHomeDataStore from './Interfaces/IHomeDataStore'
 import ISession from 'Routes/Home/Interfaces/ISession'
 import ISessionProgress from 'Routes/Home/Interfaces/ISessionProgress'
 import IUserData from 'Routes/Home/Interfaces/IUserData'
+import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 
 const homeDataStore: IHomeDataStore = observable({
   home: {
@@ -34,9 +35,10 @@ const homeDataStore: IHomeDataStore = observable({
       method: 'GET',
       url: homeData
     })
+
     homeDataStore.setUserData(userLearningModel.userData)
     homeDataStore.setEnrolledSessions(userLearningModel.enrolledSessions)
-    const selectedSessionId = parseInt(localStorage.getItem('selectedSessionId') || '0')
+    const selectedSessionId = LocalStorageHelper.getCurrentSessionId()
     if (userLearningModel.enrolledSessions.length === 1) {
       homeDataStore.setSelectedSession(userLearningModel.enrolledSessions[0])
       localStorage.setItem(
