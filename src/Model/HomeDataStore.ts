@@ -32,19 +32,18 @@ const homeDataStore: IHomeDataStore = observable({
   },
   syncHomeData: async (fetcher: IFetcher): Promise<void> => {
     const routeName = 'homeData'
-    const response: IHomeData = await fetcher.fetch({
-      body: {},
-      method: 'GET',
-      url: homeData
-    })
-
     if (CacheHelper.hasValidCache(routeName)) {
       homeDataStore.setHomeData(CacheHelper.getCache(routeName).data)
-    }
-
-    if (response) {
-      CacheHelper.cacheRouteData(routeName, response)
-      homeDataStore.setHomeData(response)
+    } else {
+      const response: IHomeData = await fetcher.fetch({
+        body: {},
+        method: 'GET',
+        url: homeData
+      })
+      if (response) {
+        CacheHelper.cacheRouteData(routeName, response)
+        homeDataStore.setHomeData(response)
+      }
     }
   },
   setHomeData: (response: IHomeData): void => {

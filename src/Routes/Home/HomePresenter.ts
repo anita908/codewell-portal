@@ -19,11 +19,7 @@ class HomePresenter implements IHomePresenter {
     return this.homeDataStore.home.selectedSession
   }
 
-  public get courseId(): number {
-    return this.homeDataStore.home.selectedSession.courseId
-  }
-
-  public get sessions(): ISession[] {
+  public get enrolledSessions(): ISession[] {
     return this.homeDataStore.home.enrolledSessions
   }
 

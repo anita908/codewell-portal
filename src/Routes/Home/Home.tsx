@@ -104,7 +104,7 @@ class Home extends Component<{}, State> implements ISubscriber {
         <div className='home-content'>
           <h1>Please choose the session you'd like to view</h1>
           <div className='home-sessionList'>
-            {homePresenter.sessions.map((session: ISession) => {
+            {homePresenter.enrolledSessions.map((session: ISession) => {
               return (
                 <Fragment key={session.sessionId}>
                   <Card
@@ -142,7 +142,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
   getAssignmentVideos = async () => {
     const response = await assignmentPresenter.getHomeworkVideosByCourseId(
-      homePresenter.courseId,
+      homePresenter.selectedSession.courseId,
       new Fetcher()
     )
     this.setState({ videos: response })
