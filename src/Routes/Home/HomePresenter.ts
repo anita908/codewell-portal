@@ -1,76 +1,88 @@
-import { homeData } from '../../Utilities/Url'
-import IFetcher from '../../Drivers/Interfaces/IFetcher'
-import IHomeData from './Interfaces/IHomeData'
+import Fetcher from 'Drivers/Fetcher'
+import ISubscriber from 'UseCases/ISubscriber'
 import IHomePresenter from './IHomePresenter'
-import ILesson from './Interfaces/ILesson'
+import ISessionProgress from './Interfaces/ISessionProgress'
 import ISession from './Interfaces/ISession'
+import IUserData from './Interfaces/IUserData'
 
 class HomePresenter implements IHomePresenter {
-  private readonly fetcher: IFetcher
-  private _firstName: string
-  private _sessions: ISession[]
-  private _lessons: ILesson[]
-  private _courseIds: number[]
+  private subscribers: ISubscriber[]
 
-  constructor(fetcher: IFetcher) {
-    this.fetcher = fetcher
-    this._firstName = 'user'
-    this._sessions = []
-    this._lessons = []
-    this._courseIds = []
+  constructor(private readonly homeDataStore: any) {
+    this.subscribers = []
   }
 
-  public get courseIds(): number[] {
-    return this._courseIds
+  public subscribe(subscriber: ISubscriber): void {
+    this.subscribers.push(subscriber)
   }
 
-  public get firstName(): string {
-    return this._firstName
+  public update(): void {
+    this.subscribers.forEach((subscriber) => subscriber.update())
+  }
+
+  public get currentSession(): ISession {
+    return this.homeDataStore.home.currentSession
+  }
+
+  public get sessionIds(): number[] {
+    return this.homeDataStore.home.allSessions.map((session: ISession) => session.sessionId)
+  }
+
+  public get courseId(): number {
+    return this.homeDataStore.home.courseId
   }
 
   public get sessions(): ISession[] {
-    return this._sessions
+    return this.homeDataStore.home.allSessions
   }
 
-  public get lessons(): ILesson[] {
-    return this._lessons
+  public get lessons(): ISessionProgress[] {
+    return this.homeDataStore.home.lessons
   }
 
   public async getHomeData(): Promise<void> {
-    const response = await this.fetcher.fetch({
-      body: {},
-      method: 'GET',
-      url: homeData
-    })
+    const response = await this.homeDataStore.getHomeData(new Fetcher())
 
     if (response) {
-      this.setHomeData(response)
+      if (response.userData) {
+        this.setUserFirstName(response.userData)
+      }
+
+      if (response.enrolledSessions) {
+        const { enrolledSessions } = response
+        this.homeDataStore.home.allSessions = enrolledSessions
+        this.setSessionIds(enrolledSessions)
+
+        if (enrolledSessions.length === 1) {
+          this.setCurrentSession(response.enrolledSessions[0].sessionId)
+        }
+      }
     }
+
+    this.update()
   }
 
-  private setHomeData(response: IHomeData): void {
-    if (response.userData) {
-      const { userData } = response
-      this._firstName = userData.firstName
-    }
-
-    if (response.enrolledSessions) {
-      const { enrolledSessions } = response
-
-      this.setEnrolledSessions(enrolledSessions)
-    }
+  private setUserFirstName(userData: IUserData): void {
+    localStorage.setItem('firstname', userData.firstName)
   }
 
-  private setEnrolledSessions(sessions: ISession[]): void {
-    this._sessions = sessions
+  private setSessionIds(sessions: ISession[]): void {
+    const sessionIds: number[] = []
 
     sessions.forEach((session: ISession) => {
-      this._courseIds = [...this._courseIds, session.courseId]
-
-      session.sessionProgressModel.forEach((lesson: ILesson) => {
-        this._lessons = [...this._lessons, lesson]
-      })
+      sessionIds.push(session.sessionId)
     })
+
+    this.homeDataStore.home.allSessionIds = sessionIds
+  }
+
+  public setCurrentSession(sessionId: number): void {
+    const currentSession = this.homeDataStore.home.allSessions.find(
+      (session: ISession) => session.sessionId === sessionId
+    ) as ISession
+
+    this.homeDataStore.setCurrentSession(currentSession)
+    this.homeDataStore.setCourseId(currentSession.courseId)
   }
 }
 

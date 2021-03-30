@@ -9,11 +9,11 @@ class LogoutPresenter implements ILogoutPresenter {
     this.fetcher = fetcher
   }
 
-  public async logout(username: string): Promise<void> {
+  public async logout(): Promise<void> {
     await this.fetcher.fetch({
       body: {},
       method: 'DELETE',
-      url: logout + username
+      url: logout
     })
   }
 }

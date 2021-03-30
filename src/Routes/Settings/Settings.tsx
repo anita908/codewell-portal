@@ -5,7 +5,7 @@ class Settings extends Component {
   render(): ReactElement {
     return (
       <div id='settings'>
-        <SideNav name={''} />
+        <SideNav />
         <div className='settings-content'>Settings</div>
       </div>
     )

@@ -6,6 +6,15 @@
   width: var(--home-width);
 }
 
+.home-sessionList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.home-sessionList > .card {
+  width: auto
+}
+
 @media only screen and (max-width: 1050px) {
  .home-content {
    width: 740px;

@@ -3,14 +3,15 @@ import Card from '../../../Common/Card'
 import IAssignmentPresenter from './IAssignmentPresenter'
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
 import IHomeworkProgress from '../Interfaces/IHomeworkProgress'
-import ILesson from '../Interfaces/ILesson'
+import IHomePresenter from '../IHomePresenter'
+import ISessionProgress from '../Interfaces/ISessionProgress'
 import './style.css'
 
 type Prop = {
   courseVideos: IAssignmentVideo[]
-  lessons: ILesson[]
-  userName: string
+  lessons: ISessionProgress[]
   presenter: IAssignmentPresenter
+  homePresenter: IHomePresenter
 }
 
 type State = {
@@ -23,62 +24,60 @@ class Assignment extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { courseVideos, lessons, userName } = this.props
+    const { homePresenter, presenter } = this.props
+    const { currentSession } = homePresenter
+    const { sessionProgressModel } = currentSession
     const { showMore } = this.state
     const allAssignments = this.getAllAssignments()
-    const displayAssignments: IHomeworkProgress[] = showMore
-      ? allAssignments
-      : [allAssignments[0], allAssignments[1]]
+    let displayAssignments: IHomeworkProgress[]
 
-    if (!lessons.length || !displayAssignments) {
-      return this.renderLoadingState()
+    if (allAssignments && allAssignments.length) {
+      displayAssignments = showMore ? allAssignments : [allAssignments[0], allAssignments[1]]
+
+      return (
+        <div id='assignment'>
+          <div className='assignment-header'>
+            <h3>Assignments</h3>
+            <details onClick={this.toggleSection} className='assignment-toggleExpandButton'>
+              <summary>View More</summary>
+            </details>
+          </div>
+          <div className='assignment-content'>
+            {displayAssignments?.map((homework: IHomeworkProgress) => {
+              const lesson = sessionProgressModel.find((l: ISessionProgress) =>
+                l.homeworkProgress.find(
+                  (homeworkProgress: IHomeworkProgress) =>
+                    homeworkProgress.homeworkName === homework.homeworkName
+                )
+              ) as ISessionProgress
+
+              return (
+                <Fragment key={lesson.chapterId}>
+                  <Card
+                    activity={'assignment'}
+                    content={{
+                      lessonId: lesson.chapterId,
+                      lessonName: lesson.chapterName
+                    }}
+                    endPoint={'assignmentInstruction'}
+                    header={
+                      lesson?.chapterNo
+                        ? `Lesson ${lesson?.chapterNo} Assignment ${homework.homeworkId}:`
+                        : 'Lesson:'
+                    }
+                    linkTitle={`Do Assignment: ${homework.homeworkName}`}
+                    pathId={lesson?.chapterId?.toString() || ''}
+                    title={lesson?.chapterName || ''}
+                  />
+                </Fragment>
+              )
+            })}
+          </div>
+        </div>
+      )
     }
 
-    return (
-      <div id='assignment'>
-        <div className='assignment-header'>
-          <h3>Assignments</h3>
-          <details onClick={this.toggleSection} className='assignment-toggleExpandButton'>
-            <summary>View More</summary>
-          </details>
-        </div>
-        <div className='assignment-content'>
-          {displayAssignments.map((homework: IHomeworkProgress) => {
-            const lesson = lessons.find((l: ILesson) =>
-              l.homeworkProgress.find(
-                (homeworkProgress: IHomeworkProgress) =>
-                  homeworkProgress.homeworkName === homework.homeworkName
-              )
-            ) as ILesson
-
-            const videos = courseVideos.filter(
-              (video: IAssignmentVideo) => video.homeworkId === lesson?.chapterId
-            )
-
-            return (
-              <Fragment key={lesson.chapterId}>
-                <Card
-                  activity={'assignment'}
-                  content={{
-                    videos
-                  }}
-                  endPoint={'assignmentInstruction'}
-                  header={
-                    lesson?.chapterNo
-                      ? `Lesson ${lesson?.chapterNo} Assignment ${homework.homeworkId}:`
-                      : 'Lesson:'
-                  }
-                  linkTitle={`Do Assignment: ${homework.homeworkName}`}
-                  pathId={lesson?.chapterId?.toString() || ''}
-                  title={lesson?.chapterName || ''}
-                  userName={userName}
-                />
-              </Fragment>
-            )
-          })}
-        </div>
-      </div>
-    )
+    return this.renderLoadingState()
   }
 
   toggleSection = (): void => {
@@ -112,8 +111,6 @@ class Assignment extends Component<Prop, State> {
   }
 
   renderLoadingState = (): ReactElement => {
-    const { userName } = this.props
-
     return (
       <div id='assignment'>
         <div className='assignment-header'>
@@ -123,29 +120,25 @@ class Assignment extends Component<Prop, State> {
           </details>
         </div>
         <div className='assignment-content'>
-          <Card
-            activity={''}
-            endPoint={''}
-            header={''}
-            linkTitle={''}
-            pathId={''}
-            title={''}
-            userName={userName}
-          />
+          <Card activity={''} endPoint={''} header={''} linkTitle={''} pathId={''} title={''} />
         </div>
       </div>
     )
   }
 
   getAllAssignments = (): IHomeworkProgress[] => {
-    const { lessons } = this.props
+    const { sessionProgressModel } = this.props.homePresenter.currentSession
     const allAssignments: IHomeworkProgress[] = []
 
-    lessons.map((lesson: ILesson) => {
-      return allAssignments.push(...lesson.homeworkProgress)
-    })
+    if (sessionProgressModel.length > 0) {
+      sessionProgressModel.map((lesson: ISessionProgress) => {
+        return allAssignments.push(...lesson.homeworkProgress)
+      })
 
-    return allAssignments
+      return allAssignments
+    }
+
+    return []
   }
 }
 

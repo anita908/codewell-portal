@@ -1,4 +1,6 @@
 import React, { Component, ReactElement } from 'react'
+import assignmentDataStore from 'Model/AssignmentDataStore'
+import AssignmentPresenter from 'Routes/Home/Assignment/AssignmentPresenter'
 import IAssignmentVideo from '../Home/Interfaces/IAssignmentVideo'
 import SideNav from '../../Common/SideNav/SideNav'
 import './style.css'
@@ -6,40 +8,39 @@ import './style.css'
 type Props = {
   location: {
     state: {
-      lessonId: number
+      lessonId: string
       lessonName: string
-      userName: string
-      content: any
     }
   }
 }
 
 class AssignmentInstruction extends Component<Props, {}> {
   render(): ReactElement {
-    const { lessonId, lessonName, userName, content } = this.props.location.state
-    const { videos } = content
+    const { lessonId, lessonName } = this.props.location.state
+    const videos = new AssignmentPresenter(assignmentDataStore).getHomeworkVideosByLessonId(
+      parseInt(lessonId, 10)
+    )
 
     return (
       <div id='assignmentInstruction'>
-        <SideNav name={userName} />
+        <SideNav />
         <div className='assignmentInstruction-content'>
           <h2 className='assignmentInstruction-contentTitle'>Lesson {lessonId}: </h2>
           <h2 className='assignmentInstruction-contentTitle'>
             {lessonName} Assignment Instruction
           </h2>
 
-          {videos.map((v: IAssignmentVideo, index: number) => {
+          {videos.map((video: IAssignmentVideo, index: number) => {
             return (
-              <div className='assignmentInstruction-playerContent'>
+              <div className='assignmentInstruction-playerContent' key={index}>
                 {index === 0 && (
                   <button className='assignmentInstruction-back' onClick={this.back} type='button'>
                     Back
                   </button>
                 )}
-                <p className='assignmentInstruction-videoTitle'>{v.name}</p>
-                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                <p className='assignmentInstruction-videoTitle'>{video.name}</p>
                 <video controls>
-                  <source src={v.storageUrl} type='video/mp4' />
+                  <source src={video.storageUrl} type='video/mp4' />
                 </video>
               </div>
             )

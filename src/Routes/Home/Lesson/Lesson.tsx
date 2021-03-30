@@ -1,10 +1,12 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card/Card'
-import ILesson from '../Interfaces/ILesson'
+import IHomePresenter from '../IHomePresenter'
+import ISessionProgress from '../Interfaces/ISessionProgress'
 import './style.css'
 
 type Prop = {
-  lessons: ILesson[]
+  homePresenter: IHomePresenter
+  lessons: ISessionProgress[]
   userName: string
 }
 
@@ -18,41 +20,42 @@ class Lesson extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { lessons, userName } = this.props
+    const { homePresenter } = this.props
+    const { lessons } = homePresenter
     const { showMore } = this.state
-    const displayLessons: ILesson[] = showMore ? lessons : [lessons[0], lessons[1]]
 
-    if (!lessons.length) {
-      return this.renderLoadingState()
+    if (lessons && lessons.length) {
+      const displayLessons: ISessionProgress[] = showMore ? lessons : [lessons[0], lessons[1]]
+
+      return (
+        <div id='lesson'>
+          <div className='lesson-header'>
+            <h3>Lessons</h3>
+            <details onClick={this.toggleSection} className='lesson-toggleExpandButton'>
+              <summary>View More</summary>
+            </details>
+          </div>
+          <div className='lesson-content'>
+            {displayLessons.map((lesson: ISessionProgress) => {
+              return (
+                <Fragment key={lesson.chapterId}>
+                  <Card
+                    activity={'inclass activity'}
+                    endPoint={''}
+                    header={`Lesson ${lesson.chapterNo}:`}
+                    linkTitle={''}
+                    pathId={''}
+                    title={lesson.chapterName}
+                  />
+                </Fragment>
+              )
+            })}
+          </div>
+        </div>
+      )
     }
 
-    return (
-      <div id='lesson'>
-        <div className='lesson-header'>
-          <h3>Lessons</h3>
-          <details onClick={this.toggleSection} className='lesson-toggleExpandButton'>
-            <summary>View More</summary>
-          </details>
-        </div>
-        <div className='lesson-content'>
-          {displayLessons.map((lesson: ILesson) => {
-            return (
-              <Fragment key={lesson.chapterId}>
-                <Card
-                  activity={'inclass activity'}
-                  endPoint={''}
-                  header={`Lesson ${lesson.chapterNo}:`}
-                  linkTitle={''}
-                  pathId={''}
-                  title={lesson.chapterName}
-                  userName={userName}
-                />
-              </Fragment>
-            )
-          })}
-        </div>
-      </div>
-    )
+    return this.renderLoadingState()
   }
 
   toggleSection = (): void => {
@@ -86,8 +89,6 @@ class Lesson extends Component<Prop, State> {
   }
 
   renderLoadingState = (): ReactElement => {
-    const { userName } = this.props
-
     return (
       <div id='lesson'>
         <div className='lesson-header'>
@@ -97,15 +98,7 @@ class Lesson extends Component<Prop, State> {
           </details>
         </div>
         <div className='lesson-content'>
-          <Card
-            activity={''}
-            endPoint={''}
-            header={''}
-            linkTitle={''}
-            pathId={''}
-            title={''}
-            userName={userName}
-          />
+          <Card activity={''} endPoint={''} header={''} linkTitle={''} pathId={''} title={''} />
         </div>
       </div>
     )

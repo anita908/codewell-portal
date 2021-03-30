@@ -1,12 +1,15 @@
-import ILesson from './Interfaces/ILesson'
+import IFetcher from 'Drivers/Interfaces/IFetcher'
 import ISession from './Interfaces/ISession'
+import ISessionProgress from './Interfaces/ISessionProgress'
 
 interface IHomePresenter {
-  firstName: string
-  courseIds: number[]
-  getHomeData(): Promise<void>
-  lessons: ILesson[]
+  courseId: number
+  currentSession: ISession
+  getHomeData(fetcher: IFetcher): Promise<void>
+  lessons: ISessionProgress[]
+  sessionIds: number[]
   sessions: ISession[]
+  setCurrentSession(sessionId: number): void
 }
 
 export default IHomePresenter

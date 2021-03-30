@@ -23,10 +23,10 @@ class CourseSlides extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { courses, isLoading, name } = this.state
+    const { courses, isLoading } = this.state
     return (
       <div id='courseSlides'>
-        <SideNav name={name} />
+        <SideNav />
         <div className='courseSlides-content'>
           <div className='courseSlides-header'>Course Slides</div>
           {isLoading ? (

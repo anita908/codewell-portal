@@ -1,6 +1,6 @@
-import IFetcher from '../../../Drivers/Interfaces/IFetcher'
 import AssignmentPresenter from './AssignmentPresenter'
 import IAssignmentPresenter from './IAssignmentPresenter'
+import IFetcher from '../../../Drivers/Interfaces/IFetcher'
 
 function getMockData() {
   return [
@@ -101,25 +101,33 @@ function getMockData() {
 describe('Test assignment presenter', () => {
   const courseId: number = 1
   let fetcher: IFetcher
+  let mockAssignmentDataStore: any
   let presenter: IAssignmentPresenter
   beforeEach(() => {
     fetcher = {
       fetch: jest.fn()
     }
+
+    mockAssignmentDataStore = {
+      getAssignmentInstructionVideosByCourseId: jest.fn(),
+      getHomeworkVideosByCourseId: jest.fn()
+    }
   })
 
   it('Should be able to get assignment videos by course id', async () => {
     fetcher.fetch = jest.fn().mockReturnValue(getMockData())
-    presenter = new AssignmentPresenter(fetcher)
-    await presenter.getHomeworkVideosByCourseId(courseId)
+    mockAssignmentDataStore.getAssignmentInstructionVideosByCourseId = jest.fn()
+    presenter = new AssignmentPresenter(mockAssignmentDataStore)
+    await presenter.getHomeworkVideosByCourseId(courseId, fetcher)
 
     expect(fetcher.fetch).toHaveBeenCalled()
   })
 
   it('Should be able to handle failed request', async () => {
     fetcher.fetch = jest.fn().mockReturnValue(null)
-    presenter = new AssignmentPresenter(fetcher)
-    const response = await presenter.getHomeworkVideosByCourseId(courseId)
+    mockAssignmentDataStore.getHomeworkVideosByCourseId = jest.fn()
+    presenter = new AssignmentPresenter(mockAssignmentDataStore)
+    const response = await presenter.getHomeworkVideosByCourseId(courseId, fetcher)
 
     expect(response).toEqual([])
   })

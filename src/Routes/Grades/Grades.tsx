@@ -5,7 +5,7 @@ class Grades extends Component {
   render(): ReactElement {
     return (
       <div id='grades'>
-        <SideNav name={''} />
+        <SideNav />
         <div className='grades-content'>Grades</div>
       </div>
     )
