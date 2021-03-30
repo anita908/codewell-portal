@@ -1,8 +1,9 @@
 import Fetcher from 'Drivers/Fetcher'
-import ISubscriber from 'UseCases/ISubscriber'
+import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
 import IHomePresenter from './IHomePresenter'
-import ISessionProgress from './Interfaces/ISessionProgress'
 import ISession from './Interfaces/ISession'
+import ISessionProgress from './Interfaces/ISessionProgress'
+import ISubscriber from 'UseCases/ISubscriber'
 import IUserData from './Interfaces/IUserData'
 
 class HomePresenter implements IHomePresenter {
@@ -38,6 +39,10 @@ class HomePresenter implements IHomePresenter {
 
   public get lessons(): ISessionProgress[] {
     return this.homeDataStore.home.lessons
+  }
+
+  public get courseSlides(): IChapter[] {
+    return this.homeDataStore.home.courseSlides
   }
 
   public async getHomeData(): Promise<void> {
@@ -83,6 +88,7 @@ class HomePresenter implements IHomePresenter {
 
     this.homeDataStore.setCurrentSession(currentSession)
     this.homeDataStore.setCourseId(currentSession.courseId)
+    this.homeDataStore.setCourseSlides(currentSession)
   }
 }
 

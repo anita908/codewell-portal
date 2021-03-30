@@ -1,3 +1,4 @@
+import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
 import IHomeData from 'Routes/Home/Interfaces/IHomeData'
 import ISession from 'Routes/Home/Interfaces/ISession'
@@ -10,6 +11,7 @@ interface IHomeDataStore {
     allSessions: ISession[]
     allSessionIds: number[]
     courseId: number
+    courseSlides: IChapter[]
     sessionId: number
     lessons: ISessionProgress[]
   }
