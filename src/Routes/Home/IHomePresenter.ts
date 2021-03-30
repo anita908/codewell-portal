@@ -4,14 +4,12 @@ import ISession from './Interfaces/ISession'
 import ISessionProgress from './Interfaces/ISessionProgress'
 
 interface IHomePresenter {
-  courseId: number
-  courseSlides: IChapter[]
-  currentSession: ISession
-  getHomeData(fetcher: IFetcher): Promise<void>
+  selectedSession: ISession
+  enrolledSessions: ISession[]
   lessons: ISessionProgress[]
-  sessionIds: number[]
-  sessions: ISession[]
-  setCurrentSession(sessionId: number): void
+  courseSlides: IChapter[]
+  getHomeData(fetcher: IFetcher): Promise<void>
+  setSelectedSession(session: ISession): void
 }
 
 export default IHomePresenter

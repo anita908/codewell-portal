@@ -2,7 +2,6 @@ import Fetcher from 'Drivers/Fetcher'
 import React, { Component, Fragment, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'Utilities/Cookies'
-import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 import LogoutPresenter from '../../Routes/Logout/LogoutPresenter'
 import './style.css'
 
@@ -72,13 +71,13 @@ class SideNav extends Component<Props, {}> {
                   Settings
                 </Link>
               </li>
-              <li onClick={this.setActiveLink} className='logout'>
-                <a type='button' className='sideNav-mouseChange' onClick={this.logout}>
-                  Log out
-                </a>
-              </li>
             </Fragment>
           )}
+          <li onClick={this.setActiveLink} className='logout'>
+            <a type='button' className='sideNav-mouseChange' onClick={this.logout}>
+              Log out
+            </a>
+          </li>
         </ul>
       </nav>
     )

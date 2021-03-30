@@ -1,14 +1,60 @@
 import React, { Component, ReactElement } from 'react'
 import SideNav from 'Common/SideNav'
+import homeDataStore from 'Model/HomeDataStore'
+import ISettings from './Interfaces/ISettings'
+import SettingsPresenter from './SettingsPresenter'
 
-class Settings extends Component {
+type State = {
+  userSettings: ISettings
+}
+
+const presenter = new SettingsPresenter(homeDataStore)
+class Settings extends Component<{}, State> {
+  state = {
+    userSettings: {
+      age: null,
+      city: '',
+      email: '',
+      firstName: '',
+      lastName: ''
+    }
+  }
+
+  async componentDidMount(): Promise<void> {
+    await this.getUserSettings()
+  }
+
   render(): ReactElement {
+    const { userSettings } = this.state
+
     return (
       <div id='settings'>
         <SideNav />
-        <div className='settings-content'>Settings</div>
+        <h1>Settings</h1>
+        <div className='settings-content'>
+          <div>
+            <span>First Name: </span> {userSettings.firstName}
+          </div>
+          <div>
+            <span>Last Name: </span> {userSettings.lastName}
+          </div>
+          <div>
+            <span>Email Name: </span> {userSettings.email}
+          </div>
+          <div>
+            <span>Age: </span> {userSettings.age}
+          </div>
+          <div>
+            <span>City: </span> {userSettings.city}
+          </div>
+        </div>
       </div>
     )
+  }
+
+  getUserSettings = async (): Promise<void> => {
+    const settings = await presenter.getUserSettings()
+    this.setState({ userSettings: settings })
   }
 }
 

@@ -8,6 +8,16 @@ class LocalStorageHelper {
 
     return ''
   }
+
+  public static getCurrentSessionId(): number {
+    const selectedSessionId = localStorage.getItem('selectedSessionId')
+
+    if (selectedSessionId) {
+      return parseInt(selectedSessionId, 10)
+    }
+
+    return -1
+  }
 }
 
 export default LocalStorageHelper

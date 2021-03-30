@@ -25,8 +25,8 @@ class Assignment extends Component<Prop, State> {
 
   render(): ReactElement {
     const { homePresenter, presenter } = this.props
-    const { currentSession } = homePresenter
-    const { sessionProgressModel } = currentSession
+    const { selectedSession } = homePresenter
+    const { sessionProgressModel } = selectedSession
     const { showMore } = this.state
     const allAssignments = this.getAllAssignments()
     let displayAssignments: IHomeworkProgress[]
@@ -127,7 +127,7 @@ class Assignment extends Component<Prop, State> {
   }
 
   getAllAssignments = (): IHomeworkProgress[] => {
-    const { sessionProgressModel } = this.props.homePresenter.currentSession
+    const { sessionProgressModel } = this.props.homePresenter.selectedSession
     const allAssignments: IHomeworkProgress[] = []
 
     if (sessionProgressModel.length > 0) {

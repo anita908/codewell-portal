@@ -1,16 +1,53 @@
 import Fetcher from 'Drivers/Fetcher'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
+import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
 import IHomePresenter from './IHomePresenter'
 import ISession from './Interfaces/ISession'
 import ISessionProgress from './Interfaces/ISessionProgress'
 import ISubscriber from 'UseCases/ISubscriber'
-import IUserData from './Interfaces/IUserData'
 
 class HomePresenter implements IHomePresenter {
+  private readonly homeDataStore: IHomeDataStore
   private subscribers: ISubscriber[]
 
-  constructor(private readonly homeDataStore: any) {
+  constructor(homeDataStore: IHomeDataStore) {
+    this.homeDataStore = homeDataStore
     this.subscribers = []
+  }
+
+  public get selectedSession(): ISession {
+    return this.homeDataStore.home.selectedSession
+  }
+
+  public get enrolledSessions(): ISession[] {
+    return this.homeDataStore.home.enrolledSessions
+  }
+
+  public get lessons(): ISessionProgress[] {
+    return this.homeDataStore.home.lessons
+  }
+
+  public get courseSlides(): IChapter[] {
+    return this.homeDataStore.home.courseChapters
+  }
+
+  public async getHomeData(): Promise<void> {
+    await this.homeDataStore.syncHomeData(new Fetcher())
+    this.update()
+  }
+
+  public setSelectedSession(session: ISession): void {
+    this.homeDataStore.setSelectedSession(session)
+    this.homeDataStore.setCourseChapters(
+      session.sessionProgressModel.map((progressModel: ISessionProgress) => {
+        return {
+          id: progressModel.chapterId,
+          chapterNo: progressModel.chapterNo,
+          name: progressModel.chapterName,
+          slidesLink: progressModel.slidesLink
+        }
+      })
+    )
   }
 
   public subscribe(subscriber: ISubscriber): void {
@@ -19,76 +56,6 @@ class HomePresenter implements IHomePresenter {
 
   public update(): void {
     this.subscribers.forEach((subscriber) => subscriber.update())
-  }
-
-  public get currentSession(): ISession {
-    return this.homeDataStore.home.currentSession
-  }
-
-  public get sessionIds(): number[] {
-    return this.homeDataStore.home.allSessions.map((session: ISession) => session.sessionId)
-  }
-
-  public get courseId(): number {
-    return this.homeDataStore.home.courseId
-  }
-
-  public get sessions(): ISession[] {
-    return this.homeDataStore.home.allSessions
-  }
-
-  public get lessons(): ISessionProgress[] {
-    return this.homeDataStore.home.lessons
-  }
-
-  public get courseSlides(): IChapter[] {
-    return this.homeDataStore.home.courseSlides
-  }
-
-  public async getHomeData(): Promise<void> {
-    const response = await this.homeDataStore.getHomeData(new Fetcher())
-
-    if (response) {
-      if (response.userData) {
-        this.setUserFirstName(response.userData)
-      }
-
-      if (response.enrolledSessions) {
-        const { enrolledSessions } = response
-        this.homeDataStore.home.allSessions = enrolledSessions
-        this.setSessionIds(enrolledSessions)
-
-        if (enrolledSessions.length === 1) {
-          this.setCurrentSession(response.enrolledSessions[0].sessionId)
-        }
-      }
-    }
-
-    this.update()
-  }
-
-  private setUserFirstName(userData: IUserData): void {
-    localStorage.setItem('firstname', userData.firstName)
-  }
-
-  private setSessionIds(sessions: ISession[]): void {
-    const sessionIds: number[] = []
-
-    sessions.forEach((session: ISession) => {
-      sessionIds.push(session.sessionId)
-    })
-
-    this.homeDataStore.home.allSessionIds = sessionIds
-  }
-
-  public setCurrentSession(sessionId: number): void {
-    const currentSession = this.homeDataStore.home.allSessions.find(
-      (session: ISession) => session.sessionId === sessionId
-    ) as ISession
-
-    this.homeDataStore.setCurrentSession(currentSession)
-    this.homeDataStore.setCourseId(currentSession.courseId)
-    this.homeDataStore.setCourseSlides(currentSession)
   }
 }
 
