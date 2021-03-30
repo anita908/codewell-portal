@@ -98,14 +98,13 @@ class SideNav extends Component<Props, {}> {
   }
 
   logout = (): void => {
-    const username = LocalStorageHelper.getUserFirstName()
     const logoutPresenter = new LogoutPresenter(new Fetcher())
 
     logoutPresenter.logout()
     Cookies.remove('auth')
 
     if (typeof window !== 'undefined') {
-      window.location.pathname = '/'
+      window.location.pathname = '/login'
     }
   }
 }
