@@ -1,11 +1,11 @@
 import Fetcher from 'Drivers/Fetcher'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
+import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
 import IHomePresenter from './IHomePresenter'
 import ISession from './Interfaces/ISession'
 import ISessionProgress from './Interfaces/ISessionProgress'
 import ISubscriber from 'UseCases/ISubscriber'
 import IUserData from './Interfaces/IUserData'
-import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
 
 class HomePresenter implements IHomePresenter {
   private readonly homeDataStore: IHomeDataStore

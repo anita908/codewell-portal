@@ -1,7 +1,5 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
-import ISubscriber from 'UseCases/ISubscriber'
-import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 import Assignment from './Assignment'
 import assignmentDataStore from 'Model/AssignmentDataStore'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
@@ -13,14 +11,16 @@ import HomePresenter from './HomePresenter'
 import IAssignmentVideo from './Interfaces/IAssignmentVideo'
 import ISessionProgress from './Interfaces/ISessionProgress'
 import ISession from './Interfaces/ISession'
+import ISubscriber from 'UseCases/ISubscriber'
 import Lesson from './Lesson'
+import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 import Profile from './Profile'
 import SideNav from '../../Common/SideNav'
 import './style.css'
 
 type State = {
-  name: string
   lessons: ISessionProgress[]
+  name: string
   videos: IAssignmentVideo[]
 }
 
@@ -29,8 +29,8 @@ const assignmentPresenter = new AssignmentPresenter(assignmentDataStore)
 
 class Home extends Component<{}, State> implements ISubscriber {
   state = {
-    name: '',
     lessons: [],
+    name: '',
     videos: []
   }
 

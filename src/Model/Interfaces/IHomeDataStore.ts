@@ -7,18 +7,18 @@ import IUserData from 'Routes/Home/Interfaces/IUserData'
 
 interface IHomeDataStore {
   home: {
-    userData: IUserData
-    enrolledSessions: ISession[]
-    selectedSession: ISession
     courseChapters: IChapter[]
+    enrolledSessions: ISession[]
     lessons: ISessionProgress[]
+    selectedSession: ISession
+    userData: IUserData
   }
-  syncHomeData(fetcher: IFetcher): Promise<IHomeData>
-  setUserData(userData: IUserData): void
-  setEnrolledSessions(enrolledSessions: ISession[]): void
-  setSelectedSession(session: ISession): void
-  setLessons(session: ISessionProgress[]): void
   setCourseChapters(courseChapters: IChapter[]): void
+  setEnrolledSessions(enrolledSessions: ISession[]): void
+  setLessons(session: ISessionProgress[]): void
+  setSelectedSession(session: ISession): void
+  setUserData(userData: IUserData): void
+  syncHomeData(fetcher: IFetcher): Promise<IHomeData>
 }
 
 export default IHomeDataStore
