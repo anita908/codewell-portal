@@ -13,6 +13,15 @@ html, body, #app {
   overflow: hidden;
 }
 
+.note {
+  background-color: var(--note-message-background);
+  border: var(--note-message-border);
+  border-radius: var(--note-border-radius);
+  color: var(--illustration-brightOrange);
+  line-height: 1.4em;
+  padding: var(--spacing-3);
+}
+
 .error {
   background-color: var(--illustration-brightYellow);
   color: var(--warning);

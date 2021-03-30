@@ -30,21 +30,37 @@ class AssignmentInstruction extends Component<Props, {}> {
             {lessonName} Assignment Instruction
           </h2>
 
-          {videos.map((video: IAssignmentVideo, index: number) => {
-            return (
-              <div className='assignmentInstruction-playerContent' key={index}>
-                {index === 0 && (
-                  <button className='assignmentInstruction-back' onClick={this.back} type='button'>
-                    Back
-                  </button>
-                )}
-                <p className='assignmentInstruction-videoTitle'>{video.name}</p>
-                <video controls>
-                  <source src={video.storageUrl} type='video/mp4' />
-                </video>
-              </div>
-            )
-          })}
+          {videos.length > 0 ? (
+            videos.map((video: IAssignmentVideo, index: number) => {
+              return (
+                <div className='assignmentInstruction-playerContent' key={index}>
+                  {index === 0 && (
+                    <button
+                      className='assignmentInstruction-back'
+                      onClick={this.back}
+                      type='button'
+                    >
+                      Back
+                    </button>
+                  )}
+                  <p className='assignmentInstruction-videoTitle'>{video.name}</p>
+                  <video controls>
+                    <source src={video.storageUrl} type='video/mp4' />
+                  </video>
+                </div>
+              )
+            })
+          ) : (
+            <div className='assignmentInstruction-playerContent'>
+              <button className='assignmentInstruction-back' onClick={this.back} type='button'>
+                Back
+              </button>
+              <p className='assignmentInstruction-videoTitle note'>
+                There is no assignment instruction for this lesson. Please contact your teacher if
+                you have any questions :)
+              </p>
+            </div>
+          )}
         </div>
       </div>
     )

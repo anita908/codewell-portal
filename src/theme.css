@@ -11,6 +11,9 @@
   --font-family: 'Nunito', sans-serif;
   --home-width: 800px;
   --mainPage-marginLeft: 200px;
+  --note-border-radius: 4px;
+  --note-message-border: 1px solid #ffeeba;
+  --note-message-background: #fff3cd;
   --skeleton-animation: load-skeleton 0.75s infinite alternate;
   --text-border-radius: 12px;
   --line-height: 1.8;

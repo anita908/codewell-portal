@@ -43,7 +43,7 @@ class Lesson extends Component<Prop, State> {
                     activity={'in-class activity'}
                     endPoint={'lessonDetails'}
                     header={`Lesson ${lesson.chapterNo}:`}
-                    linkTitle={`View Course Slides: ${lesson.chapterName}`}
+                    linkTitle={'View Course Slides'}
                     pathId={lesson.chapterId.toString() || ''}
                     title={lesson.chapterName || ''}
                   />
