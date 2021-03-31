@@ -1,8 +1,6 @@
 .home-content {
-  --home-marginLeft: 150px;
-
   display: inline-block;
-  margin-left: var(--home-marginLeft);
+  margin-left: var(--mainPage-marginLeft);
   width: var(--home-width);
 }
 

@@ -40,12 +40,12 @@ class Lesson extends Component<Prop, State> {
               return (
                 <Fragment key={lesson.chapterId}>
                   <Card
-                    activity={'inclass activity'}
-                    endPoint={''}
+                    activity={'in-class activity'}
+                    endPoint={'lessonDetails'}
                     header={`Lesson ${lesson.chapterNo}:`}
-                    linkTitle={''}
-                    pathId={''}
-                    title={lesson.chapterName}
+                    linkTitle={'View Course Slides'}
+                    pathId={lesson.chapterId.toString() || ''}
+                    title={lesson.chapterName || ''}
                   />
                 </Fragment>
               )

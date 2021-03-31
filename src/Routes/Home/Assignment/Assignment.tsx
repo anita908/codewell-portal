@@ -24,7 +24,7 @@ class Assignment extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { homePresenter, presenter } = this.props
+    const { homePresenter } = this.props
     const { selectedSession } = homePresenter
     const { sessionProgressModel } = selectedSession
     const { showMore } = this.state
