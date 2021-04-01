@@ -10,6 +10,7 @@ import LessonDetails from './Routes/LessonDetails/LessonDetails'
 import Login from './Routes/Login/Login'
 import ResetPassword from 'Routes/ForgotPassword/ResetPassword/ResetPassword'
 import Settings from './Routes/Settings/Settings'
+import UpdatePassword from 'Routes/Settings/UpdatePassword/UpdatePassword'
 import './App.css'
 import './theme.css'
 
@@ -23,7 +24,8 @@ function App(): ReactElement {
         <Route path='/login' component={Login} />
         <Route path='/grades' component={Grades} />
         <Route path='/courseSlides' component={CourseSlides} />
-        <Route path='/settings' component={Settings} />
+        <Route path='/settings' exact component={Settings} />
+        <Route path='/settings/resetPassword' exact component={UpdatePassword} />
         <Route path='/assignments' component={Assignments} />
         <Route path='/forgotPassword' component={ForgotPassword} />
         <Route path='/resetPassword' component={ResetPassword} />

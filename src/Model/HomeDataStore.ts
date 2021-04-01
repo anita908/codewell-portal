@@ -30,9 +30,9 @@ const homeDataStore: IHomeDataStore = observable({
     courseChapters: [] as IChapter[],
     lessons: [] as ISessionProgress[]
   },
-  syncHomeData: async (fetcher: IFetcher): Promise<void> => {
+  syncHomeData: async (fetcher: IFetcher, useCache: boolean = true): Promise<void> => {
     const routeName = 'homeData'
-    if (CacheHelper.hasValidCache(routeName)) {
+    if (useCache && CacheHelper.hasValidCache(routeName)) {
       homeDataStore.setHomeData(CacheHelper.getCache(routeName).data)
     } else {
       const response: IHomeData = await fetcher.fetch({
