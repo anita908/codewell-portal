@@ -1,25 +1,32 @@
 import { updateUser } from 'Utilities/Url'
-import Fetcher from 'Drivers/Fetcher'
+import IFetcher from 'Drivers/Interfaces/IFetcher'
 import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
-import ISettings from './Interfaces/ISettings'
+import IProfile from './Interfaces/IProfile'
 import ISettingsPresenter from './ISettingsPresenter'
 
 class SettingsPresenter implements ISettingsPresenter {
+  private readonly fetcher: IFetcher
   private readonly homeDataStore: IHomeDataStore
 
-  constructor(homeDataStore: IHomeDataStore) {
+  constructor(fetcher: IFetcher, homeDataStore: IHomeDataStore) {
+    this.fetcher = fetcher
     this.homeDataStore = homeDataStore
   }
 
-  public async getUserSettings(): Promise<ISettings> {
+  public async getUserProfile(): Promise<IProfile> {
     if (Object.keys(this.homeDataStore.home.userData).length === 0) {
-      await this.homeDataStore.syncHomeData(new Fetcher())
+      await this.homeDataStore.syncHomeData(this.fetcher, true)
     }
-    return this.homeDataStore.home.userData as ISettings
+    return this.homeDataStore.home.userData as IProfile
   }
 
-  public async updateUserSettings(newSettings: ISettings): Promise<void> {
-    throw new Error('Method not implemented.')
+  public async updateUserProfile(newProfile: IProfile): Promise<void> {
+    await this.fetcher.fetch({
+      body: newProfile,
+      method: 'PUT',
+      url: updateUser
+    })
+    await this.homeDataStore.syncHomeData(this.fetcher, false)
   }
 }
 

@@ -13,6 +13,7 @@ interface IHomeDataStore {
     selectedSession: ISession
     userData: IUserData
   }
+  syncHomeData(fetcher: IFetcher, useCache: boolean): Promise<void>
   setCourseChapters(courseChapters: IChapter[]): void
   setEnrolledSessions(enrolledSessions: ISession[]): void
   setHomeData(response: IHomeData): void
@@ -20,7 +21,6 @@ interface IHomeDataStore {
   setSelectedSession(session: ISession): void
   setUserFirstName(firstName: string): void
   setUserData(userData: IUserData): void
-  syncHomeData(fetcher: IFetcher): Promise<void>
 }
 
 export default IHomeDataStore

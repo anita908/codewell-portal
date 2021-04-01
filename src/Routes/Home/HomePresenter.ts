@@ -32,7 +32,7 @@ class HomePresenter implements IHomePresenter {
   }
 
   public async getHomeData(): Promise<void> {
-    await this.homeDataStore.syncHomeData(new Fetcher())
+    await this.homeDataStore.syncHomeData(new Fetcher(), true)
     this.update()
   }
 
