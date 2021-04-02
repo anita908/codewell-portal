@@ -1,8 +1,10 @@
 import React, { Component, ReactElement } from 'react'
-import SideNav from 'Common/SideNav'
+import Footer from 'Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
 import ISettings from './Interfaces/ISettings'
 import SettingsPresenter from './SettingsPresenter'
+import SideNav from 'Common/SideNav'
+import './style.css'
 
 type State = {
   userSettings: ISettings
@@ -48,6 +50,7 @@ class Settings extends Component<{}, State> {
             <span>City: </span> {userSettings.city}
           </div>
         </div>
+        <Footer />
       </div>
     )
   }

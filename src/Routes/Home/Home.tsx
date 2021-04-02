@@ -6,6 +6,7 @@ import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Card from '../../Common/Card/Card'
 import Cookies from '../../Utilities/Cookies'
 import Fetcher from 'Drivers/Fetcher'
+import Footer from '../../Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
 import HomePresenter from './HomePresenter'
 import IAssignmentVideo from './Interfaces/IAssignmentVideo'
@@ -73,6 +74,7 @@ class Home extends Component<{}, State> implements ISubscriber {
             presenter={new AssignmentPresenter(assignmentDataStore)}
           />
         </div>
+        <Footer />
       </div>
     )
   }
@@ -93,6 +95,7 @@ class Home extends Component<{}, State> implements ISubscriber {
             presenter={new AssignmentPresenter(assignmentDataStore)}
           />
         </div>
+        <Footer />
       </div>
     )
   }
@@ -119,6 +122,7 @@ class Home extends Component<{}, State> implements ISubscriber {
             })}
           </div>
         </div>
+        <Footer />
       </div>
     )
   }

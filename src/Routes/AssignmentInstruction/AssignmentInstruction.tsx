@@ -1,6 +1,7 @@
 import React, { Component, ReactElement } from 'react'
 import assignmentDataStore from 'Model/AssignmentDataStore'
 import AssignmentPresenter from 'Routes/Home/Assignment/AssignmentPresenter'
+import Footer from 'Common/Footer'
 import IAssignmentVideo from '../Home/Interfaces/IAssignmentVideo'
 import SideNav from '../../Common/SideNav/SideNav'
 import './style.css'
@@ -62,6 +63,7 @@ class AssignmentInstruction extends Component<Props, {}> {
             </div>
           )}
         </div>
+        <Footer />
       </div>
     )
   }

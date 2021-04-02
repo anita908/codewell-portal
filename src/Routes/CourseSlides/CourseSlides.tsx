@@ -1,4 +1,5 @@
 import React, { Component, ReactElement } from 'react'
+import Footer from 'Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
 import HomePresenter from 'Routes/Home/HomePresenter'
 import IChapter from './Interfaces/IChapter'
@@ -31,6 +32,7 @@ class CourseSlides extends Component {
             ))}
           </div>
         </div>
+        <Footer />
       </div>
     )
   }
