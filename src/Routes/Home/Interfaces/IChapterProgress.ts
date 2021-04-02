@@ -1,7 +1,7 @@
 import IActivities from './IActivities'
 import IHomeworkProgress from './IHomeworkProgress'
 
-interface ISessionProgress {
+interface IChapterProgress {
   activities: IActivities[]
   chapterId: number
   chapterName: string
@@ -10,4 +10,4 @@ interface ISessionProgress {
   slidesLink: string
 }
 
-export default ISessionProgress
+export default IChapterProgress

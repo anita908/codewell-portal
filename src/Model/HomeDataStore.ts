@@ -2,11 +2,11 @@ import { observable } from 'mobx'
 import { homeData } from '../Utilities/Url'
 import CacheHelper from 'Utilities/CacheHelper'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
+import IChapterProgress from 'Routes/Home/Interfaces/IChapterProgress'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
 import IHomeData from 'Routes/Home/Interfaces/IHomeData'
 import IHomeDataStore from './Interfaces/IHomeDataStore'
 import ISession from 'Routes/Home/Interfaces/ISession'
-import ISessionProgress from 'Routes/Home/Interfaces/ISessionProgress'
 import IUserData from 'Routes/Home/Interfaces/IUserData'
 import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 
@@ -25,10 +25,10 @@ const homeDataStore: IHomeDataStore = observable({
       graduated: '',
       overallGrade: -1,
       sessionId: LocalStorageHelper.getCurrentSessionId() || -1,
-      sessionProgressModel: []
+      sessionProgressModel: [] as IChapterProgress[]
     } as ISession,
     courseChapters: [] as IChapter[],
-    lessons: [] as ISessionProgress[]
+    lessons: [] as IChapterProgress[]
   },
   syncHomeData: async (fetcher: IFetcher, useCache: boolean = true): Promise<void> => {
     const routeName = 'homeData'
@@ -72,12 +72,12 @@ const homeDataStore: IHomeDataStore = observable({
     if (homeDataStore.home.selectedSession.sessionId >= 0) {
       homeDataStore.setCourseChapters(
         homeDataStore.home.selectedSession.sessionProgressModel.map(
-          (progressModel: ISessionProgress) => {
+          (chapterProgress: IChapterProgress) => {
             return {
-              id: progressModel.chapterId,
-              chapterNo: progressModel.chapterNo,
-              name: progressModel.chapterName,
-              slidesLink: progressModel.slidesLink
+              id: chapterProgress.chapterId,
+              chapterNo: chapterProgress.chapterNo,
+              name: chapterProgress.chapterName,
+              slidesLink: chapterProgress.slidesLink
             }
           }
         )
@@ -100,8 +100,8 @@ const homeDataStore: IHomeDataStore = observable({
 
     localStorage.setItem('selectedSessionId', session.sessionId.toString())
   },
-  setLessons: (sessionProgresses: ISessionProgress[]): void => {
-    homeDataStore.home.lessons = sessionProgresses
+  setLessons: (chapterProgresses: IChapterProgress[]): void => {
+    homeDataStore.home.lessons = chapterProgresses
   },
   setCourseChapters: (courseChapters: IChapter[]): void => {
     homeDataStore.home.courseChapters = courseChapters

@@ -17,7 +17,7 @@ type State = {
 const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
-    userSettings: {
+    userProfile: {
       birthdate: '',
       city: '',
       state: '',
@@ -73,11 +73,11 @@ class Settings extends Component<{}, State> {
             />
           </div>
           <div>
-            <label>Age:</label>
+            <label>Birthdate:</label>
             <input
               type='text'
-              value={userProfile.age || ''}
-              onChange={(e) => this.updateInputField(e, 'age')}
+              value={userProfile.birthdate}
+              onChange={(e) => this.updateInputField(e, 'birthdate')}
               disabled={!editingProfile}
               required={true}
             />
@@ -88,6 +88,16 @@ class Settings extends Component<{}, State> {
               type='text'
               value={userProfile.city}
               onChange={(e) => this.updateInputField(e, 'city')}
+              disabled={!editingProfile}
+              required={true}
+            />
+          </div>
+          <div>
+            <label>State:</label>
+            <input
+              type='text'
+              value={userProfile.state}
+              onChange={(e) => this.updateInputField(e, 'state')}
               disabled={!editingProfile}
               required={true}
             />
@@ -117,14 +127,10 @@ class Settings extends Component<{}, State> {
   }
 
   updateUserProfile = async (): Promise<void> => {
-    const { firstName, lastName, email, age } = this.state.userProfile
-    if (!firstName || !lastName || !email) {
+    const { firstName, lastName, email, birthdate } = this.state.userProfile
+    if (!firstName || !lastName || !email || !birthdate) {
       this.setState({
-        invalidFormMessage: 'First name, last name, and email address cannot be empty.'
-      })
-    } else if (!age) {
-      this.setState({
-        invalidFormMessage: 'Age must be greater than 0.'
+        invalidFormMessage: 'First name, last name, email address, and birthdate cannot be empty.'
       })
     } else {
       this.setState({

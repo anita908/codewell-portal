@@ -79,12 +79,13 @@ class UpdatePassword extends Component<{}, State> {
     } else if (this.state.newPassword !== this.state.confirmPassword) {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
-      const responseMessage = await updatePasswordPresenter.updateUserPassword({
+      const response = await updatePasswordPresenter.updateUserPassword({
         username: this.state.username,
         password: this.state.newPassword
       })
-      this.setState({ invalidFormMessage: responseMessage })
-      if (!responseMessage) {
+      if (response.errorType) {
+        this.setState({ invalidFormMessage: response.message })
+      } else {
         window.location.pathname = '/settings'
       }
     }

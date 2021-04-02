@@ -10,7 +10,7 @@ import Footer from '../../Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
 import HomePresenter from './HomePresenter'
 import IAssignmentVideo from './Interfaces/IAssignmentVideo'
-import ISessionProgress from './Interfaces/ISessionProgress'
+import IChapterProgress from './Interfaces/IChapterProgress'
 import ISession from './Interfaces/ISession'
 import ISubscriber from 'UseCases/ISubscriber'
 import Lesson from './Lesson'
@@ -20,7 +20,7 @@ import SideNav from '../../Common/SideNav'
 import './style.css'
 
 type State = {
-  lessons: ISessionProgress[]
+  lessons: IChapterProgress[]
   name: string
   videos: IAssignmentVideo[]
 }
