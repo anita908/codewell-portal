@@ -15,7 +15,7 @@ class SettingsPresenter implements ISettingsPresenter {
 
   public async getUserProfile(): Promise<IProfile> {
     if (Object.keys(this.homeDataStore.home.userData).length === 0) {
-      await this.homeDataStore.syncHomeData(this.fetcher, true)
+      await this.homeDataStore.getHomeData()
     }
     return this.homeDataStore.home.userData as IProfile
   }
@@ -26,7 +26,7 @@ class SettingsPresenter implements ISettingsPresenter {
       method: 'PUT',
       url: updateUser
     })
-    await this.homeDataStore.syncHomeData(this.fetcher, false)
+    await this.homeDataStore.getHomeData()
   }
 }
 
