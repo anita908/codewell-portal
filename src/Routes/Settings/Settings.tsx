@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import React, { ChangeEvent, Component, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
-import homeDataStore from 'Model/HomeDataStore'
 import IProfile from './Interfaces/IProfile'
+import Footer from 'Common/Footer'
+import HomeDataStore from 'Model/HomeDataStore'
 import SettingsPresenter from './SettingsPresenter'
 import SideNav from 'Common/SideNav'
 import './style.css'
@@ -13,7 +14,7 @@ type State = {
   invalidFormMessage: string
 }
 
-const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
+const presenter = new SettingsPresenter(new Fetcher(), new HomeDataStore(new Fetcher()))
 class Settings extends Component<{}, State> {
   state = {
     userProfile: {
@@ -99,6 +100,7 @@ class Settings extends Component<{}, State> {
           )}
         </div>
         <Link to='/settings/resetPassword'>Change Password</Link>
+        <Footer />
       </div>
     )
   }

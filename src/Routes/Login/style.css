@@ -6,7 +6,8 @@
 }
 
 .login-image {
-  --logo-margin-top: 200px;
+  --logo-margin-top: 100px;
+  
   color: var(--illustration-brightOrange);
   position: relative;
   top: var(--logo-margin-top);

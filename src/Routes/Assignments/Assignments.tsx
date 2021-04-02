@@ -1,5 +1,7 @@
 import React, { Component, ReactElement } from 'react'
+import Footer from 'Common/Footer'
 import SideNav from '../../Common/SideNav'
+import './style.css'
 
 class Assignments extends Component {
   render(): ReactElement {
@@ -7,6 +9,7 @@ class Assignments extends Component {
       <div id='assignments'>
         <SideNav />
         <div className='assignments-content'>Assignments</div>
+        <Footer />
       </div>
     )
   }

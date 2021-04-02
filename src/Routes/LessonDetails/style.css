@@ -1,3 +1,9 @@
+#lessonDetails {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .lessonDetails-slideContent {
   margin: 0 auto;
   width: var(--home-width);

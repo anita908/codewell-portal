@@ -1,5 +1,4 @@
 #sideNav ul {
-  --sideNav-width: 180px;
   background-color: var(--tangerine-30);
   bottom: 0;
   font-size: var(--l-text-size);
@@ -36,7 +35,7 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 890px) {
+@media only screen and (max-width: 1020px) {
   #sideNav ul {
     font-size: var(--m-text-size);
     height: 100%;

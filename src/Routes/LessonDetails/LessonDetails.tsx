@@ -1,26 +1,22 @@
 import React, { Component, Fragment, ReactElement } from 'react'
-import HomePresenter from 'Routes/Home/HomePresenter'
-import homeDataStore from 'Model/HomeDataStore'
-import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
+import Footer from 'Common/Footer'
+import ISessionProgress from 'Routes/Home/Interfaces/ISessionProgress'
 import SideNav from '../../Common/SideNav/SideNav'
 import './style.css'
 
 type Props = {
   location: {
     state: {
+      content: ISessionProgress
       lessonId: string
       lessonName: string
     }
   }
 }
 
-const presenter = new HomePresenter(homeDataStore)
 class LessonDetails extends Component<Props, {}> {
   render(): ReactElement {
-    const { lessonId, lessonName } = this.props.location.state
-    const courseSlide = presenter.courseSlides.find(
-      (slide: IChapter) => slide.chapterNo === parseInt(lessonId, 10)
-    )
+    const { content, lessonId, lessonName } = this.props.location.state
 
     return (
       <div id='lessonDetails'>
@@ -28,17 +24,18 @@ class LessonDetails extends Component<Props, {}> {
         <div className='lessonDetails-content'>
           <h2 className='lessonDetails-contentTitle'>Lesson {lessonId}: </h2>
           <h2 className='lessonDetails-contentTitle'>{lessonName}</h2>
-          {courseSlide && (
+          {content && (
             <Fragment>
               <div className='lessonDetails-slideContent'>
                 <button className='lessonDetails-back' onClick={this.back} type='button'>
                   Back
                 </button>
               </div>
-              <iframe className='lessonDetails-slide' src={courseSlide.slidesLink} />
+              <iframe className='lessonDetails-slide' src={content.slidesLink} />
             </Fragment>
           )}
         </div>
+        <Footer />
       </div>
     )
   }

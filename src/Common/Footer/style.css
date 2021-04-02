@@ -1,0 +1,44 @@
+footer {
+  background-color: var(--illustration-brightYellow);
+  flex: 0 0 50px;
+  margin-top: auto;
+}
+
+footer ion-icon {
+  --facebook-blue: #3b5998;
+
+  color: var(--facebook-blue);
+  display: block;
+  float: right;
+  font-size: var(--spacing-8);
+  line-height: var(--spacing-8);
+  margin-right: var(--spacing-5);
+  padding-bottom: var(--spacing-3);
+  padding-top: var(--spacing-3);
+}
+
+.footer-copyRight {
+  display: inline-block;
+  font-size: medium;
+}
+
+.footer-facebook {
+  margin-top: var(--spacing-2);
+}
+
+@media only screen and (max-width: 890px) {
+  footer {
+    left: 0;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 385px) {
+  footer ion-icon {
+    font-size: var(--spacing-6);
+  }
+
+  .footer-copyRight {
+    font-size: small;
+  }
+}
