@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 import { homeData } from '../Utilities/Url'
 import CacheHelper from 'Utilities/CacheHelper'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
@@ -10,10 +10,11 @@ import ISessionProgress from 'Routes/Home/Interfaces/ISessionProgress'
 import IUserData from 'Routes/Home/Interfaces/IUserData'
 import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 
-const homeDataStore: IHomeDataStore = observable({
-  home: {
-    userData: {} as IUserData,
+class HomeDataStore implements IHomeDataStore {
+  @observable home = {
+    courseChapters: [] as IChapter[],
     enrolledSessions: [] as ISession[],
+    lessons: [] as ISessionProgress[],
     selectedSession: {
       beginDate: '',
       courseId: -1,
@@ -27,38 +28,44 @@ const homeDataStore: IHomeDataStore = observable({
       sessionId: LocalStorageHelper.getCurrentSessionId() || -1,
       sessionProgressModel: []
     } as ISession,
-    courseChapters: [] as IChapter[],
-    lessons: [] as ISessionProgress[]
-  },
-  syncHomeData: async (fetcher: IFetcher): Promise<void> => {
+    userData: {} as IUserData
+  }
+
+  constructor(private readonly fetcher: IFetcher) {}
+
+  @action
+  public async getHomeData(): Promise<void> {
     const routeName = 'homeData'
+
     if (CacheHelper.hasValidCache(routeName)) {
-      homeDataStore.setHomeData(CacheHelper.getCache(routeName).data)
+      this.setHomeData(CacheHelper.getCache(routeName).data)
     } else {
-      const response: IHomeData = await fetcher.fetch({
+      const response: IHomeData = await this.fetcher.fetch({
         body: {},
         method: 'GET',
         url: homeData
       })
+
       if (response) {
         CacheHelper.cacheRouteData(routeName, response)
-        homeDataStore.setHomeData(response)
+        this.setHomeData(response)
       }
     }
-  },
-  setHomeData: (response: IHomeData): void => {
-    const selectedSessionId = LocalStorageHelper.getCurrentSessionId()
+  }
+
+  private setHomeData(response: IHomeData): void {
+    const selectedSessionId = this.getSelectedSessionIdFromLocalStorage()
 
     if (response.userData) {
-      homeDataStore.setUserData(response.userData)
+      this.setUserData(response.userData)
     }
 
     if (response.enrolledSessions) {
-      homeDataStore.setEnrolledSessions(response.enrolledSessions)
+      this.setEnrolledSessions(response.enrolledSessions)
     }
 
     if (response.enrolledSessions.length === 1) {
-      homeDataStore.setSelectedSession(response.enrolledSessions[0])
+      this.setSelectedSession(response.enrolledSessions[0])
       localStorage.setItem('selectedSessionId', response.enrolledSessions[0].sessionId.toString())
     } else if (selectedSessionId > 0) {
       const enrolledSession =
@@ -66,46 +73,56 @@ const homeDataStore: IHomeDataStore = observable({
           (session: ISession) => session.sessionId === selectedSessionId
         ) || response.enrolledSessions[0]
 
-      homeDataStore.setSelectedSession(enrolledSession)
+      this.setSelectedSession(enrolledSession)
     }
 
-    if (homeDataStore.home.selectedSession.sessionId >= 0) {
-      homeDataStore.setCourseChapters(
-        homeDataStore.home.selectedSession.sessionProgressModel.map(
-          (progressModel: ISessionProgress) => {
-            return {
-              id: progressModel.chapterId,
-              chapterNo: progressModel.chapterNo,
-              name: progressModel.chapterName,
-              slidesLink: progressModel.slidesLink
-            }
+    if (this.home.selectedSession.sessionId >= 0) {
+      this.setCourseChapters(
+        this.home.selectedSession.sessionProgressModel.map((progressModel: ISessionProgress) => {
+          return {
+            id: progressModel.chapterId,
+            chapterNo: progressModel.chapterNo,
+            name: progressModel.chapterName,
+            slidesLink: progressModel.slidesLink
           }
-        )
+        })
       )
     }
-  },
-  setUserData: (userData: IUserData): void => {
-    homeDataStore.home.userData = userData
-    homeDataStore.setUserFirstName(userData.firstName)
-  },
-  setUserFirstName(firstName: string): void {
+  }
+
+  private getSelectedSessionIdFromLocalStorage(): number {
+    return LocalStorageHelper.getCurrentSessionId()
+  }
+
+  private setUserData(userData: IUserData): void {
+    this.home.userData = userData
+    this.setUserFirstName(userData.firstName)
+  }
+
+  private setUserFirstName(firstName: string): void {
     localStorage.setItem('firstname', firstName)
-  },
-  setEnrolledSessions: (enrolledSessions: ISession[]): void => {
-    homeDataStore.home.enrolledSessions = enrolledSessions
-  },
-  setSelectedSession: (session: ISession): void => {
-    homeDataStore.home.selectedSession = session
-    homeDataStore.setLessons(session.sessionProgressModel)
+  }
+
+  private setEnrolledSessions(enrolledSessions: ISession[]): void {
+    this.home.enrolledSessions = enrolledSessions
+  }
+
+  @action
+  public setSelectedSession(session: ISession): void {
+    this.home.selectedSession = session
+    this.setLessons(session.sessionProgressModel)
 
     localStorage.setItem('selectedSessionId', session.sessionId.toString())
-  },
-  setLessons: (sessionProgresses: ISessionProgress[]): void => {
-    homeDataStore.home.lessons = sessionProgresses
-  },
-  setCourseChapters: (courseChapters: IChapter[]): void => {
-    homeDataStore.home.courseChapters = courseChapters
   }
-})
 
-export default homeDataStore
+  private setLessons(sessionProgresses: ISessionProgress[]): void {
+    this.home.lessons = sessionProgresses
+  }
+
+  @action
+  public setCourseChapters(courseChapters: IChapter[]): void {
+    this.home.courseChapters = courseChapters
+  }
+}
+
+export default HomeDataStore

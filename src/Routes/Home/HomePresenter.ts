@@ -1,4 +1,3 @@
-import Fetcher from 'Drivers/Fetcher'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
 import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
 import IHomePresenter from './IHomePresenter'
@@ -32,7 +31,7 @@ class HomePresenter implements IHomePresenter {
   }
 
   public async getHomeData(): Promise<void> {
-    await this.homeDataStore.syncHomeData(new Fetcher())
+    await this.homeDataStore.getHomeData()
     this.update()
   }
 
