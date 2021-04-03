@@ -7,7 +7,7 @@ import Card from '../../Common/Card/Card'
 import Cookies from '../../Utilities/Cookies'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from '../../Common/Footer'
-import HomeDataStore from 'Model/HomeDataStore'
+import homeDataStore from 'Model/HomeDataStore'
 import HomePresenter from './HomePresenter'
 import IAssignmentVideo from './Interfaces/IAssignmentVideo'
 import ISessionProgress from './Interfaces/ISessionProgress'
@@ -25,9 +25,9 @@ type State = {
   videos: IAssignmentVideo[]
 }
 
-const assignmentPresenter = new AssignmentPresenter(assignmentDataStore)
-const homeDataStore = new HomeDataStore(new Fetcher())
 const homePresenter = new HomePresenter(homeDataStore)
+const assignmentPresenter = new AssignmentPresenter(assignmentDataStore)
+
 class Home extends Component<{}, State> implements ISubscriber {
   state = {
     lessons: [],
@@ -38,7 +38,6 @@ class Home extends Component<{}, State> implements ISubscriber {
   async componentDidMount(): Promise<void> {
     homePresenter.subscribe(this)
     assignmentPresenter.subscribe(this)
-
     await this.getHomeData()
   }
 
@@ -80,10 +79,6 @@ class Home extends Component<{}, State> implements ISubscriber {
     )
   }
 
-  getHomeData = async (): Promise<void> => {
-    await homePresenter.getHomeData()
-  }
-
   renderLoadingState = (): ReactElement => {
     const { name } = this.state
 
@@ -92,14 +87,10 @@ class Home extends Component<{}, State> implements ISubscriber {
         <SideNav />
         <div className='home-content'>
           <Profile />
-          <Lesson
-            homePresenter={new HomePresenter(new HomeDataStore(new Fetcher()))}
-            lessons={[]}
-            userName={name}
-          />
+          <Lesson homePresenter={new HomePresenter(homeDataStore)} lessons={[]} userName={name} />
           <Assignment
             courseVideos={[]}
-            homePresenter={new HomePresenter(new HomeDataStore(new Fetcher()))}
+            homePresenter={new HomePresenter(homeDataStore)}
             lessons={[]}
             presenter={new AssignmentPresenter(assignmentDataStore)}
           />
@@ -134,6 +125,10 @@ class Home extends Component<{}, State> implements ISubscriber {
         <Footer />
       </div>
     )
+  }
+
+  getHomeData = async (): Promise<void> => {
+    await homePresenter.getHomeData()
   }
 
   setSelectedSession = (session: ISession): void => {

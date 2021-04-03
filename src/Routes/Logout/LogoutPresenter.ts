@@ -10,7 +10,6 @@ class LogoutPresenter implements ILogoutPresenter {
   }
 
   public async logout(): Promise<void> {
-    localStorage.clear()
     await this.fetcher.fetch({
       body: {},
       method: 'DELETE',
