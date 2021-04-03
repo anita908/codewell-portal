@@ -9,9 +9,8 @@ import SideNav from 'Common/SideNav'
 import './style.css'
 
 type State = {
-  userProfile: IProfile
-  editingProfile: boolean
   invalidFormMessage: string
+  userProfile: IProfile
 }
 
 const presenter = new SettingsPresenter(new Fetcher(), new HomeDataStore(new Fetcher()))
@@ -33,73 +32,84 @@ class Settings extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { userProfile, editingProfile, invalidFormMessage } = this.state
+    const { userProfile, invalidFormMessage } = this.state
 
     return (
       <div id='settings'>
         <SideNav />
         <h1>Settings</h1>
+        <Link to='/settings/resetPassword'>Change Password</Link>
         <div className='settings-content'>
           <p>{invalidFormMessage}</p>
-          <div>
-            <label>First Name:</label>
+          <label htmlFor='firstname' className='inputLabel'>
+            First Name:{' '}
+          </label>
+          <div className='inputWrapper'>
             <input
+              className='input'
+              id='firstname'
+              onChange={(e) => this.updateInputField(e, 'firstName')}
+              required={true}
               type='text'
               value={userProfile.firstName}
-              onChange={(e) => this.updateInputField(e, 'firstName')}
-              disabled={!editingProfile}
-              required={true}
             />
           </div>
-          <div>
-            <label>Last Name:</label>
+          <label htmlFor='lastname' className='inputLabel'>
+            Last Name:{' '}
+          </label>
+          <div className='inputWrapper'>
             <input
+              className='input'
+              id='lastname'
+              onChange={(e) => this.updateInputField(e, 'lastName')}
+              required={true}
               type='text'
               value={userProfile.lastName}
-              onChange={(e) => this.updateInputField(e, 'lastName')}
-              disabled={!editingProfile}
-              required={true}
             />
           </div>
-          <div>
-            <label>Email Address:</label>
+          <label htmlFor='email' className='inputLabel'>
+            Email Address:{' '}
+          </label>
+          <div className='inputWrapper'>
             <input
+              className='input'
+              id='email'
+              onChange={(e) => this.updateInputField(e, 'email')}
+              required={true}
               type='text'
               value={userProfile.email}
-              onChange={(e) => this.updateInputField(e, 'email')}
-              disabled={!editingProfile}
-              required={true}
             />
           </div>
-          <div>
-            <label>Age:</label>
+          <label htmlFor='age' className='inputLabel'>
+            Age:{' '}
+          </label>
+          <div className='inputWrapper'>
             <input
+              className='input'
+              id='age'
+              onChange={(e) => this.updateInputField(e, 'age')}
+              required={true}
               type='text'
               value={userProfile.age || ''}
-              onChange={(e) => this.updateInputField(e, 'age')}
-              disabled={!editingProfile}
-              required={true}
             />
           </div>
-          <div>
-            <label>City:</label>
+          <label htmlFor='city' className='inputLabel'>
+            City:
+          </label>
+          <div className='inputWrapper'>
             <input
+              className='input'
+              id='city'
+              onChange={(e) => this.updateInputField(e, 'city')}
+              required={true}
               type='text'
               value={userProfile.city}
-              onChange={(e) => this.updateInputField(e, 'city')}
-              disabled={!editingProfile}
-              required={true}
             />
           </div>
         </div>
         <div>
-          {editingProfile ? (
-            <button onClick={this.updateUserProfile}>Save</button>
-          ) : (
-            <button onClick={() => this.setState({ editingProfile: true })}>Edit</button>
-          )}
+          <button onClick={this.updateUserProfile}>Save Changes</button>
         </div>
-        <Link to='/settings/resetPassword'>Change Password</Link>
         <Footer />
       </div>
     )
@@ -129,8 +139,8 @@ class Settings extends Component<{}, State> {
       this.setState({
         invalidFormMessage: ''
       })
+
       await presenter.updateUserProfile(this.state.userProfile)
-      this.setState({ editingProfile: false })
     }
   }
 
