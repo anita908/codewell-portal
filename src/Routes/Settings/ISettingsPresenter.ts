@@ -1,8 +1,8 @@
-import IProfile from './Interfaces/IProfile'
+import ISettings from './Interfaces/ISettings'
 
 interface ISettingsPresenter {
-  getUserProfile(): Promise<IProfile>
-  updateUserProfile(newProfile: IProfile): Promise<void>
+  getUserSettings(): Promise<ISettings>
+  updateUserSettings(newSettings: ISettings): Promise<void>
 }
 
 export default ISettingsPresenter
