@@ -14,8 +14,9 @@ const presenter = new SettingsPresenter(homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
     userSettings: {
-      age: null,
+      birthdate: '',
       city: '',
+      state: '',
       email: '',
       firstName: '',
       lastName: ''
@@ -44,7 +45,7 @@ class Settings extends Component<{}, State> {
             <span>Email Name: </span> {userSettings.email}
           </div>
           <div>
-            <span>Age: </span> {userSettings.age}
+            <span>Age: </span> {userSettings.birthdate}
           </div>
           <div>
             <span>City: </span> {userSettings.city}
