@@ -108,7 +108,7 @@ section {
 
 input {
   border: thin solid #bfbfbf;
-  border-radius: 4px;
+  border-radius: var(--note-border-radius);
 }
 
 @keyframes load-skeleton {

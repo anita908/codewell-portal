@@ -64,7 +64,7 @@ class HomeDataStore implements IHomeDataStore {
       this.setEnrolledSessions(response.enrolledSessions)
     }
 
-    if (response.enrolledSessions.length === 1) {
+    if (response.enrolledSessions && response.enrolledSessions.length === 1) {
       this.setSelectedSession(response.enrolledSessions[0])
       localStorage.setItem('selectedSessionId', response.enrolledSessions[0].sessionId.toString())
     } else if (selectedSessionId > 0) {

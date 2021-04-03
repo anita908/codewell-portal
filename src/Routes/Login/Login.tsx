@@ -38,15 +38,22 @@ class Login extends Component<{}, State> {
               <p className='login-error'>{error}</p>
               <div className='login-username'>
                 <label htmlFor='username'>User name: </label>
-                <input type='text' id='username' name='username' onChange={this.updateUsername} />
+                <input
+                  className='input'
+                  id='username'
+                  name='username'
+                  onChange={this.updateUsername}
+                  type='text'
+                />
               </div>
               <div className='login-password'>
                 <label htmlFor='password'>Password: </label>
                 <input
-                  type='password'
+                  className='input'
                   id='password'
                   name='password'
                   onChange={this.updatePassword}
+                  type='password'
                 />
               </div>
               {isLoading ? (

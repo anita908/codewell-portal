@@ -5,6 +5,11 @@
   height: 100vh;
 }
 
+#login input {
+  margin: 0 auto;
+  width: 80%;
+}
+
 .login-image {
   --logo-margin-top: 100px;
   
