@@ -9,22 +9,22 @@ import SideNav from 'Common/SideNav'
 import './style.css'
 
 type State = {
-  userProfile: IProfile
   invalidFormMessage: string
+  userProfile: IProfile
 }
 
 const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
+    invalidFormMessage: '',
     userProfile: {
-      birthday: '',
+      birthdate: '',
       city: '',
       state: '',
       email: '',
       firstName: '',
       lastName: ''
-    },
-    invalidFormMessage: ''
+    }
   }
 
   componentDidMount(): void {
@@ -33,6 +33,7 @@ class Settings extends Component<{}, State> {
 
   render(): ReactElement {
     const { userProfile, invalidFormMessage } = this.state
+    console.log('userProfile ', userProfile)
 
     return (
       <div id='settings'>
@@ -80,17 +81,17 @@ class Settings extends Component<{}, State> {
               value={userProfile.email}
             />
           </div>
-          <label htmlFor='birthday' className='inputLabel'>
+          <label htmlFor='birthdate' className='inputLabel'>
             Birthday:{' '}
           </label>
           <div className='inputWrapper'>
             <input
               className='input'
-              id='birthday'
-              onChange={(e) => this.updateInputField(e, 'birthday')}
+              id='birthdate'
+              onChange={(e) => this.updateInputField(e, 'birthdate')}
               required={true}
               type='date'
-              value={userProfile.birthday}
+              value={userProfile.birthdate}
             />
           </div>
           <label htmlFor='city' className='inputLabel'>
@@ -127,13 +128,13 @@ class Settings extends Component<{}, State> {
   }
 
   updateUserProfile = async (): Promise<void> => {
-    const { birthday, email, firstName, lastName } = this.state.userProfile
+    const { birthdate, email, firstName, lastName } = this.state.userProfile
 
     if (!firstName || !lastName || !email) {
       this.setState({
         invalidFormMessage: 'First name, last name, and email address cannot be empty.'
       })
-    } else if (!birthday) {
+    } else if (!birthdate) {
       this.setState({
         invalidFormMessage: 'Please enter your birthday.'
       })
@@ -147,7 +148,7 @@ class Settings extends Component<{}, State> {
 
   getUserProfile = async (): Promise<void> => {
     const settings = await presenter.getUserProfile()
-    settings.birthday = settings.birthday.substring(0, 10)
+    settings.birthdate = settings.birthdate?.substring(0, 10)
     this.setState({ userProfile: settings })
   }
 }

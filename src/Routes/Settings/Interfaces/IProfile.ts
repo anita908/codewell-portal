@@ -1,5 +1,5 @@
 interface IProfile {
-  birthday: string
+  birthdate: string
   city: string
   email: string
   firstName: string

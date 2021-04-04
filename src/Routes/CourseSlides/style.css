@@ -7,7 +7,7 @@
 .courseSlides-content {
   display: inline-block;
   margin-left: var(--mainPage-marginLeft);
-  width: 800px;
+  width: 80%;
 }
 
 .courseSlides-header {
