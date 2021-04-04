@@ -24,7 +24,7 @@ class JwtValidator {
         return false
       } else {
         const expirationDate = Date.parse(decodedToken.expirationDate)
-        if (expirationDate > Date.now()) {
+        if (expirationDate < Date.now()) {
           return false
         }
       }
