@@ -9,14 +9,14 @@ import SideNav from 'Common/SideNav'
 import './style.css'
 
 type State = {
-  invalidFormMessage: string
+  formMessage: string
   userProfile: IProfile
 }
 
 const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
-    invalidFormMessage: '',
+    formMessage: '',
     userProfile: {
       birthdate: '',
       city: '',
@@ -32,8 +32,7 @@ class Settings extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { userProfile, invalidFormMessage } = this.state
-    console.log('userProfile ', userProfile)
+    const { userProfile, formMessage } = this.state
 
     return (
       <div id='settings'>
@@ -41,7 +40,7 @@ class Settings extends Component<{}, State> {
         <h1>Settings</h1>
         <Link to='/settings/resetPassword'>Change Password</Link>
         <div className='settings-content'>
-          <p>{invalidFormMessage}</p>
+          <p>{formMessage}</p>
           <label htmlFor='firstname' className='inputLabel'>
             First Name:{' '}
           </label>
@@ -132,17 +131,18 @@ class Settings extends Component<{}, State> {
 
     if (!firstName || !lastName || !email) {
       this.setState({
-        invalidFormMessage: 'First name, last name, and email address cannot be empty.'
+        formMessage: 'First name, last name, and email address cannot be empty.'
       })
     } else if (!birthdate) {
       this.setState({
-        invalidFormMessage: 'Please enter your birthday.'
+        formMessage: 'Please enter your birthday.'
       })
     } else {
+      const responseMessage = await presenter.updateUserProfile(this.state.userProfile)
       this.setState({
-        invalidFormMessage: ''
+        formMessage: responseMessage
       })
-      await presenter.updateUserProfile(this.state.userProfile)
+      await this.getUserProfile()
     }
   }
 
