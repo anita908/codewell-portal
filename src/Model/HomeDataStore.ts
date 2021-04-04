@@ -55,18 +55,16 @@ const homeDataStore: IHomeDataStore = observable({
 
     if (response.enrolledSessions) {
       homeDataStore.setEnrolledSessions(response.enrolledSessions)
-    }
-
-    if (response.enrolledSessions.length === 1) {
-      homeDataStore.setSelectedSession(response.enrolledSessions[0])
-      localStorage.setItem('selectedSessionId', response.enrolledSessions[0].sessionId.toString())
-    } else if (selectedSessionId > 0) {
-      const enrolledSession =
-        response.enrolledSessions.find(
-          (session: ISession) => session.sessionId === selectedSessionId
-        ) || response.enrolledSessions[0]
-
-      homeDataStore.setSelectedSession(enrolledSession)
+      if (response.enrolledSessions.length === 1) {
+        homeDataStore.setSelectedSession(response.enrolledSessions[0])
+        localStorage.setItem('selectedSessionId', response.enrolledSessions[0].sessionId.toString())
+      } else if (selectedSessionId > 0) {
+        const enrolledSession =
+          response.enrolledSessions.find(
+            (session: ISession) => session.sessionId === selectedSessionId
+          ) || response.enrolledSessions[0]
+        homeDataStore.setSelectedSession(enrolledSession)
+      }
     }
 
     if (homeDataStore.home.selectedSession.sessionId >= 0) {
