@@ -45,3 +45,23 @@ html, body, #app {
 .loadingButton:hover {
   cursor: not-allowed;
 }
+
+.input {
+  display: block;
+  font-family: var(--font-family);
+  font-size: medium;
+  height: var(--spacing-6);
+  padding: var(--spacing-2) var(--spacing-3);
+  width: 100%;
+}
+
+.inputLabel {
+  display: block;
+  float: left;
+  margin-left: var(--spacing-3);
+  margin-top: var(--spacing-3);
+}
+
+.inputWrapper {
+  margin: var(--spacing-3);
+}

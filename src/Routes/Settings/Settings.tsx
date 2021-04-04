@@ -1,64 +1,154 @@
 import React, { Component, ReactElement } from 'react'
+import { Link } from 'react-router-dom'
+import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
-import ISettings from './Interfaces/ISettings'
+import IProfile from './Interfaces/IProfile'
 import SettingsPresenter from './SettingsPresenter'
 import SideNav from 'Common/SideNav'
 import './style.css'
 
 type State = {
-  userSettings: ISettings
+  invalidFormMessage: string
+  userProfile: IProfile
 }
 
-const presenter = new SettingsPresenter(homeDataStore)
+const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
-    userSettings: {
+    userProfile: {
       birthdate: '',
       city: '',
       state: '',
       email: '',
       firstName: '',
       lastName: ''
-    }
+    },
+    invalidFormMessage: ''
   }
 
-  async componentDidMount(): Promise<void> {
-    await this.getUserSettings()
+  componentDidMount(): void {
+    this.getUserProfile()
   }
 
   render(): ReactElement {
-    const { userSettings } = this.state
+    const { userProfile, invalidFormMessage } = this.state
 
     return (
       <div id='settings'>
         <SideNav />
         <h1>Settings</h1>
+        <Link to='/settings/resetPassword'>Change Password</Link>
         <div className='settings-content'>
-          <div>
-            <span>First Name: </span> {userSettings.firstName}
+          <p>{invalidFormMessage}</p>
+          <label htmlFor='firstname' className='inputLabel'>
+            First Name:{' '}
+          </label>
+          <div className='inputWrapper'>
+            <input
+              className='input'
+              id='firstname'
+              onChange={(e) => this.updateInputField(e, 'firstName')}
+              required={true}
+              type='text'
+              value={userProfile.firstName}
+            />
           </div>
-          <div>
-            <span>Last Name: </span> {userSettings.lastName}
+          <label htmlFor='lastname' className='inputLabel'>
+            Last Name:{' '}
+          </label>
+          <div className='inputWrapper'>
+            <input
+              className='input'
+              id='lastname'
+              onChange={(e) => this.updateInputField(e, 'lastName')}
+              required={true}
+              type='text'
+              value={userProfile.lastName}
+            />
           </div>
-          <div>
-            <span>Email Name: </span> {userSettings.email}
+          <label htmlFor='email' className='inputLabel'>
+            Email Address:{' '}
+          </label>
+          <div className='inputWrapper'>
+            <input
+              className='input'
+              id='email'
+              onChange={(e) => this.updateInputField(e, 'email')}
+              required={true}
+              type='text'
+              value={userProfile.email}
+            />
           </div>
-          <div>
-            <span>Age: </span> {userSettings.birthdate}
+          <label htmlFor='birthday' className='inputLabel'>
+            Birthday:{' '}
+          </label>
+          <div className='inputWrapper'>
+            <input
+              className='input'
+              id='birthday'
+              onChange={(e) => this.updateInputField(e, 'birthdate')}
+              required={true}
+              type='date'
+              value={userProfile.birthdate}
+            />
           </div>
-          <div>
-            <span>City: </span> {userSettings.city}
+          <label htmlFor='city' className='inputLabel'>
+            City:
+          </label>
+          <div className='inputWrapper'>
+            <input
+              className='input'
+              id='city'
+              onChange={(e) => this.updateInputField(e, 'city')}
+              required={true}
+              type='text'
+              value={userProfile.city}
+            />
           </div>
+        </div>
+        <div>
+          <button onClick={this.updateUserProfile}>Save Changes</button>
         </div>
         <Footer />
       </div>
     )
   }
 
-  getUserSettings = async (): Promise<void> => {
-    const settings = await presenter.getUserSettings()
-    this.setState({ userSettings: settings })
+  updateInputField = (event: React.ChangeEvent<HTMLInputElement>, key: string): void => {
+    const target = event.target
+    console.log(target.value)
+    this.setState({
+      userProfile: {
+        ...this.state.userProfile,
+        [key]: target.value
+      }
+    })
+  }
+
+  updateUserProfile = async (): Promise<void> => {
+    const { birthdate, email, firstName, lastName } = this.state.userProfile
+
+    if (!firstName || !lastName || !email) {
+      this.setState({
+        invalidFormMessage: 'First name, last name, and email address cannot be empty.'
+      })
+    } else if (!birthdate) {
+      this.setState({
+        invalidFormMessage: 'Please enter your birthday.'
+      })
+    } else {
+      this.setState({
+        invalidFormMessage: ''
+      })
+      await presenter.updateUserProfile(this.state.userProfile)
+    }
+  }
+
+  getUserProfile = async (): Promise<void> => {
+    const settings = await presenter.getUserProfile()
+    settings.birthdate = settings.birthdate.substring(0, 10)
+    this.setState({ userProfile: settings })
   }
 }
 

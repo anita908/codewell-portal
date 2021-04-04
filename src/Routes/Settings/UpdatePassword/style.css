@@ -1,10 +1,10 @@
-#settings {
+#passwordReset {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.settings-content {
+.resetPassword-content {
   margin: 0 auto;
   width: 75%;
 }
