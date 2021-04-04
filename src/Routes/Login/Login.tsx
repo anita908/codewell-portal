@@ -1,6 +1,7 @@
 import React, { Component, ReactElement } from 'react'
-import Cookies from '../../Utilities/Cookies'
-import Fetcher from '../../Drivers/Fetcher'
+import { Link } from 'react-router-dom'
+import Cookies from 'Utilities/Cookies'
+import Fetcher from 'Drivers/Fetcher'
 import loginIllustration from '../../images/login.svg'
 import LoginPresenter from './LoginPresenter'
 import './style.css'
@@ -55,6 +56,9 @@ class Login extends Component<{}, State> {
                   onChange={this.updatePassword}
                   type='password'
                 />
+                <div>
+                  <Link to={{ pathname: `/forgotPassword` }}>forgot password?</Link>
+                </div>
               </div>
               {isLoading ? (
                 <button className='button' type='submit' disabled>

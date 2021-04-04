@@ -3,10 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Assignments from './Routes/Assignments/Assignments'
 import AssignmentInstruction from './Routes/AssignmentInstruction/AssignmentInstruction'
 import CourseSlides from './Routes/CourseSlides/CourseSlides'
+import ForgotPassword from './Routes/ForgotPassword/ForgotPassword'
 import Grades from './Routes/Grades/Grades'
 import Home from './Routes/Home/Home'
 import LessonDetails from './Routes/LessonDetails/LessonDetails'
 import Login from './Routes/Login/Login'
+import ResetPassword from 'Routes/ForgotPassword/ResetPassword/ResetPassword'
 import Settings from './Routes/Settings/Settings'
 import UpdatePassword from 'Routes/Settings/UpdatePassword/UpdatePassword'
 import './App.css'
@@ -25,6 +27,8 @@ function App(): ReactElement {
         <Route path='/settings' exact component={Settings} />
         <Route path='/settings/resetPassword' exact component={UpdatePassword} />
         <Route path='/assignments' component={Assignments} />
+        <Route path='/forgotPassword' component={ForgotPassword} />
+        <Route path='/resetPassword' component={ResetPassword} />
       </Switch>
     </BrowserRouter>
   )

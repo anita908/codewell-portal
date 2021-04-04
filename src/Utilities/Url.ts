@@ -5,14 +5,12 @@ export const logout = `${baseUrl}/api/v1/auth/logout`
 export const updatePassword = `${baseUrl}/api/v1/auth/updateCredentials`
 
 export const createUser = `${baseUrl}/api/v1/user/create`
-export const userData = `${baseUrl}/api/v1/user`
-export const updateUser = `${baseUrl}/api/v1/user/update`
-
+export const enrollments = `${baseUrl}/api/v1/enrollment`
 export const homeData = `${baseUrl}/api/v1/learning/progress`
 
 export const homeworkVideo = `${baseUrl}/api/v1/homework/videos?homeworkId=`
 export const homeworkVideoByCourseId = `${baseUrl}/api/v1/homework/videos/course?courseId=`
-
-export const courseSlides = `${baseUrl}/api/v1/chapter?courseId=`
-
-export const enrollments = `${baseUrl}/api/v1/enrollment`
+export const resetPassword = `${baseUrl}/api/v1/auth/updateCredentials`
+export const sendEmail = `${baseUrl}/api/v1/auth/reset/sendEmail/`
+export const updateUser = `${baseUrl}/api/v1/user/update`
+export const userData = `${baseUrl}/api/v1/user`

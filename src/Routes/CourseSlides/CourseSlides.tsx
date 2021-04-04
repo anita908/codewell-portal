@@ -1,23 +1,15 @@
 import React, { Component, ReactElement } from 'react'
-import CourseSlideDataStore from 'Model/CourseSlideDataStore'
-import CourseSlidesPresenter from './CourseSlidesPresenter'
-import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
+import homeDataStore from 'Model/HomeDataStore'
+import HomePresenter from 'Routes/Home/HomePresenter'
 import IChapter from './Interfaces/IChapter'
 import SideNav from '../../Common/SideNav'
 import './style.css'
 
+const presenter = new HomePresenter(homeDataStore)
 class CourseSlides extends Component {
-  state = {
-    slides: []
-  }
-
-  async componentDidMount(): Promise<void> {
-    this.getSlides()
-  }
-
   render(): ReactElement {
-    const { slides } = this.state
+    const slides = presenter.courseSlides
 
     return (
       <div id='courseSlides'>
@@ -43,13 +35,6 @@ class CourseSlides extends Component {
         <Footer />
       </div>
     )
-  }
-
-  private getSlides = async () => {
-    const presenter = new CourseSlidesPresenter(new CourseSlideDataStore(new Fetcher()))
-    const slides = await presenter.getCourseSlides()
-
-    this.setState({ slides })
   }
 }
 

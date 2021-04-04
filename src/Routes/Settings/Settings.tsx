@@ -1,9 +1,9 @@
+import React, { Component, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import React, { ChangeEvent, Component, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
-import IProfile from './Interfaces/IProfile'
 import Footer from 'Common/Footer'
-import HomeDataStore from 'Model/HomeDataStore'
+import homeDataStore from 'Model/HomeDataStore'
+import IProfile from './Interfaces/IProfile'
 import SettingsPresenter from './SettingsPresenter'
 import SideNav from 'Common/SideNav'
 import './style.css'
@@ -13,17 +13,17 @@ type State = {
   userProfile: IProfile
 }
 
-const presenter = new SettingsPresenter(new Fetcher(), new HomeDataStore(new Fetcher()))
+const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
     userProfile: {
-      age: null,
+      birthday: '',
       city: '',
+      state: '',
       email: '',
       firstName: '',
       lastName: ''
     },
-    editingProfile: false,
     invalidFormMessage: ''
   }
 
@@ -80,17 +80,17 @@ class Settings extends Component<{}, State> {
               value={userProfile.email}
             />
           </div>
-          <label htmlFor='age' className='inputLabel'>
-            Age:{' '}
+          <label htmlFor='birthday' className='inputLabel'>
+            Birthday:{' '}
           </label>
           <div className='inputWrapper'>
             <input
               className='input'
-              id='age'
+              id='birthday'
               onChange={(e) => this.updateInputField(e, 'age')}
               required={true}
-              type='text'
-              value={userProfile.age || ''}
+              type='date'
+              value={userProfile.birthday || ''}
             />
           </div>
           <label htmlFor='city' className='inputLabel'>
@@ -115,7 +115,7 @@ class Settings extends Component<{}, State> {
     )
   }
 
-  updateInputField = (event: ChangeEvent<HTMLInputElement>, key: string): void => {
+  updateInputField = (event: React.ChangeEvent<HTMLInputElement>, key: string): void => {
     const target = event.target
     this.setState({
       userProfile: {
@@ -126,14 +126,15 @@ class Settings extends Component<{}, State> {
   }
 
   updateUserProfile = async (): Promise<void> => {
-    const { firstName, lastName, email, age } = this.state.userProfile
+    const { birthday, email, firstName, lastName } = this.state.userProfile
+
     if (!firstName || !lastName || !email) {
       this.setState({
         invalidFormMessage: 'First name, last name, and email address cannot be empty.'
       })
-    } else if (!age) {
+    } else if (!birthday) {
       this.setState({
-        invalidFormMessage: 'Age must be greater than 0.'
+        invalidFormMessage: 'Please enter your birthday.'
       })
     } else {
       this.setState({

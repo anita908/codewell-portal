@@ -1,9 +1,15 @@
-import React from 'react'
 import { render } from '@testing-library/react'
+import { BrowserRouter } from 'react-router-dom'
+import React from 'react'
 import Login from './Login'
 
+
 function getContainer() {
-  return render(<Login />).container
+  return render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  ).container
 }
 
 describe('Test login page', () => {
