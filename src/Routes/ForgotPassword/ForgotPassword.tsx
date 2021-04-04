@@ -1,6 +1,7 @@
 import React, { Component, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
 import ForgotPasswordPresenter from './ForgotPasswordPresenter'
+import './style.css'
 
 type State = {
   email: string
@@ -19,16 +20,21 @@ class ForgotPassword extends Component<{}, State> {
     const { message } = this.state
     return (
       <div id='forgotPassword'>
-        <p>{message}</p>
-        <p>Please enter your email below to receive further instruction</p>
-        <form onSubmit={this.submit}>
-          <input type='email' id='email' name='email' onChange={this.updateEmail} />
-          <div>
-            <button className='button' type='submit'>
-              Request password link
-            </button>
-          </div>
-        </form>
+        <div className='forgotPassword-content'>
+          <p>{message}</p>
+          <p>Please enter your email below to receive further instruction</p>
+          <button className='assignmentInstruction-back' onClick={this.back} type='button'>
+            Back
+          </button>
+          <form onSubmit={this.submit}>
+            <input type='email' id='email' name='email' onChange={this.updateEmail} />
+            <div>
+              <button className='button' type='submit'>
+                Request password link
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }
@@ -46,6 +52,10 @@ class ForgotPassword extends Component<{}, State> {
   resetPassword = async (email: any): Promise<any> => {
     const response = await forgotPasswordPresenter.resetPassword(email)
     this.setState({ message: response })
+  }
+
+  back = (): void => {
+    window.history.back()
   }
 }
 
