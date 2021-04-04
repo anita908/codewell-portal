@@ -12,7 +12,7 @@ class ForgotPasswordPresenter {
     const response = await this.fetcher.fetch({
       body: {},
       method: 'POST',
-      url: sendEmail + email + `?local=${process.env.NODE_ENV === 'development' ? 'false' : 'true'}`
+      url: sendEmail + email + `?local=${process.env.NODE_ENV === 'development' ? 'true' : 'false'}`
     })
     return response
   }
