@@ -7,6 +7,8 @@ type State = {
   message: string
 }
 
+const forgotPasswordPresenter = new ForgotPasswordPresenter(new Fetcher())
+
 class ForgotPassword extends Component<{}, State> {
   state = {
     email: '',
@@ -41,7 +43,6 @@ class ForgotPassword extends Component<{}, State> {
   }
 
   resetPassword = async (email: any): Promise<any> => {
-    const forgotPasswordPresenter = new ForgotPasswordPresenter(new Fetcher())
     const response = await forgotPasswordPresenter.resetPassword(email)
     this.setState({ message: response })
   }

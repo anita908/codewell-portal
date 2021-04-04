@@ -14,7 +14,7 @@ class ForgotPasswordPresenter {
       method: 'POST',
       url: sendEmail + email + `?local=${process.env.NODE_ENV === 'development' ? 'true' : 'false'}`
     })
-    return response
+    return response.message
   }
 }
 
