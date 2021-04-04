@@ -1,9 +1,9 @@
 interface IProfile {
-    email: string
-    firstName: string
-    lastName: string
-    age: number | null
-    city: string
+  birthday: string
+  email: string
+  firstName: string
+  lastName: string
+  city: string
 }
 
 export default IProfile

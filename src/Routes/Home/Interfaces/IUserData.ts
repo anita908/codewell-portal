@@ -1,5 +1,5 @@
 interface IUserData {
-  birthdate: string
+  birthday: string
   city: string
   email?: string
   firstName: string
