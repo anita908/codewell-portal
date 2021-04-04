@@ -12,14 +12,10 @@ type State = {
   invalidFormMessage: string
 }
 
-type Props = RouteComponentProps & {
-  token: string
-}
-
 const resetPasswordPresenter = new ResetPasswordPresenter(new Fetcher())
 const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})')
 
-class ResetPassword extends Component<Props, State> {
+class ResetPassword extends Component<RouteComponentProps, State> {
   state = {
     username: '',
     newPassword: '',
@@ -33,6 +29,7 @@ class ResetPassword extends Component<Props, State> {
     if (!JwtValidator.validate(token)) {
       this.props.history.replace('/login')
     }
+    Cookies.set('auth', JSON.stringify(token), { expires: 1 })
 
     return (
       <div id='password-reset'>
@@ -89,7 +86,6 @@ class ResetPassword extends Component<Props, State> {
     } else if (this.state.newPassword !== this.state.confirmPassword) {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
-      Cookies.set('auth', JSON.stringify(this.props.token), { expires: 1 })
       const response = await resetPasswordPresenter.resetPassword({
         username: this.state.username,
         password: this.state.newPassword
