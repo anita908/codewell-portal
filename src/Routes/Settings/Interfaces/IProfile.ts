@@ -1,10 +1,9 @@
 interface IProfile {
-    email: string
-    birthdate: string
-    firstName: string
-    lastName: string
-    city: string
-    state: string
+  birthday: string
+  city: string
+  email: string
+  firstName: string
+  lastName: string
 }
 
 export default IProfile

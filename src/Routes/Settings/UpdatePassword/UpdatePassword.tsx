@@ -1,7 +1,9 @@
 import React, { ChangeEvent, Component, FormEvent, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
-import SideNav from 'Common/SideNav'
+import Footer from '../../../Common/Footer/Footer'
+import SideNav from '../../../Common/SideNav/SideNav'
 import UpdatePasswordPresenter from './UpdatePasswordPresenter'
+import './style.css'
 
 type State = {
   username: string
@@ -24,39 +26,55 @@ class UpdatePassword extends Component<{}, State> {
   render(): ReactElement {
     const { username, newPassword, confirmPassword, invalidFormMessage } = this.state
     return (
-      <div id='password-reset'>
+      <div id='passwordReset'>
         <SideNav />
         <h1>Reset Password</h1>
         <h4>Please enter and confirm your new password below.</h4>
-        <div id='reset-password-content'>
+        <div className='resetPassword-content'>
           <form onSubmit={this.submitForm}>
-            <p>Username</p>
-            <input
-              type='text'
-              value={username}
-              onChange={(e) => this.updateInputField(e, 'username')}
-              required={true}
-            />
-            <p>New Password</p>
-            <input
-              type='password'
-              value={newPassword}
-              onChange={(e) => this.updateInputField(e, 'newPassword')}
-              required={true}
-            />
-            <p>Confirm Password</p>
-            <input
-              type='password'
-              value={confirmPassword}
-              onChange={(e) => this.updateInputField(e, 'confirmPassword')}
-              required={true}
-            />
+            <label htmlFor='username' className='inputLabel'>
+              Username:
+            </label>
+            <div className='inputWrapper'>
+              <input
+                className='input'
+                onChange={(e) => this.updateInputField(e, 'username')}
+                required={true}
+                type='text'
+                value={username}
+              />
+            </div>
+            <label htmlFor='password' className='inputLabel'>
+              New Password:
+            </label>
+            <div className='inputWrapper'>
+              <input
+                className='input'
+                onChange={(e) => this.updateInputField(e, 'newPassword')}
+                required={true}
+                type='password'
+                value={newPassword}
+              />
+            </div>
+            <label htmlFor='confirmPassword' className='inputLabel'>
+              Confirm Password:
+            </label>
+            <div className='inputWrapper'>
+              <input
+                className='input'
+                onChange={(e) => this.updateInputField(e, 'confirmPassword')}
+                required={true}
+                type='password'
+                value={confirmPassword}
+              />
+            </div>
             <div>
               <input type='submit' value='Reset password' />
             </div>
           </form>
           <p>{invalidFormMessage}</p>
         </div>
+        <Footer />
       </div>
     )
   }
@@ -79,13 +97,12 @@ class UpdatePassword extends Component<{}, State> {
     } else if (this.state.newPassword !== this.state.confirmPassword) {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
-      const response = await updatePasswordPresenter.updateUserPassword({
+      const responseMessage = await updatePasswordPresenter.updateUserPassword({
         username: this.state.username,
         password: this.state.newPassword
       })
-      if (response.errorType) {
-        this.setState({ invalidFormMessage: response.message })
-      } else {
+      this.setState({ invalidFormMessage: responseMessage })
+      if (!responseMessage) {
         window.location.pathname = '/settings'
       }
     }

@@ -1,7 +1,7 @@
-import IUserCredentials from './Interfaces/IUserCredentials';
+import IUserCredentials from './Interfaces/IUserCredentials'
 
 interface IUpdatePasswordPresenter {
-  updateUserPassword(newCredentials: IUserCredentials): Promise<any>
+  updateUserPassword(newCredentials: IUserCredentials): Promise<string>
 }
 
 export default IUpdatePasswordPresenter
