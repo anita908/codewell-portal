@@ -8,17 +8,13 @@ class ForgotPasswordPresenter {
     this.fetcher = fetcher
   }
 
-  public async resetPassword(email: string): Promise<void> {
-    await this.fetcher.fetch({
+  public async resetPassword(email: string): Promise<any> {
+    const response = await this.fetcher.fetch({
       body: {},
       method: 'POST',
-      url:
-        sendEmail +
-        email +
-        `?local=${
-          !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? 'true' : 'false'
-        }`
+      url: sendEmail + email + `?local=${process.env.NODE_ENV === 'development' ? 'false' : 'true'}`
     })
+    return response
   }
 }
 

@@ -1,7 +1,7 @@
 import { resetPassword } from '../../../Utilities/Url'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
-import IUserCredentials from './Interface/IUserCredentials'
 import IResetPasswordPresenter from './IResetPasswordPresenter'
+import IUserCredentials from './Interface/IUserCredentials'
 
 class ResetPasswordPresenter implements IResetPasswordPresenter {
   private readonly fetcher: IFetcher
@@ -10,17 +10,12 @@ class ResetPasswordPresenter implements IResetPasswordPresenter {
     this.fetcher = fetcher
   }
 
-  public async resetPassword(newCredentials: IUserCredentials, token: string): Promise<string> {
-    console.log(token)
-    const response = await this.fetcher.fetch(
-      {
-        body: newCredentials,
-        method: 'PUT',
-        url: resetPassword
-      },
-      `Bearer ${token}`
-    )
-    console.log(response)
+  public async resetPassword(newCredentials: IUserCredentials): Promise<string> {
+    const response = await this.fetcher.fetch({
+      body: newCredentials,
+      method: 'PUT',
+      url: resetPassword
+    })
     if (response.errorType === 'class java.lang.IllegalArgumentException') {
       return 'Username is incorrect'
     }

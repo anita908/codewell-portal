@@ -1,6 +1,7 @@
 import React, { ChangeEvent, Component, FormEvent, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
 import ResetPasswordPresenter from './ResetPasswordPresenter'
+import Cookies from 'Utilities/Cookies'
 
 type State = {
   username: string
@@ -85,15 +86,13 @@ class ResetPassword extends Component<Props, State> {
     } else if (this.state.newPassword !== this.state.confirmPassword) {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
-      const responseMessage = await resetPasswordPresenter.resetPassword(
-        {
-          username: this.state.username,
-          password: this.state.newPassword
-        },
-        this.props.token
-      )
+      Cookies.set('auth', JSON.stringify(this.props.token), { expires: 1 })
+      const responseMessage = await resetPasswordPresenter.resetPassword({
+        username: this.state.username,
+        password: this.state.newPassword
+      })
+      Cookies.remove('auth')
       this.setState({ invalidFormMessage: responseMessage })
-      console.log(responseMessage)
       if (!responseMessage) {
         if (typeof window !== 'undefined') {
           window.location.pathname = '/login'

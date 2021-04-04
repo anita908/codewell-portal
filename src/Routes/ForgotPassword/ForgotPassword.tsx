@@ -4,16 +4,20 @@ import ForgotPasswordPresenter from './ForgotPasswordPresenter'
 
 type State = {
   email: string
+  message: string
 }
 
 class ForgotPassword extends Component<{}, State> {
   state = {
-    email: ''
+    email: '',
+    message: ''
   }
 
   render(): ReactElement {
+    const { message } = this.state
     return (
       <div id='forgotPassword'>
+        <p>{message}</p>
         <form onSubmit={this.submit}>
           <input type='email' id='email' name='email' onChange={this.updateEmail} />
           <div>
@@ -36,9 +40,10 @@ class ForgotPassword extends Component<{}, State> {
     await this.resetPassword(email)
   }
 
-  resetPassword = async (email: any) => {
+  resetPassword = async (email: any): Promise<any> => {
     const forgotPasswordPresenter = new ForgotPasswordPresenter(new Fetcher())
-    await forgotPasswordPresenter.resetPassword(email)
+    const response = await forgotPasswordPresenter.resetPassword(email)
+    this.setState({ message: response })
   }
 }
 
