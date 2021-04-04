@@ -1,6 +1,8 @@
 import React, { ChangeEvent, Component, FormEvent, ReactElement } from 'react'
+import { RouteComponentProps, withRouter } from 'react-router'
 import Cookies from 'Utilities/Cookies'
 import Fetcher from 'Drivers/Fetcher'
+import JwtValidator from 'Utilities/JwtValidator'
 import ResetPasswordPresenter from './ResetPasswordPresenter'
 
 type State = {
@@ -9,8 +11,9 @@ type State = {
   confirmPassword: string
   invalidFormMessage: string
 }
-type Props = {
-  token: String
+
+type Props = RouteComponentProps & {
+  token: string
 }
 
 const resetPasswordPresenter = new ResetPasswordPresenter(new Fetcher())
@@ -24,13 +27,13 @@ class ResetPassword extends Component<Props, State> {
     invalidFormMessage: ''
   }
 
-  props = {
-    token: ''
-  }
-
   render(): ReactElement {
     const { username, newPassword, confirmPassword, invalidFormMessage } = this.state
-    const { token } = this.props
+    const token: string | null = new URLSearchParams(this.props.location.search).get('token')
+    if (!JwtValidator.validate(token)) {
+      this.props.history.replace('/login')
+    }
+
     return (
       <div id='password-reset'>
         <h1>Reset Password</h1>
@@ -87,19 +90,20 @@ class ResetPassword extends Component<Props, State> {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
       Cookies.set('auth', JSON.stringify(this.props.token), { expires: 1 })
-      const responseMessage = await resetPasswordPresenter.resetPassword({
+      const response = await resetPasswordPresenter.resetPassword({
         username: this.state.username,
         password: this.state.newPassword
       })
-      Cookies.remove('auth')
-      this.setState({ invalidFormMessage: responseMessage })
-      if (!responseMessage) {
-        if (typeof window !== 'undefined') {
-          window.location.href = window.location.protocol + '//' + window.location.host + '/login'
-        }
+      if (response.errorType) {
+        this.setState({ invalidFormMessage: response.message })
+        Cookies.remove('auth')
+      } else {
+        await resetPasswordPresenter.logout()
+        Cookies.remove('auth')
+        this.props.history.replace('/login')
       }
     }
   }
 }
 
-export default ResetPassword
+export default withRouter(ResetPassword)

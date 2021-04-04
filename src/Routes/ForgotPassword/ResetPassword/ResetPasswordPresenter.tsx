@@ -1,4 +1,4 @@
-import { resetPassword } from '../../../Utilities/Url'
+import { logout, resetPassword } from '../../../Utilities/Url'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
 import IResetPasswordPresenter from './IResetPasswordPresenter'
 import IUserCredentials from './Interface/IUserCredentials'
@@ -10,17 +10,20 @@ class ResetPasswordPresenter implements IResetPasswordPresenter {
     this.fetcher = fetcher
   }
 
-  public async resetPassword(newCredentials: IUserCredentials): Promise<string> {
-    const response = await this.fetcher.fetch({
+  public async resetPassword(newCredentials: IUserCredentials): Promise<any> {
+    return await this.fetcher.fetch({
       body: newCredentials,
       method: 'PUT',
       url: resetPassword
     })
-    console.log(response)
-    if (response === null) {
-      return 'Username is incorrect'
-    }
-    return 'Successfully reset password'
+  }
+
+  public async logout(): Promise<void> {
+    await this.fetcher.fetch({
+      body: {},
+      method: 'DELETE',
+      url: logout
+    })
   }
 }
 
