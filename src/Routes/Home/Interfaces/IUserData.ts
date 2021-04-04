@@ -1,11 +1,12 @@
 interface IUserData {
-  age: number
+  birthdate: string
   city: string
   email?: string
   firstName: string
   id: number
   isAdmin: string
   lastName: string
+  state: string
   userId: string
 }
 

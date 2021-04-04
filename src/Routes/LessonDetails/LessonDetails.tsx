@@ -1,4 +1,5 @@
 import React, { Component, Fragment, ReactElement } from 'react'
+import Footer from 'Common/Footer'
 import HomePresenter from 'Routes/Home/HomePresenter'
 import homeDataStore from 'Model/HomeDataStore'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
@@ -39,6 +40,7 @@ class LessonDetails extends Component<Props, {}> {
             </Fragment>
           )}
         </div>
+        <Footer />
       </div>
     )
   }
