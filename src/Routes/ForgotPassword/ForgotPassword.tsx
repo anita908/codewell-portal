@@ -20,6 +20,7 @@ class ForgotPassword extends Component<{}, State> {
     return (
       <div id='forgotPassword'>
         <p>{message}</p>
+        <p>Please enter your email below to receive further instruction</p>
         <form onSubmit={this.submit}>
           <input type='email' id='email' name='email' onChange={this.updateEmail} />
           <div>
