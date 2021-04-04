@@ -87,7 +87,7 @@ class Settings extends Component<{}, State> {
             <input
               className='input'
               id='birthday'
-              onChange={(e) => this.updateInputField(e, 'age')}
+              onChange={(e) => this.updateInputField(e, 'birthday')}
               required={true}
               type='date'
               value={userProfile.birthday || ''}
@@ -120,7 +120,7 @@ class Settings extends Component<{}, State> {
     this.setState({
       userProfile: {
         ...this.state.userProfile,
-        [key]: key === 'age' ? parseInt(target.value) : target.value
+        [key]: target.value
       }
     })
   }
