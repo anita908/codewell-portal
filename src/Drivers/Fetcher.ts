@@ -23,7 +23,7 @@ class Fetcher implements IFetcher {
 
     if (result.status === 200) {
       const responseMessage = await result.text()
-      return responseMessage ? JSON.parse(responseMessage) : {}
+      return responseMessage ? JSON.parse(responseMessage) : responseMessage
     }
 
     return null
