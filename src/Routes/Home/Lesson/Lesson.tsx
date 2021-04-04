@@ -1,12 +1,12 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card/Card'
+import IChapterProgress from '../Interfaces/IChapterProgress'
 import IHomePresenter from '../IHomePresenter'
-import ISessionProgress from '../Interfaces/ISessionProgress'
 import './style.css'
 
 type Prop = {
   homePresenter: IHomePresenter
-  lessons: ISessionProgress[]
+  lessons: IChapterProgress[]
   userName: string
 }
 
@@ -25,7 +25,7 @@ class Lesson extends Component<Prop, State> {
     const { showMore } = this.state
 
     if (lessons && lessons.length) {
-      const displayLessons: ISessionProgress[] = showMore ? lessons : [lessons[0], lessons[1]]
+      const displayLessons: IChapterProgress[] = showMore ? lessons : [lessons[0], lessons[1]]
 
       return (
         <div id='lesson'>
@@ -36,7 +36,7 @@ class Lesson extends Component<Prop, State> {
             </details>
           </div>
           <div className='lesson-content'>
-            {displayLessons.map((lesson: ISessionProgress) => {
+            {displayLessons.map((lesson: IChapterProgress) => {
               return (
                 <Fragment key={lesson.chapterId}>
                   <Card

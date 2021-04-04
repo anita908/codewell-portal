@@ -1,9 +1,9 @@
 import Fetcher from 'Drivers/Fetcher'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
+import IChapterProgress from './Interfaces/IChapterProgress'
 import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
 import IHomePresenter from './IHomePresenter'
 import ISession from './Interfaces/ISession'
-import ISessionProgress from './Interfaces/ISessionProgress'
 import ISubscriber from 'UseCases/ISubscriber'
 
 class HomePresenter implements IHomePresenter {
@@ -23,7 +23,7 @@ class HomePresenter implements IHomePresenter {
     return this.homeDataStore.home.enrolledSessions
   }
 
-  public get lessons(): ISessionProgress[] {
+  public get lessons(): IChapterProgress[] {
     return this.homeDataStore.home.lessons
   }
 
@@ -32,14 +32,14 @@ class HomePresenter implements IHomePresenter {
   }
 
   public async getHomeData(): Promise<void> {
-    await this.homeDataStore.syncHomeData(new Fetcher())
+    await this.homeDataStore.syncHomeData(new Fetcher(), true)
     this.update()
   }
 
   public setSelectedSession(session: ISession): void {
     this.homeDataStore.setSelectedSession(session)
     this.homeDataStore.setCourseChapters(
-      session.sessionProgressModel.map((progressModel: ISessionProgress) => {
+      session.sessionProgressModel.map((progressModel: IChapterProgress) => {
         return {
           id: progressModel.chapterId,
           chapterNo: progressModel.chapterNo,

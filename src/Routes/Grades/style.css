@@ -3,3 +3,102 @@
   flex-direction: column;
   min-height: 100vh;
 }
+
+.grades-content {
+  display: inline-block;
+  margin-left: var(--mainPage-marginLeft);
+  padding-left: 1%;
+  width: 800px;
+  text-align: left;
+}
+
+.grades-content table thead th {
+  display: table-row;
+}
+
+.chapter-table {
+  width: 100%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-spacing: 0;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.chapter-table th {
+  background: #5340f3;
+  color: white;
+}
+
+.chapter-table th td {
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+
+.chapter-table tr:last-of-type td {
+  border-bottom: none;
+}
+
+.chapter-table tr:last-of-type td:last-of-type {
+  border-right: none;
+}
+
+.chapter-table .chapter-row {
+  cursor: pointer;
+}
+
+.chapter-table .chapter-row:hover {
+  background: #dddddd;
+}
+
+.chapter-table .chapter-row td {
+  padding: 5px;
+  border-bottom: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+
+.homework-table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.homework-table th {
+  background: #dddddd;
+  color: black;
+  font-weight: normal;
+}
+
+.homework-table th td {
+  padding: 2px;
+  border-bottom: 1px solid #dddddd !important;
+}
+
+.homework-table .homework-row td {
+  padding: 2px;
+}
+
+.grades-header {
+  margin-top: var(--layout-2);
+  text-align: center;
+  font-size: var(--xl-text-size);
+  color: var(--green-50);
+}
+
+@media only screen and (max-width: 1050px) {
+  .grades-content {
+      width: 740px;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .grades-content {
+      width: 670px;
+    }
+}
+
+@media only screen and (max-width: 890px) {
+  .grades-content {
+      width: 670px;
+      margin-left: 0;
+  }
+}

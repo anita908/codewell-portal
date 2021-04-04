@@ -57,7 +57,7 @@ class Login extends Component<{}, State> {
                   type='password'
                 />
                 <div>
-                  <Link to={{ pathname: `/forgotPassword` }}>forgot password?</Link>
+                  <Link to={{ pathname: `/forgotPassword` }}>Forgot password?</Link>
                 </div>
               </div>
               {isLoading ? (

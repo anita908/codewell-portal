@@ -2,14 +2,14 @@ import React, { Component, Fragment, ReactElement } from 'react'
 import Card from '../../../Common/Card'
 import IAssignmentPresenter from './IAssignmentPresenter'
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
+import IChapterProgress from '../Interfaces/IChapterProgress'
 import IHomeworkProgress from '../Interfaces/IHomeworkProgress'
 import IHomePresenter from '../IHomePresenter'
-import ISessionProgress from '../Interfaces/ISessionProgress'
 import './style.css'
 
 type Prop = {
   courseVideos: IAssignmentVideo[]
-  lessons: ISessionProgress[]
+  lessons: IChapterProgress[]
   presenter: IAssignmentPresenter
   homePresenter: IHomePresenter
 }
@@ -44,12 +44,12 @@ class Assignment extends Component<Prop, State> {
           </div>
           <div className='assignment-content'>
             {displayAssignments?.map((homework: IHomeworkProgress) => {
-              const lesson = sessionProgressModel.find((l: ISessionProgress) =>
+              const lesson = sessionProgressModel.find((l: IChapterProgress) =>
                 l.homeworkProgress.find(
                   (homeworkProgress: IHomeworkProgress) =>
                     homeworkProgress.homeworkName === homework.homeworkName
                 )
-              ) as ISessionProgress
+              ) as IChapterProgress
 
               return (
                 <Fragment key={lesson.chapterId}>
@@ -131,7 +131,7 @@ class Assignment extends Component<Prop, State> {
     const allAssignments: IHomeworkProgress[] = []
 
     if (sessionProgressModel.length > 0) {
-      sessionProgressModel.map((lesson: ISessionProgress) => {
+      sessionProgressModel.map((lesson: IChapterProgress) => {
         return allAssignments.push(...lesson.homeworkProgress)
       })
 

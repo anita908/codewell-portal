@@ -9,13 +9,14 @@ import SideNav from 'Common/SideNav'
 import './style.css'
 
 type State = {
-  invalidFormMessage: string
+  formMessage: string
   userProfile: IProfile
 }
 
 const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
+    formMessage: '',
     userProfile: {
       birthdate: '',
       city: '',
@@ -23,8 +24,7 @@ class Settings extends Component<{}, State> {
       email: '',
       firstName: '',
       lastName: ''
-    },
-    invalidFormMessage: ''
+    }
   }
 
   componentDidMount(): void {
@@ -32,7 +32,7 @@ class Settings extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { userProfile, invalidFormMessage } = this.state
+    const { userProfile, formMessage } = this.state
 
     return (
       <div id='settings'>
@@ -40,7 +40,7 @@ class Settings extends Component<{}, State> {
         <h1>Settings</h1>
         <Link to='/settings/resetPassword'>Change Password</Link>
         <div className='settings-content'>
-          <p>{invalidFormMessage}</p>
+          <p>{formMessage}</p>
           <label htmlFor='firstname' className='inputLabel'>
             First Name:{' '}
           </label>
@@ -80,13 +80,13 @@ class Settings extends Component<{}, State> {
               value={userProfile.email}
             />
           </div>
-          <label htmlFor='birthday' className='inputLabel'>
+          <label htmlFor='birthdate' className='inputLabel'>
             Birthday:{' '}
           </label>
           <div className='inputWrapper'>
             <input
               className='input'
-              id='birthday'
+              id='birthdate'
               onChange={(e) => this.updateInputField(e, 'birthdate')}
               required={true}
               type='date'
@@ -117,7 +117,7 @@ class Settings extends Component<{}, State> {
 
   updateInputField = (event: React.ChangeEvent<HTMLInputElement>, key: string): void => {
     const target = event.target
-    console.log(target.value)
+
     this.setState({
       userProfile: {
         ...this.state.userProfile,
@@ -131,23 +131,24 @@ class Settings extends Component<{}, State> {
 
     if (!firstName || !lastName || !email) {
       this.setState({
-        invalidFormMessage: 'First name, last name, and email address cannot be empty.'
+        formMessage: 'First name, last name, and email address cannot be empty.'
       })
     } else if (!birthdate) {
       this.setState({
-        invalidFormMessage: 'Please enter your birthday.'
+        formMessage: 'Please enter your birthday.'
       })
     } else {
+      const responseMessage = await presenter.updateUserProfile(this.state.userProfile)
       this.setState({
-        invalidFormMessage: ''
+        formMessage: responseMessage
       })
-      await presenter.updateUserProfile(this.state.userProfile)
+      await this.getUserProfile()
     }
   }
 
   getUserProfile = async (): Promise<void> => {
     const settings = await presenter.getUserProfile()
-    settings.birthdate = settings.birthdate.substring(0, 10)
+    settings.birthdate = settings.birthdate?.substring(0, 10)
     this.setState({ userProfile: settings })
   }
 }

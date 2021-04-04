@@ -1,4 +1,4 @@
-import ISessionProgress from './ISessionProgress'
+import IChapterProgress from './IChapterProgress'
 
 interface ISession {
   beginDate: string
@@ -11,7 +11,7 @@ interface ISession {
   graduated: string
   overallGrade: number
   sessionId: number
-  sessionProgressModel: ISessionProgress[]
+  sessionProgressModel: IChapterProgress[]
 }
 
 export default ISession

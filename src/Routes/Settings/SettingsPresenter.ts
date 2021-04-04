@@ -15,19 +15,24 @@ class SettingsPresenter implements ISettingsPresenter {
 
   public async getUserProfile(): Promise<IProfile> {
     if (Object.keys(this.homeDataStore.home.userData).length === 0) {
-      await this.homeDataStore.syncHomeData(this.fetcher)
+      await this.homeDataStore.syncHomeData(this.fetcher, true)
     }
     return this.homeDataStore.home.userData as IProfile
   }
 
-  public async updateUserProfile(newProfile: IProfile): Promise<void> {
+  public async updateUserProfile(newProfile: IProfile): Promise<string> {
     newProfile.birthdate = newProfile.birthdate + 'T00:00:00Z'
-    await this.fetcher.fetch({
+    const response = await this.fetcher.fetch({
       body: newProfile,
       method: 'PUT',
       url: updateUser
     })
-    await this.homeDataStore.syncHomeData(this.fetcher)
+    if (response.errorType) {
+      return response.message
+    } else {
+      await this.homeDataStore.syncHomeData(this.fetcher, false)
+      return 'Successfully updated user profile'
+    }
   }
 }
 
