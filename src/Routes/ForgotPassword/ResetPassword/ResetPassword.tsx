@@ -95,7 +95,7 @@ class ResetPassword extends Component<Props, State> {
       this.setState({ invalidFormMessage: responseMessage })
       if (!responseMessage) {
         if (typeof window !== 'undefined') {
-          window.location.pathname = '/login'
+          window.location.href = window.location.protocol + '//' + window.location.host + '/login'
         }
       }
     }

@@ -16,10 +16,11 @@ class ResetPasswordPresenter implements IResetPasswordPresenter {
       method: 'PUT',
       url: resetPassword
     })
-    if (response.errorType === 'class java.lang.IllegalArgumentException') {
+    console.log(response)
+    if (response === null) {
       return 'Username is incorrect'
     }
-    return ''
+    return 'Successfully reset password'
   }
 }
 
