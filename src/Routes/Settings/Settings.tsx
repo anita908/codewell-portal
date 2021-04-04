@@ -17,7 +17,7 @@ const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
     userProfile: {
-      birthday: '',
+      birthdate: '',
       city: '',
       state: '',
       email: '',
@@ -87,10 +87,10 @@ class Settings extends Component<{}, State> {
             <input
               className='input'
               id='birthday'
-              onChange={(e) => this.updateInputField(e, 'birthday')}
+              onChange={(e) => this.updateInputField(e, 'birthdate')}
               required={true}
               type='date'
-              value={userProfile.birthday || ''}
+              value={userProfile.birthdate}
             />
           </div>
           <label htmlFor='city' className='inputLabel'>
@@ -117,6 +117,7 @@ class Settings extends Component<{}, State> {
 
   updateInputField = (event: React.ChangeEvent<HTMLInputElement>, key: string): void => {
     const target = event.target
+    console.log(target.value)
     this.setState({
       userProfile: {
         ...this.state.userProfile,
@@ -126,13 +127,13 @@ class Settings extends Component<{}, State> {
   }
 
   updateUserProfile = async (): Promise<void> => {
-    const { birthday, email, firstName, lastName } = this.state.userProfile
+    const { birthdate, email, firstName, lastName } = this.state.userProfile
 
     if (!firstName || !lastName || !email) {
       this.setState({
         invalidFormMessage: 'First name, last name, and email address cannot be empty.'
       })
-    } else if (!birthday) {
+    } else if (!birthdate) {
       this.setState({
         invalidFormMessage: 'Please enter your birthday.'
       })
@@ -140,13 +141,13 @@ class Settings extends Component<{}, State> {
       this.setState({
         invalidFormMessage: ''
       })
-
       await presenter.updateUserProfile(this.state.userProfile)
     }
   }
 
   getUserProfile = async (): Promise<void> => {
     const settings = await presenter.getUserProfile()
+    settings.birthdate = settings.birthdate.substring(0, 10)
     this.setState({ userProfile: settings })
   }
 }
