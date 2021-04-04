@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Component, FormEvent, ReactElement } from 'react'
+import Cookies from 'Utilities/Cookies'
 import Fetcher from 'Drivers/Fetcher'
 import ResetPasswordPresenter from './ResetPasswordPresenter'
-import Cookies from 'Utilities/Cookies'
 
 type State = {
   username: string
