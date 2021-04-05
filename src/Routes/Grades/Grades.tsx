@@ -61,6 +61,7 @@ class Grades extends Component<{}, State> {
                           <thead>
                             <th>
                               <td>Homework Name</td>
+                              <td>Homework Link</td>
                               <td>Submitted</td>
                               <td>Score</td>
                             </th>
@@ -69,6 +70,9 @@ class Grades extends Component<{}, State> {
                             {chapterProgress.homeworkProgress.map((homework: IHomeworkProgress) => (
                               <tr className='homework-row' key={homework.homeworkId}>
                                 <td>{homework.homeworkName}</td>
+                                <td>
+                                  <a href={homework.homeworkLink}>{homework.homeworkLink}</a>
+                                </td>
                                 <td>{homework.submitted === true ? 'Yes' : 'No'}</td>
                                 <td>{homework.homeworkScore || '--'}%</td>
                               </tr>
