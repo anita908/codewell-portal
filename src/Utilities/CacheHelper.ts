@@ -42,6 +42,10 @@ class CacheHelper {
     return false
   }
 
+  public static clearCache = (): void => {
+    localStorage.clear()
+  }
+
   private static isExpired = (expirationTime: number): boolean => {
     return new Date().getTime() > expirationTime
   }
