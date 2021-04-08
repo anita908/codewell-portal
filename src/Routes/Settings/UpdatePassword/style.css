@@ -1,10 +1,19 @@
-#passwordReset {
+#updatePassword {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.resetPassword-content {
+.updatePassword-back {
+  margin-left: var(--mainPage-marginLeft);
+}
+
+.updatePassword-content {
   margin: 0 auto;
   width: 75%;
+}
+
+.updatePassword-reset {
+  background-color: var(--illustration-turquoise);
+  color: var(--primary);
 }

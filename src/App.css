@@ -14,6 +14,34 @@ html, body, #app {
   overflow: hidden;
 }
 
+.back {
+  background-color: var(--primary);
+  border: none;
+  color: var(--illustration-brightOrange);
+  display: inherit;
+  font-family: var(--font-family);
+  font-size: var(--l-text-size);
+  text-align: left;
+}
+
+
+.button {
+  border: 0;
+  border-radius: var(--button-border-radius);
+  box-shadow: none;
+  font-family: var(--font-family);
+  font-size: var(--m-text-size);
+  padding: var(--spacing-4) var(--spacing-7);
+}
+
+.button[disabled],
+.button[disabled]:hover {
+  background: var(--background-color);
+  border: thin solid var(--border-color);
+  color: var(--border-color);
+  cursor: not-allowed;
+}
+
 .note {
   background-color: var(--note-message-background);
   border: var(--note-message-border);
@@ -27,6 +55,12 @@ html, body, #app {
   background-color: var(--illustration-brightYellow);
   color: var(--warning);
   font-size: var(--l-text-size);
+}
+
+.success {
+  color: var(--green);
+  font-weight: bold;
+  margin-bottom: var(--spacing-size-d);
 }
 
 .loading {

@@ -55,15 +55,10 @@
 
 .login-inputGroup > button {
   background-color: var(--illustration-skyBlue);
-  border: 0;
-  border-radius: var(--button-border-radius);
-  box-shadow: none;
   color: var(--primary);
-  font-size: var(--m-text-size);
   font-weight: bold;
   margin-top: var(--spacing-6);
   outline: none;
-  padding: var(--spacing-4) var(--spacing-7);
   width: 75%;
 }
 .login-inputGroup > button:hover {
@@ -78,14 +73,6 @@
   color: var(--illustration-purple);
   font-size: var(--l-text-size);
   font-weight: bold;
-}
-
-.button[disabled],
-.button[disabled]:hover {
-  background: var(--background-color);
-  border: thin solid var(--border-color);
-  color: var(--border-color);
-  cursor: not-allowed;
 }
 
 @media only screen and (max-width: 850px) {

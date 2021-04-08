@@ -26,11 +26,16 @@ class UpdatePassword extends Component<{}, State> {
   render(): ReactElement {
     const { username, newPassword, confirmPassword, invalidFormMessage } = this.state
     return (
-      <div id='passwordReset'>
+      <div id='updatePassword'>
         <SideNav />
         <h1>Reset Password</h1>
         <h4>Please enter and confirm your new password below.</h4>
-        <div className='resetPassword-content'>
+        <div className='updatePassword-back'>
+          <button className='back' onClick={this.back} type='button'>
+            Back
+          </button>
+        </div>
+        <div className='updatePassword-content'>
           <form onSubmit={this.submitForm}>
             <label htmlFor='username' className='inputLabel'>
               Username:
@@ -69,7 +74,9 @@ class UpdatePassword extends Component<{}, State> {
               />
             </div>
             <div>
-              <input type='submit' value='Reset password' />
+              <button className='button updatePassword-reset' type='submit'>
+                Reset Password
+              </button>
             </div>
           </form>
           <p>{invalidFormMessage}</p>
@@ -106,6 +113,10 @@ class UpdatePassword extends Component<{}, State> {
         window.location.pathname = '/settings'
       }
     }
+  }
+
+  back = (): void => {
+    window.history.back()
   }
 }
 
