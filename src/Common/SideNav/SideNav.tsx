@@ -102,6 +102,7 @@ class SideNav extends Component<Props, {}> {
 
     await logoutPresenter.logout()
     Cookies.remove('auth')
+    Cookies.remove('adminAuth')
     CacheHelper.clearCache()
 
     if (typeof window !== 'undefined') {

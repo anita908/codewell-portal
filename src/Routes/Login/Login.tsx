@@ -13,6 +13,8 @@ type State = {
   username: string
 }
 
+const loginPresenter = new LoginPresenter(new Fetcher())
+
 class Login extends Component<{}, State> {
   state = {
     error: '',
@@ -111,16 +113,15 @@ class Login extends Component<{}, State> {
   login = async (params: any) => {
     this.setState({ isLoading: true })
     const { password, username } = params
-    const loginPresenter = new LoginPresenter(new Fetcher())
-    await loginPresenter.login(username, password)
+    const response = await loginPresenter.login(username, password)
 
-    if (Cookies.get('auth')) {
+    if (response.errorType) {
+      this.setState({ error: response.message, isLoading: false })
+    } else if (Cookies.get('auth')) {
       window.location.pathname = '/'
-    } else {
-      this.setState({ error: 'Invalid username or password' })
+    } else if (Cookies.get('adminAuth')) {
+      window.location.pathname = '/admin'
     }
-
-    this.setState({ isLoading: false })
   }
 }
 

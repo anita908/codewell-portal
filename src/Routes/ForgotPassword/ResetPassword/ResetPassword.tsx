@@ -10,6 +10,7 @@ type State = {
   newPassword: string
   confirmPassword: string
   invalidFormMessage: string
+  isLoading: boolean
 }
 
 const resetPasswordPresenter = new ResetPasswordPresenter(new Fetcher())
@@ -20,11 +21,12 @@ class ResetPassword extends Component<RouteComponentProps, State> {
     username: '',
     newPassword: '',
     confirmPassword: '',
-    invalidFormMessage: ''
+    invalidFormMessage: '',
+    isLoading: false
   }
 
   render(): ReactElement {
-    const { username, newPassword, confirmPassword, invalidFormMessage } = this.state
+    const { username, newPassword, confirmPassword, invalidFormMessage, isLoading } = this.state
     const token: string | null = new URLSearchParams(this.props.location.search).get('token')
     if (!JwtValidator.validate(token)) {
       this.props.history.replace('/login')
@@ -59,7 +61,7 @@ class ResetPassword extends Component<RouteComponentProps, State> {
               required={true}
             />
             <div>
-              <button className='button resetPassword-reset' type='submit'>
+              <button className='button resetPassword-reset' type='submit' disabled={isLoading}>
                 Reset Password
               </button>
             </div>
@@ -88,12 +90,13 @@ class ResetPassword extends Component<RouteComponentProps, State> {
     } else if (this.state.newPassword !== this.state.confirmPassword) {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
+      this.setState({ isLoading: true })
       const response = await resetPasswordPresenter.resetPassword({
         username: this.state.username,
         password: this.state.newPassword
       })
       if (response.errorType) {
-        this.setState({ invalidFormMessage: response.message })
+        this.setState({ invalidFormMessage: response.message, isLoading: false })
         Cookies.remove('auth')
       } else {
         await resetPasswordPresenter.logout()

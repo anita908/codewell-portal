@@ -1,4 +1,4 @@
-import IChapterGradesModel from 'Routes/Grades/Interfaces/IChapterGradesModel';
+import IChapterGradesModel from 'Routes/Grades/Interfaces/IChapterGradesModel'
 
 interface IGradesPresenter {
   getSessionGradesModel(): Promise<IChapterGradesModel[]>
