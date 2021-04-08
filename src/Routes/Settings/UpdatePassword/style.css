@@ -15,4 +15,5 @@
 
 .updatePassword-reset {
   background-color: var(--illustration-turquoise);
+  color: var(--primary);
 }

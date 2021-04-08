@@ -12,4 +12,5 @@
 
 .settings-saveChanges {
   background-color: var(--illustration-turquoise);
+  color: var(--primary);
 }
