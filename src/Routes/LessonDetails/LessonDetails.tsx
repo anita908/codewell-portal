@@ -32,7 +32,7 @@ class LessonDetails extends Component<Props, {}> {
           {courseSlide && (
             <Fragment>
               <div className='lessonDetails-slideContent'>
-                <button className='lessonDetails-back' onClick={this.back} type='button'>
+                <button className='back' onClick={this.back} type='button'>
                   Back
                 </button>
               </div>

@@ -32,10 +32,10 @@ class ResetPassword extends Component<RouteComponentProps, State> {
     Cookies.set('auth', JSON.stringify(token), { expires: 1 })
 
     return (
-      <div id='password-reset'>
+      <div id='resetPassword'>
         <h1>Reset Password</h1>
         <h4>Please enter and confirm your new password below.</h4>
-        <div id='reset-password-content'>
+        <div id='resetPassword-content'>
           <form onSubmit={this.submitForm}>
             <p>Username</p>
             <input
@@ -59,7 +59,9 @@ class ResetPassword extends Component<RouteComponentProps, State> {
               required={true}
             />
             <div>
-              <input type='submit' value='Reset password' />
+              <button className='button resetPassword-reset' type='submit'>
+                Reset Password
+              </button>
             </div>
           </form>
           <p>{invalidFormMessage}</p>

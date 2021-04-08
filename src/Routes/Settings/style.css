@@ -9,3 +9,7 @@
   margin-left: var(--mainPage-marginLeft);
   width: 75%;
 }
+
+.settings-saveChanges {
+  background-color: var(--illustration-turquoise);
+}

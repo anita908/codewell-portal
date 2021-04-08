@@ -9,14 +9,18 @@ import SideNav from 'Common/SideNav'
 import './style.css'
 
 type State = {
+  errorMessage: string
   formMessage: string
+  successMessage: string
   userProfile: IProfile
 }
 
 const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
 class Settings extends Component<{}, State> {
   state = {
+    errorMessage: '',
     formMessage: '',
+    successMessage: '',
     userProfile: {
       birthdate: '',
       city: '',
@@ -32,7 +36,7 @@ class Settings extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { userProfile, formMessage } = this.state
+    const { errorMessage, formMessage, successMessage, userProfile } = this.state
 
     return (
       <div id='settings'>
@@ -40,6 +44,8 @@ class Settings extends Component<{}, State> {
         <h1>Settings</h1>
         <Link to='/settings/resetPassword'>Change Password</Link>
         <div className='settings-content'>
+          <p className='error'>{errorMessage}</p>
+          <p className='success'>{successMessage}</p>
           <p>{formMessage}</p>
           <label htmlFor='firstname' className='inputLabel'>
             First Name:{' '}
@@ -108,7 +114,9 @@ class Settings extends Component<{}, State> {
           </div>
         </div>
         <div>
-          <button onClick={this.updateUserProfile}>Save Changes</button>
+          <button className='button settings-saveChanges' onClick={this.updateUserProfile}>
+            Save Changes
+          </button>
         </div>
         <Footer />
       </div>
@@ -139,10 +147,17 @@ class Settings extends Component<{}, State> {
       })
     } else {
       const responseMessage = await presenter.updateUserProfile(this.state.userProfile)
-      this.setState({
-        formMessage: responseMessage
-      })
-      await this.getUserProfile()
+
+      if (responseMessage.includes('Success')) {
+        this.setState({
+          successMessage: responseMessage
+        })
+        await this.getUserProfile()
+      } else {
+        this.setState({
+          errorMessage: 'Something was wrong with this update. Please try it again.'
+        })
+      }
     }
   }
 
