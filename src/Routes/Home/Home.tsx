@@ -1,10 +1,8 @@
 import React, { Component, Fragment, ReactElement } from 'react'
-import { Redirect } from 'react-router-dom'
 import Assignment from './Assignment'
 import assignmentDataStore from 'Model/AssignmentDataStore'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Card from '../../Common/Card/Card'
-import Cookies from '../../Utilities/Cookies'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from '../../Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
@@ -44,10 +42,6 @@ class Home extends Component<{}, State> implements ISubscriber {
   render(): ReactElement {
     const { lessons, name } = this.state
     const userName = LocalStorageHelper.getUserFirstName()
-
-    if (!Cookies.get('auth')) {
-      return <Redirect to={'/login'} />
-    }
 
     if (!userName) {
       return this.renderLoadingState()

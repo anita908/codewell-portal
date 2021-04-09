@@ -21,7 +21,6 @@ class SettingsPresenter implements ISettingsPresenter {
   }
 
   public async updateUserProfile(newProfile: IProfile): Promise<string> {
-    newProfile.birthdate = newProfile.birthdate + 'T00:00:00Z'
     const response = await this.fetcher.fetch({
       body: newProfile,
       method: 'PUT',

@@ -10,6 +10,7 @@ type State = {
   newPassword: string
   confirmPassword: string
   invalidFormMessage: string
+  isLoading: boolean
 }
 
 const updatePasswordPresenter = new UpdatePasswordPresenter(new Fetcher())
@@ -20,11 +21,12 @@ class UpdatePassword extends Component<{}, State> {
     username: '',
     newPassword: '',
     confirmPassword: '',
-    invalidFormMessage: ''
+    invalidFormMessage: '',
+    isLoading: false
   }
 
   render(): ReactElement {
-    const { username, newPassword, confirmPassword, invalidFormMessage } = this.state
+    const { username, newPassword, confirmPassword, invalidFormMessage, isLoading } = this.state
     return (
       <div id='updatePassword'>
         <SideNav />
@@ -74,7 +76,7 @@ class UpdatePassword extends Component<{}, State> {
               />
             </div>
             <div>
-              <button className='button updatePassword-reset' type='submit'>
+              <button className='button updatePassword-reset' type='submit' disabled={isLoading}>
                 Reset Password
               </button>
             </div>
@@ -104,11 +106,12 @@ class UpdatePassword extends Component<{}, State> {
     } else if (this.state.newPassword !== this.state.confirmPassword) {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
+      this.setState({ isLoading: true })
       const responseMessage = await updatePasswordPresenter.updateUserPassword({
         username: this.state.username,
         password: this.state.newPassword
       })
-      this.setState({ invalidFormMessage: responseMessage })
+      this.setState({ invalidFormMessage: responseMessage, isLoading: false })
       if (!responseMessage) {
         window.location.pathname = '/settings'
       }

@@ -1,5 +1,6 @@
 import React, { Component, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
+import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
@@ -13,6 +14,7 @@ type State = {
   formMessage: string
   successMessage: string
   userProfile: IProfile
+  isLoading: boolean
 }
 
 const presenter = new SettingsPresenter(new Fetcher(), homeDataStore)
@@ -28,7 +30,8 @@ class Settings extends Component<{}, State> {
       email: '',
       firstName: '',
       lastName: ''
-    }
+    },
+    isLoading: false
   }
 
   componentDidMount(): void {
@@ -36,7 +39,7 @@ class Settings extends Component<{}, State> {
   }
 
   render(): ReactElement {
-    const { errorMessage, formMessage, successMessage, userProfile } = this.state
+    const { errorMessage, formMessage, successMessage, userProfile, isLoading } = this.state
 
     return (
       <div id='settings'>
@@ -114,7 +117,11 @@ class Settings extends Component<{}, State> {
           </div>
         </div>
         <div>
-          <button className='button settings-saveChanges' onClick={this.updateUserProfile}>
+          <button
+            className='button settings-saveChanges'
+            onClick={this.updateUserProfile}
+            disabled={isLoading}
+          >
             Save Changes
           </button>
         </div>
@@ -135,7 +142,8 @@ class Settings extends Component<{}, State> {
   }
 
   updateUserProfile = async (): Promise<void> => {
-    const { birthdate, email, firstName, lastName } = this.state.userProfile
+    const userProfileCopy = JSON.parse(JSON.stringify(this.state.userProfile))
+    const { birthdate, email, firstName, lastName } = userProfileCopy
 
     if (!firstName || !lastName || !email) {
       this.setState({
@@ -146,25 +154,32 @@ class Settings extends Component<{}, State> {
         formMessage: 'Please enter your birthday.'
       })
     } else {
-      const responseMessage = await presenter.updateUserProfile(this.state.userProfile)
+      this.setState({ isLoading: true })
+      userProfileCopy.birthdate = DateHelper.convertStringToMoment(birthdate)?.format()
+      const responseMessage = await presenter.updateUserProfile(userProfileCopy)
 
       if (responseMessage.includes('Success')) {
         this.setState({
-          successMessage: responseMessage
+          successMessage: responseMessage,
+          isLoading: false
         })
         await this.getUserProfile()
       } else {
         this.setState({
-          errorMessage: 'Something was wrong with this update. Please try it again.'
+          errorMessage: 'Something was wrong with this update. Please try it again.',
+          isLoading: false
         })
       }
     }
   }
 
   getUserProfile = async (): Promise<void> => {
+    this.setState({ isLoading: true })
     const settings = await presenter.getUserProfile()
-    settings.birthdate = settings.birthdate?.substring(0, 10)
-    this.setState({ userProfile: settings })
+    settings.birthdate = DateHelper.convertStringToMoment(settings.birthdate)
+      ?.format()
+      .substring(0, 10) as string
+    this.setState({ userProfile: settings, isLoading: false })
   }
 }
 
