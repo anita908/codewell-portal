@@ -5,9 +5,8 @@
 }
 
 .settings-content {
-  margin: 0 auto;
-  margin-left: var(--mainPage-marginLeft);
-  width: 75%;
+  margin-left: calc(((100% - var(--home-width) - var(--sideNav-width)) / 2) + var(--sideNav-width));
+  margin-right: calc((100% - var(--home-width) - var(--sideNav-width)) / 2);
 }
 
 .settings-saveChanges {

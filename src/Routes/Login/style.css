@@ -10,6 +10,10 @@
   width: 80%;
 }
 
+#login label {
+  font-size: large;
+}
+
 .login-image {
   --logo-margin-top: 100px;
   
@@ -34,7 +38,7 @@
 }
 
 .login-username, .login-password {
-  margin: var(--spacing-4) auto;
+  margin: var(--spacing-5) auto;
 }
 
 .login-input {

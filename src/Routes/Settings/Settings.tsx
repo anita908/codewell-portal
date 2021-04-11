@@ -44,9 +44,12 @@ class Settings extends Component<{}, State> {
     return (
       <div id='settings'>
         <SideNav />
-        <h1>Settings</h1>
-        <Link to='/settings/resetPassword'>Change Password</Link>
         <div className='settings-content'>
+          <h1>Settings</h1>
+          <Link to='/settings/resetPassword'>Change Password</Link>
+          <button className='back courseSlides-back' onClick={this.back} type='button'>
+            Back
+          </button>
           <p className='error'>{errorMessage}</p>
           <p className='success'>{successMessage}</p>
           <p>{formMessage}</p>
@@ -115,19 +118,23 @@ class Settings extends Component<{}, State> {
               value={userProfile.city}
             />
           </div>
-        </div>
-        <div>
-          <button
-            className='button settings-saveChanges'
-            onClick={this.updateUserProfile}
-            disabled={isLoading}
-          >
-            Save Changes
-          </button>
+          <div>
+            <button
+              className='button settings-saveChanges'
+              onClick={this.updateUserProfile}
+              disabled={isLoading}
+            >
+              Save Changes
+            </button>
+          </div>
         </div>
         <Footer />
       </div>
     )
+  }
+
+  back(): void {
+    window.history.back()
   }
 
   updateInputField = (event: React.ChangeEvent<HTMLInputElement>, key: string): void => {
