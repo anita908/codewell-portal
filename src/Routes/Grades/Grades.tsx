@@ -30,24 +30,24 @@ class Grades extends Component<{}, State> {
     return (
       <div id='grades'>
         <SideNav />
-        <div className='grades-header'>Grades</div>
         <div className='grades-content'>
-          <button className='lessonDetails-back' onClick={this.back} type='button'>
+          <div className='grades-header'>Grades</div>
+          <button className='back lessonDetails-back' onClick={this.back} type='button'>
             Back
           </button>
-          <table className='chapter-table'>
+          <table className='grades-table'>
             <thead>
-              <th>
-                <td>Chapter Number</td>
-                <td>Chapter Name</td>
-                <td>Chapter Score</td>
-              </th>
+              <tr>
+                <th>Chapter Number</th>
+                <th>Chapter Name</th>
+                <th>Chapter Score</th>
+              </tr>
             </thead>
             <tbody>
               {sessionGradesModel.map((chapterProgress: IChapterGradesModel) => (
                 <Fragment key={chapterProgress.chapterId}>
                   <tr
-                    className='chapter-row'
+                    className='grades-row'
                     onClick={() => this.triggerShowHomework(chapterProgress.chapterName)}
                   >
                     <td>{chapterProgress.chapterNo}</td>
@@ -57,21 +57,19 @@ class Grades extends Component<{}, State> {
                   {chapterProgress.showHomeworkProgress ? (
                     <tr>
                       <td colSpan={3}>
-                        <table className='homework-table'>
-                          <thead>
-                            <th>
-                              <td>Homework Name</td>
-                              <td>Homework Link</td>
-                              <td>Submitted</td>
-                              <td>Score</td>
-                            </th>
-                          </thead>
+                        <table className='grades-homeworkTable'>
+                          <td>Homework Name</td>
+                          <td>Homework Link</td>
+                          <td>Submitted</td>
+                          <td>Score</td>
                           <tbody>
                             {chapterProgress.homeworkProgress.map((homework: IHomeworkProgress) => (
-                              <tr className='homework-row' key={homework.homeworkId}>
+                              <tr className='grades-homeworkRow' key={homework.homeworkId}>
                                 <td>{homework.homeworkName}</td>
                                 <td>
-                                  <a href={homework.homeworkLink}>{homework.homeworkLink}</a>
+                                  <a href={homework.homeworkLink}>
+                                    {homework.homeworkLink || 'N/A'}
+                                  </a>
                                 </td>
                                 <td>{homework.submitted === true ? 'Yes' : 'No'}</td>
                                 <td>{homework.homeworkScore || '--'}%</td>
@@ -86,9 +84,7 @@ class Grades extends Component<{}, State> {
               ))}
             </tbody>
           </table>
-          <h3>
-            Overall Grade: {this.determineGradeLevel(overallGrade)} ({overallGrade}%)
-          </h3>
+          <h3>Overall Grade: {this.renderOverallGrade(overallGrade)}</h3>
         </div>
         <Footer />
       </div>
@@ -102,6 +98,33 @@ class Grades extends Component<{}, State> {
           currentSum + (homework.homeworkScore || 100),
         0
       ) / homeworkProgress.length
+    )
+  }
+
+  renderOverallGrade = (overallGrade: number): ReactElement => {
+    const gradeLevel = this.determineGradeLevel(overallGrade)
+
+    if (overallGrade >= 90) {
+      return (
+        <Fragment>
+          <span className='success'>{gradeLevel}</span> ({' '}
+          <span className='success'>{overallGrade}%</span> )
+        </Fragment>
+      )
+    } else if (overallGrade >= 65) {
+      return (
+        <Fragment>
+          <span className='warning'>{gradeLevel}</span> ({' '}
+          <span className='warning'>{overallGrade}%</span> )
+        </Fragment>
+      )
+    }
+
+    return (
+      <Fragment>
+        <span className='error-message'>{gradeLevel}</span> ({' '}
+        <span className='error-message'>{overallGrade}%</span> )
+      </Fragment>
     )
   }
 

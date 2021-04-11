@@ -23,6 +23,9 @@ html, body, #app {
   font-size: var(--l-text-size);
   text-align: left;
 }
+.back:hover {
+  cursor: pointer;
+}
 
 
 .button {
@@ -57,10 +60,18 @@ html, body, #app {
   font-size: var(--l-text-size);
 }
 
+.error-message {
+  color: var(--warning);
+}
+
 .success {
   color: var(--green);
   font-weight: bold;
   margin-bottom: var(--spacing-size-d);
+}
+
+.warning {
+  color: var(--illustration-brightYellow);
 }
 
 .loading {

@@ -6,99 +6,89 @@
 
 .grades-content {
   display: inline-block;
-  margin-left: var(--mainPage-marginLeft);
-  padding-left: 1%;
-  width: 800px;
+  margin-left: calc(((100% - var(--home-width) - var(--sideNav-width)) / 2) + var(--sideNav-width));
+  margin-right: calc((100% - var(--home-width) - var(--sideNav-width)) / 2);
   text-align: left;
 }
 
-.grades-content table thead th {
-  display: table-row;
-}
-
-.chapter-table {
+.grades-table {
   width: 100%;
   margin-top: 2%;
   margin-bottom: 2%;
   border-spacing: 0;
-  border: 1px solid black;
+  border: 3px solid var(--illustration-dustPink);
   border-radius: 5px;
 }
 
-.chapter-table th {
-  background: #5340f3;
-  color: white;
+.grades-table tr {
+  font-size: large;
+  line-height: 2.3em;
+  padding: var(--spacing-3);
 }
 
-.chapter-table th td {
-  padding: 5px;
-  border-bottom: 1px solid black;
+.grades-row {
+  border: 1px solid red;
 }
 
-.chapter-table tr:last-of-type td {
-  border-bottom: none;
+.grades-table th {
+  background: var(--illustration-dustPink);
+  color: var(--primary);
 }
 
-.chapter-table tr:last-of-type td:last-of-type {
-  border-right: none;
+.grades-table th, .grades-table tr td, .grades-header {
+  text-align: center;
 }
 
-.chapter-table .chapter-row {
+.grades-row:hover {
   cursor: pointer;
+  background-color: rgba(229, 114, 129, 0.5);
 }
 
-.chapter-table .chapter-row:hover {
-  background: #dddddd;
-}
-
-.chapter-table .chapter-row td {
-  padding: 5px;
-  border-bottom: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-}
-
-.homework-table {
-  width: 100%;
+.grades-homeworkTable {
+  background-color: rgba(229, 114, 129, 0.3);
   border-spacing: 0;
+  width: 100%;
 }
 
-.homework-table th {
+.grades-homeworkTable td {
+  font-weight: bold;
+}
+
+.grades-homeworkRow td {
+  font-weight: normal;
+}
+
+.grades-homeworkTable th {
   background: #dddddd;
   color: black;
   font-weight: normal;
 }
 
-.homework-table th td {
-  padding: 2px;
-  border-bottom: 1px solid #dddddd !important;
-}
-
-.homework-table .homework-row td {
+.grades-homeworkTable  .grades-homeworkRow td {
   padding: 2px;
 }
 
 .grades-header {
-  margin-top: var(--layout-2);
-  text-align: center;
-  font-size: var(--xl-text-size);
   color: var(--green-50);
+  font-size: var(--xl-text-size);
+  margin-top: var(--layout-2);
 }
 
 @media only screen and (max-width: 1050px) {
   .grades-content {
-      width: 740px;
+    margin: 0 auto;
+    width: 80%;
   }
 }
 
-@media only screen and (max-width: 950px) {
-  .grades-content {
-      width: 670px;
-    }
+@media only screen and (max-width: 580px) {
+  .grades-table tr {
+    font-size: medium;
+  }
 }
 
-@media only screen and (max-width: 890px) {
-  .grades-content {
-      width: 670px;
-      margin-left: 0;
+@media only screen and (max-width: 580px) {
+  .grades-table tr {
+    font-size: small;
   }
 }
