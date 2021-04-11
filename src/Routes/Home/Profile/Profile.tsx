@@ -3,8 +3,13 @@ import LocalStorageHelper from 'Utilities/LocalStorageHelper'
 import profileIllustration from '../../../images/profile.svg'
 import './style.css'
 
-class Profile extends Component {
+type Props = {
+  currentChapterName: string
+}
+
+class Profile extends Component<Props, {}> {
   render(): ReactElement {
+    const { currentChapterName } = this.props
     const name = LocalStorageHelper.getUserFirstName()
 
     if (!name) {
@@ -18,8 +23,8 @@ class Profile extends Component {
           <img alt='login' className='login' src={profileIllustration} />
         </div>
         <div className='profile-content'>
-          Hi <span className='profile-studentName'>{name}!</span> Great job on completing the
-          Function Lesson! Keep up the great work :)
+          Hi <span className='profile-studentName'>{name}!</span> Great job on completing{' '}
+          {currentChapterName}! Keep up the great work :)
         </div>
       </div>
     )
