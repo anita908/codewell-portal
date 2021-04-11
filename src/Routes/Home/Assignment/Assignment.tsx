@@ -60,11 +60,7 @@ class Assignment extends Component<Prop, State> {
                       lessonName: lesson.chapterName
                     }}
                     endPoint={'assignmentInstruction'}
-                    header={
-                      lesson?.chapterNo
-                        ? `Lesson ${lesson?.chapterNo} Assignment ${homework.homeworkId}:`
-                        : 'Lesson:'
-                    }
+                    header={lesson?.chapterNo ? `Lesson ${lesson?.chapterNo}:` : 'Lesson:'}
                     linkTitle={`Do Assignment: ${homework.homeworkName}`}
                     pathId={lesson?.chapterId?.toString() || ''}
                     title={lesson?.chapterName || ''}

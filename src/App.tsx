@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { BrowserRouter, Redirect, Route, RouteProps, Switch } from 'react-router-dom'
 import AdminHome from './Routes/Admin/Home/Home'
-import Assignments from './Routes/Assignments/Assignments'
 import AssignmentInstruction from './Routes/AssignmentInstruction/AssignmentInstruction'
 import Cookies from 'Utilities/Cookies'
 import CourseSlides from './Routes/CourseSlides/CourseSlides'
@@ -57,7 +56,6 @@ function App(): ReactElement {
           path='/settings/resetPassword'
           component={UpdatePassword}
         />
-        <StudentAuthProtectedRoute path='/assignments' component={Assignments} />
         <Route path='/forgotPassword' component={ForgotPassword} />
         <Route path='/resetPassword' component={ResetPassword} />
       </Switch>
