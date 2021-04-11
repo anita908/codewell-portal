@@ -55,7 +55,7 @@ class Home extends Component<{}, State> implements ISubscriber {
       <div id='home'>
         <SideNav />
         <div className='home-content'>
-          <Profile />
+          <Profile currentChapterName={this.getCurrentChapterName()} />
           <Lesson
             homePresenter={new HomePresenter(homeDataStore)}
             lessons={lessons}
@@ -80,7 +80,7 @@ class Home extends Component<{}, State> implements ISubscriber {
       <div id='home'>
         <SideNav />
         <div className='home-content'>
-          <Profile />
+          <Profile currentChapterName={this.getCurrentChapterName()} />
           <Lesson homePresenter={new HomePresenter(homeDataStore)} lessons={[]} userName={name} />
           <Assignment
             courseVideos={[]}
@@ -123,6 +123,17 @@ class Home extends Component<{}, State> implements ISubscriber {
 
   getHomeData = async (): Promise<void> => {
     await homePresenter.getHomeData()
+  }
+
+  getCurrentChapterName = (): string => {
+    const { lessons } = homePresenter
+    const { currentChapter } = homePresenter.selectedSession
+
+    return (
+      lessons
+        .find((lesson: IChapterProgress) => lesson.chapterNo === currentChapter)
+        ?.chapterName?.toLowerCase() || 'your most recent class'
+    )
   }
 
   setSelectedSession = (session: ISession): void => {
