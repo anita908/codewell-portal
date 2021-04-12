@@ -4,7 +4,7 @@ import IFetcher from './Interfaces/IFetcher'
 class Fetcher implements IFetcher {
   public async fetch(params: { body: any; method: string; url: string }): Promise<any> {
     const { body, method, url } = params
-    const token = Cookies.get('auth')
+    const token = Cookies.get('auth') || Cookies.get('adminAuth')
     const headers = url.includes('login')
       ? {
           Authorization: '',

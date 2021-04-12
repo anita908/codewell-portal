@@ -1,0 +1,9 @@
+.select {
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.md {
+  font-size: 16px;
+  padding: 6px;
+}

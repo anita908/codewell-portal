@@ -1,6 +1,7 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
+import GradeHelper from 'Utilities/GradeHelper'
 import GradesPresenter from './GradesPresenter'
 import IChapterGradesModel from './Interfaces/IChapterGradesModel'
 import IHomeworkProgress from 'Routes/Home/Interfaces/IHomeworkProgress'
@@ -9,7 +10,7 @@ import './style.css'
 
 type State = {
   sessionGradesModel: IChapterGradesModel[]
-  overallGrade: number
+  overallGrade: number | null
 }
 
 const gradesPresenter = new GradesPresenter(new Fetcher())
@@ -17,7 +18,7 @@ const gradesPresenter = new GradesPresenter(new Fetcher())
 class Grades extends Component<{}, State> {
   state = {
     sessionGradesModel: [],
-    overallGrade: -1
+    overallGrade: null
   }
 
   componentDidMount(): void {
@@ -36,7 +37,7 @@ class Grades extends Component<{}, State> {
             Back
           </button>
           <table className='grades-table'>
-            <thead>
+            <thead className='grades-table-header'>
               <tr>
                 <th>Chapter Number</th>
                 <th>Chapter Name</th>
@@ -58,10 +59,14 @@ class Grades extends Component<{}, State> {
                     <tr>
                       <td colSpan={3}>
                         <table className='grades-homeworkTable'>
-                          <td>Homework Name</td>
-                          <td>Homework Link</td>
-                          <td>Submitted</td>
-                          <td>Score</td>
+                          <thead>
+                            <tr>
+                              <th>Homework Name</th>
+                              <th>Homework Link</th>
+                              <th>Submitted</th>
+                              <th>Score</th>
+                            </tr>
+                          </thead>
                           <tbody>
                             {chapterProgress.homeworkProgress.map((homework: IHomeworkProgress) => (
                               <tr className='grades-homeworkRow' key={homework.homeworkId}>
@@ -84,7 +89,7 @@ class Grades extends Component<{}, State> {
               ))}
             </tbody>
           </table>
-          <h3>Overall Grade: {this.renderOverallGrade(overallGrade)}</h3>
+          <h3>Overall Grade: {this.renderOverallGrade(overallGrade || 0)}</h3>
         </div>
         <Footer />
       </div>
