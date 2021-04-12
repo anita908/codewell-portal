@@ -92,7 +92,7 @@ class UploadAssignment extends Component<Props, State> {
       })
 
       if (result) {
-        this.setState({ successMessage: 'Successfully uploaded assignment' })
+        this.setState({ errorMessage: '', successMessage: 'Successfully uploaded assignment' })
       }
     } else {
       this.setState({
