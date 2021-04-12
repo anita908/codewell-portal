@@ -8,6 +8,7 @@ import './style.css'
 
 type Props = {
   pendingTab?: boolean
+  isAdmin?: boolean
 }
 
 class SideNav extends Component<Props, {}> {
@@ -16,6 +17,53 @@ class SideNav extends Component<Props, {}> {
   }
 
   render(): ReactElement {
+    const isAdmin = this.props.isAdmin || false
+
+    if (isAdmin) {
+      return this.renderAdminNav()
+    } else {
+      return this.renderStudentNav()
+    }
+  }
+
+  renderAdminNav = (): ReactElement => {
+    const name = localStorage.getItem('username')
+
+    return (
+      <nav id='sideNav'>
+        <ul>
+          <li className='sideNav-userName'>
+            <h3>{name ? `Hi, ${name}!` : 'Hi!'}</h3>
+          </li>
+          <li onClick={this.setActiveLink} className='/'>
+            <Link
+              to={{
+                pathname: `/admin`
+              }}
+            >
+              Home
+            </Link>
+          </li>
+          <li onClick={this.setActiveLink} className='students'>
+            <Link
+              to={{
+                pathname: `/admin/students`
+              }}
+            >
+              Students
+            </Link>
+          </li>
+          <li className='logout'>
+            <a type='button' className='sideNav-mouseChange' onClick={this.logout}>
+              Log out
+            </a>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
+
+  renderStudentNav = (): ReactElement => {
     const { pendingTab } = this.props
     const name = localStorage.getItem('username')
 

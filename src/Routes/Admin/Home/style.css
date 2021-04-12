@@ -1,0 +1,12 @@
+#adminHome {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.adminHome-content {
+  display: inline-block;
+  margin-left: calc(((100% - var(--home-width) - var(--sideNav-width)) / 2) + var(--sideNav-width));
+  margin-right: calc((100% - var(--home-width) - var(--sideNav-width)) / 2);
+  width: var(--home-width);
+}

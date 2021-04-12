@@ -1,0 +1,53 @@
+.gradeEditor-table {
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.gradeEditor-table th {
+  background: var(--blue-30);
+  color: white;
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+
+.gradeEditor-table tbody tr td {
+  padding: 2px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.gradeEditor-table tfoot tr td {
+  padding: 1%;
+}
+
+.edit-icon {
+  background: var(--blue-20);
+}
+
+.check-icon {
+  background: var(--green-30);
+}
+
+.gradeEditor-button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  padding: 8px;
+  width: 120px;
+}
+
+.gradeEditor-button:disabled {
+  background: #dddddd;
+}
+
+.save-button {
+  color: white;
+  background: var(--blue-30);
+}
+
+.reset-button {
+  color: black;
+  background: var(--yellow-20);
+}

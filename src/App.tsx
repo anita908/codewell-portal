@@ -12,6 +12,7 @@ import LessonDetails from './Routes/LessonDetails/LessonDetails'
 import Login from './Routes/Login/Login'
 import ResetPassword from 'Routes/ForgotPassword/ResetPassword/ResetPassword'
 import Settings from './Routes/Settings/Settings'
+import Students from 'Routes/Admin/Students/Students'
 import UpdatePassword from 'Routes/Settings/UpdatePassword/UpdatePassword'
 import './App.css'
 import './theme.css'
@@ -40,14 +41,17 @@ function App(): ReactElement {
   return (
     <BrowserRouter>
       <Switch>
-        <StudentAuthProtectedRoute exact path='/' component={Home} />
+        <Route path='/login' component={Login} />
+        <Route path='/forgotPassword' component={ForgotPassword} />
+        <Route path='/resetPassword' component={ResetPassword} />
         <AdminAuthProtectedRoute exact path='/admin' component={AdminHome} />
+        <AdminAuthProtectedRoute path='/admin/students' component={Students} />
+        <StudentAuthProtectedRoute exact path='/' component={Home} />
         <StudentAuthProtectedRoute
           path='/assignmentInstruction/:homeworkId?'
           component={AssignmentInstruction}
         />
         <StudentAuthProtectedRoute path='/lessonDetails/:lessonId?' component={LessonDetails} />
-        <Route path='/login' component={Login} />
         <StudentAuthProtectedRoute path='/grades' component={Grades} />
         <StudentAuthProtectedRoute path='/courseSlides' component={CourseSlides} />
         <StudentAuthProtectedRoute path='/settings' exact component={Settings} />
@@ -56,8 +60,6 @@ function App(): ReactElement {
           path='/settings/resetPassword'
           component={UpdatePassword}
         />
-        <Route path='/forgotPassword' component={ForgotPassword} />
-        <Route path='/resetPassword' component={ResetPassword} />
       </Switch>
     </BrowserRouter>
   )

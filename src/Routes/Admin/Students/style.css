@@ -1,0 +1,88 @@
+#students {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.students-content {
+  display: inline-block;
+  margin-left: calc(var(--sideNav-width) + 2%);
+  margin-right: 2%;
+}
+
+.students-contentFlex {
+  display: flex;
+  gap: 1%;
+  margin-bottom: var(--spacing-5);
+}
+
+.students-container {
+  width: 50%;
+}
+
+.students-sessionSelect {
+  margin-bottom: 2%;
+  text-align: left;
+}
+
+.students-sessionSelect label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.students-sessionSelect select {
+  width: 50%;
+}
+
+.students-table {
+  border-spacing: 0;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.students-table th {
+  background: var(--indigo-40);
+  color: white;
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+
+.students-table tr:last-of-type td {
+  border-bottom: none;
+}
+
+.students-table .student-row {
+  cursor: pointer;
+  transition-duration: 0.25s;
+}
+
+.students-table .students-row:hover {
+  background: #dddddd;
+}
+
+.students-table .students-row td {
+  padding: 5px;
+  border-bottom: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+
+.students-table .students-row:last-of-type td {
+  border-bottom: none;
+}
+
+.students-table .students-row:last-of-type td:last-of-type {
+  border-right: none;
+}
+
+.students-table .students-row.active {
+  background: #dddddd;
+}
+
+.students-row:hover {
+  cursor: pointer;
+}
+
+.grades-container {
+  width: 50%;
+}

@@ -30,8 +30,8 @@
   border: 1px solid red;
 }
 
-.grades-table th {
-  background: var(--illustration-dustPink);
+.grades-table-header th {
+  background-color: var(--illustration-dustPink);
   color: var(--primary);
 }
 
@@ -48,19 +48,14 @@
   background-color: rgba(229, 114, 129, 0.3);
   border-spacing: 0;
   width: 100%;
+  color: var(--p)
 }
 
-.grades-homeworkTable td {
-  font-weight: bold;
+.grades-homeworkTable thead th {
+  font-weight: 700;
 }
 
-.grades-homeworkRow td {
-  font-weight: normal;
-}
-
-.grades-homeworkTable th {
-  background: #dddddd;
-  color: black;
+.grades-homeworkRow tbody td {
   font-weight: normal;
 }
 

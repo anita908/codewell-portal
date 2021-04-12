@@ -1,0 +1,10 @@
+.icon-button {
+   width: 25px;
+   border: none;
+   border-radius: 5px;
+   font-size: 12px;
+   padding: 6px;
+   cursor: pointer;
+   margin: 2px;
+   outline: none;
+}
