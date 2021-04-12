@@ -1,0 +1,18 @@
+#uploadAssignment {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.uploadAssignment-content {
+  margin: 0 auto;
+  margin-left: calc(((100% - var(--home-width) - var(--sideNav-width)) / 2) + var(--sideNav-width));
+  width: var(--home-width);
+}
+
+@media only screen and (max-width: 1020px) {
+  .uploadAssignment-content {
+    margin: 0 auto;
+    width: 80%;
+  }
+}
