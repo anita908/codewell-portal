@@ -12,8 +12,9 @@ import LessonDetails from './Routes/LessonDetails/LessonDetails'
 import Login from './Routes/Login/Login'
 import ResetPassword from 'Routes/ForgotPassword/ResetPassword/ResetPassword'
 import Settings from './Routes/Settings/Settings'
-import Students from 'Routes/Admin/Students/Students'
-import UpdatePassword from 'Routes/Settings/UpdatePassword/UpdatePassword'
+import Students from './Routes/Admin/Students/Students'
+import UpdatePassword from './Routes/Settings/UpdatePassword/UpdatePassword'
+import UploadAssignment from './Routes/UploadAssignment/UploadAssignment'
 import './App.css'
 import './theme.css'
 
@@ -51,6 +52,7 @@ function App(): ReactElement {
           path='/assignmentInstruction/:homeworkId?'
           component={AssignmentInstruction}
         />
+        <StudentAuthProtectedRoute path='/uploadAssignment' component={UploadAssignment} />
         <StudentAuthProtectedRoute path='/lessonDetails/:lessonId?' component={LessonDetails} />
         <StudentAuthProtectedRoute path='/grades' component={Grades} />
         <StudentAuthProtectedRoute path='/courseSlides' component={CourseSlides} />

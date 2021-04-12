@@ -1,4 +1,5 @@
 import React, { Component, ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import assignmentDataStore from 'Model/AssignmentDataStore'
 import AssignmentPresenter from 'Routes/Home/Assignment/AssignmentPresenter'
 import Footer from 'Common/Footer'
@@ -9,15 +10,19 @@ import './style.css'
 type Props = {
   location: {
     state: {
-      lessonId: string
-      lessonName: string
+      content: {
+        homeworkId: number
+        lessonId: string
+        lessonName: string
+        sessionId: number
+      }
     }
   }
 }
 
 class AssignmentInstruction extends Component<Props, {}> {
   render(): ReactElement {
-    const { lessonId, lessonName } = this.props.location.state
+    const { homeworkId, lessonId, lessonName, sessionId } = this.props.location.state.content
     const videos = new AssignmentPresenter(assignmentDataStore).getHomeworkVideosByLessonId(
       parseInt(lessonId, 10)
     )
@@ -30,6 +35,19 @@ class AssignmentInstruction extends Component<Props, {}> {
           <h2 className='assignmentInstruction-contentTitle'>
             {lessonName} Assignment Instruction
           </h2>
+          <Link
+            to={{
+              pathname: '/uploadAssignment',
+              state: {
+                chapterName: lessonName,
+                homeworkId,
+                lessonNumber: lessonId,
+                sessionId
+              }
+            }}
+          >
+            I am ready to submit my assignment!
+          </Link>
 
           {videos.length > 0 ? (
             videos.map((video: IAssignmentVideo, index: number) => {
@@ -37,7 +55,7 @@ class AssignmentInstruction extends Component<Props, {}> {
                 <div className='assignmentInstruction-playerContent' key={index}>
                   {index === 0 && (
                     <button
-                      className='assignmentInstruction-back'
+                      className='assignmentInstruction-back back'
                       onClick={this.back}
                       type='button'
                     >

@@ -56,8 +56,10 @@ class Assignment extends Component<Prop, State> {
                   <Card
                     activity={'assignment'}
                     content={{
+                      homeworkId: homework.homeworkId,
                       lessonId: lesson.chapterId,
-                      lessonName: lesson.chapterName
+                      lessonName: lesson.chapterName,
+                      sessionId: selectedSession.sessionId
                     }}
                     endPoint={'assignmentInstruction'}
                     header={lesson?.chapterNo ? `Lesson ${lesson?.chapterNo}:` : 'Lesson:'}
