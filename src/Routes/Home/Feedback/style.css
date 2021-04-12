@@ -1,0 +1,27 @@
+.feedback-button {
+  --feedback-right: -35px;
+
+  background-color: var(--indigo-30);
+  bottom: 30%;
+  color: #FFF;
+  height: var(--layout-3);
+  line-height: var(--layout-3);
+  position: fixed;
+  right: var(--feedback-right);
+  text-decoration: none;
+  transform: rotate(-90deg);
+  width: var(--layout-6);
+}
+
+.feedback-button:hover{
+  --feedback-hover-height: 40px;
+  --feedback-hover-right: -44px;
+  --feedback-hover-width: 120px;
+
+  font-size: var(--text-size-3);
+  height: var(--feedback-hover-height);
+  line-height: var(--feedback-hover-height);
+  right: var(--feedback-hover-right);
+  width: var(--feedback-hover-width);
+}
+
