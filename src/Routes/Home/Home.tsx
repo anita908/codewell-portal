@@ -3,6 +3,7 @@ import Assignment from './Assignment'
 import assignmentDataStore from 'Model/AssignmentDataStore'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Card from '../../Common/Card/Card'
+import Feedback from './Feedback'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from '../../Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
@@ -68,6 +69,7 @@ class Home extends Component<{}, State> implements ISubscriber {
             presenter={new AssignmentPresenter(assignmentDataStore)}
           />
         </div>
+        <Feedback />
         <Footer />
       </div>
     )
@@ -89,6 +91,7 @@ class Home extends Component<{}, State> implements ISubscriber {
             presenter={new AssignmentPresenter(assignmentDataStore)}
           />
         </div>
+        <Feedback />
         <Footer />
       </div>
     )
@@ -116,6 +119,7 @@ class Home extends Component<{}, State> implements ISubscriber {
             })}
           </div>
         </div>
+        <Feedback />
         <Footer />
       </div>
     )
