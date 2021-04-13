@@ -1,0 +1,15 @@
+.hamburgerMenu-icon {
+  --hamburgerMenu-iconWidth: 50px;
+
+  background-color: transparent;
+  border: none;
+  font-size: var(--text-size-4);
+  margin: var(--spacing-1);
+  padding: calc(3 * var(--spacing-1));
+  outline: none;
+  width: var(--hamburgerMenu-iconWidth);
+}
+
+.hamburgerMenu-icon:hover {
+  cursor: pointer;
+}
