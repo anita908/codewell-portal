@@ -57,7 +57,7 @@ class Assignment extends Component<Prop, State> {
                     activity={'assignment'}
                     content={{
                       homeworkId: homework.homeworkId,
-                      lessonId: lesson.chapterId,
+                      lessonNo: lesson.chapterNo,
                       lessonName: lesson.chapterName,
                       sessionId: selectedSession.sessionId
                     }}
