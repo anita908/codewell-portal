@@ -8,6 +8,7 @@ import IHomePresenter from '../IHomePresenter'
 import './style.css'
 
 type Prop = {
+  courseId: number
   courseVideos: IAssignmentVideo[]
   lessons: IChapterProgress[]
   presenter: IAssignmentPresenter
@@ -24,7 +25,7 @@ class Assignment extends Component<Prop, State> {
   }
 
   render(): ReactElement {
-    const { homePresenter } = this.props
+    const { courseId, homePresenter } = this.props
     const { selectedSession } = homePresenter
     const { sessionProgressModel } = selectedSession
     const { showMore } = this.state
@@ -56,6 +57,7 @@ class Assignment extends Component<Prop, State> {
                   <Card
                     activity={'assignment'}
                     content={{
+                      courseId: courseId,
                       homeworkId: homework.homeworkId,
                       lessonNo: lesson.chapterNo,
                       lessonName: lesson.chapterName,

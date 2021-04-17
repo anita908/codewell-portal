@@ -1,13 +1,14 @@
 import { observable } from 'mobx'
 import { homeworkVideoByCourseId } from 'Utilities/Url'
+import Fetcher from 'Drivers/Fetcher'
 import IAssignmentDataStore from './Interfaces/IAssignmentDataStore'
 import IAssignmentVideo from 'Routes/Home/Interfaces/IAssignmentVideo'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
 
+const fetcher: IFetcher = new Fetcher()
 const assignmentDataStore: IAssignmentDataStore = observable({
   getAssignmentInstructionVideosByCourseId: async (
-    courseId: number,
-    fetcher: IFetcher
+    courseId: number
   ): Promise<IAssignmentVideo[]> => {
     const videos = await fetcher.fetch({
       body: {},
