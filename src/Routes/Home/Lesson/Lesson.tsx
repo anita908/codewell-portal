@@ -44,7 +44,7 @@ class Lesson extends Component<Prop, State> {
                     endPoint={'lessonDetails'}
                     header={`Lesson ${lesson.chapterNo}:`}
                     linkTitle={'View Course Slides'}
-                    pathId={lesson.chapterId.toString() || ''}
+                    pathId={lesson.chapterNo.toString() || ''}
                     title={lesson.chapterName || ''}
                   />
                 </Fragment>
