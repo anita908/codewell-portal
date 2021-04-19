@@ -4,7 +4,6 @@ import assignmentDataStore from 'Model/AssignmentDataStore'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Card from '../../Common/Card/Card'
 import Feedback from './Feedback'
-import Fetcher from 'Drivers/Fetcher'
 import Footer from '../../Common/Footer'
 import homeDataStore from 'Model/HomeDataStore'
 import HomePresenter from './HomePresenter'
@@ -63,6 +62,7 @@ class Home extends Component<{}, State> implements ISubscriber {
             userName={name}
           />
           <Assignment
+            courseId={homeDataStore.home.selectedSession.courseId}
             courseVideos={[]}
             homePresenter={new HomePresenter(homeDataStore)}
             lessons={lessons}
@@ -85,6 +85,7 @@ class Home extends Component<{}, State> implements ISubscriber {
           <Profile currentChapterName={this.getCurrentChapterName()} />
           <Lesson homePresenter={new HomePresenter(homeDataStore)} lessons={[]} userName={name} />
           <Assignment
+            courseId={-1}
             courseVideos={[]}
             homePresenter={new HomePresenter(homeDataStore)}
             lessons={[]}
@@ -155,8 +156,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
   getAssignmentVideos = async () => {
     const response = await assignmentPresenter.getHomeworkVideosByCourseId(
-      homePresenter.selectedSession.courseId,
-      new Fetcher()
+      homePresenter.selectedSession.courseId
     )
     this.setState({ videos: response })
   }

@@ -1,9 +1,8 @@
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
-import IFetcher from 'Drivers/Interfaces/IFetcher'
 
 interface IAssignmentPresenter {
-  getHomeworkVideosByCourseId(courseId: number, fetcher: IFetcher): Promise<IAssignmentVideo[]>
-  getHomeworkVideosByLessonId(lessonId: number): IAssignmentVideo[]
+  getHomeworkVideosByCourseId(courseId: number): Promise<IAssignmentVideo[]>
+  getHomeworkVideosByLessonId(courseId: number, lessonId: number): Promise<IAssignmentVideo[]>
   getVideos(): IAssignmentVideo[]
 }
 

@@ -35,12 +35,19 @@
   cursor: pointer;
 }
 
+div .assignmentInstruction-loadingContent {
+  --loading-height: 280px;
+  
+  height: var(--loading-height);
+  width: var(--playerContent);
+}
+
 @media only screen and (max-width: 1250px) {
   .assignmentInstruction-playerContent { 
-    width: 500px;
+    width: var(--playerContent);
   }
   .assignmentInstruction-playerContent video {
-    width: 500px;
+    width: var(--playerContent);
   }
  }
 

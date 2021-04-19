@@ -1,7 +1,6 @@
 import assignmentDataStore from 'Model/AssignmentDataStore'
 import IAssignmentPresenter from './IAssignmentPresenter'
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
-import IFetcher from 'Drivers/Interfaces/IFetcher'
 import ISubscriber from 'UseCases/ISubscriber'
 
 class AssignmentPresenter implements IAssignmentPresenter {
@@ -11,7 +10,11 @@ class AssignmentPresenter implements IAssignmentPresenter {
     this.subscribers = []
   }
 
-  getHomeworkVideosByLessonId(lessonId: number): IAssignmentVideo[] {
+  public async getHomeworkVideosByLessonId(
+    courseId: number,
+    lessonId: number
+  ): Promise<IAssignmentVideo[]> {
+    await this.getHomeworkVideosByCourseId(courseId)
     return this.assignmentDataStore.getVideosByLessonId(lessonId)
   }
 
@@ -27,11 +30,8 @@ class AssignmentPresenter implements IAssignmentPresenter {
     this.subscribers.forEach((subscriber) => subscriber.update())
   }
 
-  public async getHomeworkVideosByCourseId(
-    courseId: number,
-    fetcher: IFetcher
-  ): Promise<IAssignmentVideo[]> {
-    return assignmentDataStore.getAssignmentInstructionVideosByCourseId(courseId, fetcher)
+  public async getHomeworkVideosByCourseId(courseId: number): Promise<IAssignmentVideo[]> {
+    return assignmentDataStore.getAssignmentInstructionVideosByCourseId(courseId)
   }
 }
 
