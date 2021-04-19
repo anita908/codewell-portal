@@ -9,7 +9,7 @@ import './style.css'
 type Props = {
   location: {
     state: {
-      lessonId: string
+      lessonNo: string
       lessonName: string
     }
   }
@@ -18,16 +18,16 @@ type Props = {
 const presenter = new HomePresenter(homeDataStore)
 class LessonDetails extends Component<Props, {}> {
   render(): ReactElement {
-    const { lessonId, lessonName } = this.props.location.state
+    const { lessonNo, lessonName } = this.props.location.state
     const courseSlide = presenter.courseSlides.find(
-      (slide: IChapter) => slide.chapterNo === parseInt(lessonId, 10)
+      (slide: IChapter) => slide.chapterNo === parseInt(lessonNo, 10)
     )
 
     return (
       <div id='lessonDetails'>
         <SideNav />
         <div className='lessonDetails-content'>
-          <h2 className='lessonDetails-contentTitle'>Lesson {lessonId}: </h2>
+          <h2 className='lessonDetails-contentTitle'>Lesson {lessonNo}: </h2>
           <h2 className='lessonDetails-contentTitle'>{lessonName}</h2>
           {courseSlide && (
             <Fragment>

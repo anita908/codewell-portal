@@ -57,14 +57,14 @@ class Assignment extends Component<Prop, State> {
                     activity={'assignment'}
                     content={{
                       homeworkId: homework.homeworkId,
-                      lessonId: lesson.chapterId,
+                      lessonNo: lesson.chapterNo,
                       lessonName: lesson.chapterName,
                       sessionId: selectedSession.sessionId
                     }}
                     endPoint={'assignmentInstruction'}
                     header={lesson?.chapterNo ? `Lesson ${lesson?.chapterNo}:` : 'Lesson:'}
                     linkTitle={`Do Assignment: ${homework.homeworkName}`}
-                    pathId={lesson?.chapterId?.toString() || ''}
+                    pathId={lesson?.chapterNo?.toString() || ''}
                     title={lesson?.chapterName || ''}
                   />
                 </Fragment>

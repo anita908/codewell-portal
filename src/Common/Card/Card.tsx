@@ -36,7 +36,7 @@ class Card extends Component<Props, {}> {
               pathname: `/${endPoint}/${pathId}`,
               state: {
                 content,
-                lessonId: pathId,
+                lessonNo: pathId,
                 lessonName: title
               }
             }}

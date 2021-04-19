@@ -12,7 +12,7 @@ type Props = {
     state: {
       content: {
         homeworkId: number
-        lessonId: string
+        lessonNo: string
         lessonName: string
         sessionId: number
       }
@@ -22,16 +22,16 @@ type Props = {
 
 class AssignmentInstruction extends Component<Props, {}> {
   render(): ReactElement {
-    const { homeworkId, lessonId, lessonName, sessionId } = this.props.location.state.content
+    const { homeworkId, lessonNo, lessonName, sessionId } = this.props.location.state.content
     const videos = new AssignmentPresenter(assignmentDataStore).getHomeworkVideosByLessonId(
-      parseInt(lessonId, 10)
+      parseInt(lessonNo, 10)
     )
 
     return (
       <div id='assignmentInstruction'>
         <SideNav />
         <div className='assignmentInstruction-content'>
-          <h2 className='assignmentInstruction-contentTitle'>Lesson {lessonId}: </h2>
+          <h2 className='assignmentInstruction-contentTitle'>Lesson {lessonNo}: </h2>
           <h2 className='assignmentInstruction-contentTitle'>
             {lessonName} Assignment Instruction
           </h2>
@@ -41,7 +41,7 @@ class AssignmentInstruction extends Component<Props, {}> {
               state: {
                 chapterName: lessonName,
                 homeworkId,
-                lessonNumber: lessonId,
+                lessonNumber: lessonNo,
                 sessionId
               }
             }}
