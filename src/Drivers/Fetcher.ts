@@ -21,8 +21,7 @@ class Fetcher implements IFetcher {
       body: method === 'GET' ? undefined : JSON.stringify(body)
     })
 
-    const okHttpCode = 200
-    if (result && result.status === okHttpCode) {
+    if (result) {
       const responseBody = await result.text()
       return responseBody ? JSON.parse(responseBody) : {}
     }
