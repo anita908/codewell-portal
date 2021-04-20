@@ -1,7 +1,7 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
-import GradeHelper from 'Utilities/GradeHelper'
+import DateHelper from 'Utilities/DateHelper'
 import GradesPresenter from './GradesPresenter'
 import IChapterGradesModel from './Interfaces/IChapterGradesModel'
 import IHomeworkProgress from 'Routes/Home/Interfaces/IHomeworkProgress'
@@ -62,7 +62,9 @@ class Grades extends Component<{}, State> {
                           <thead>
                             <tr>
                               <th>Homework Name</th>
-                              <th>Homework Link</th>
+                              <th>Link</th>
+                              <th>Due Date</th>
+                              <th>Submission</th>
                               <th>Submitted</th>
                               <th>Score</th>
                             </tr>
@@ -72,11 +74,25 @@ class Grades extends Component<{}, State> {
                               <tr className='grades-homeworkRow' key={homework.homeworkId}>
                                 <td>{homework.homeworkName}</td>
                                 <td>
-                                  <a href={homework.homeworkLink}>
-                                    {homework.homeworkLink || 'N/A'}
-                                  </a>
+                                  {homework.homeworkLink ? (
+                                    <a href={homework.homeworkLink}>Link</a>
+                                  ) : (
+                                    'N/A'
+                                  )}
                                 </td>
-                                <td>{homework.submitted === true ? 'Yes' : 'No'}</td>
+                                <td>
+                                  {DateHelper.convertStringToMoment(homework.dueDate)?.format(
+                                    'MM-DD-YYYY'
+                                  ) || 'N/A'}
+                                </td>
+                                <td>
+                                  {homework.submissionUrl ? (
+                                    <a href={homework.submissionUrl}>Submission</a>
+                                  ) : (
+                                    'N/A'
+                                  )}
+                                </td>
+                                <td>{homework.submitted === 'true' ? 'Yes' : 'No'}</td>
                                 <td>{homework.homeworkScore || '--'}%</td>
                               </tr>
                             ))}

@@ -67,7 +67,9 @@ class GradeEditor extends Component<Props, State> {
             <th>Homework Name</th>
             <th>Due Date</th>
             <th>Submitted</th>
+            <th>Submission Link</th>
             <th>Score</th>
+            <th>Feedback</th>
             <th></th>
           </tr>
         </thead>
@@ -95,6 +97,7 @@ class GradeEditor extends Component<Props, State> {
                     }
                   />
                 </td>
+                <td>{grade.submissionUrl || '--'}</td>
                 <td>
                   <ToggleInput
                     active={editingRowId === grade.id}
@@ -106,6 +109,7 @@ class GradeEditor extends Component<Props, State> {
                   />
                   %
                 </td>
+                <td></td>
                 <td>
                   <IconButton
                     icon={faUserEdit}
