@@ -97,7 +97,7 @@ class GradeEditor extends Component<Props, State> {
                     }
                   />
                 </td>
-                <td>{grade.submissionUrl || '--'}</td>
+                <td>{grade.submissionUrl ? <a href={grade.submissionUrl}>Submission</a> : '--'}</td>
                 <td>
                   <ToggleInput
                     active={editingRowId === grade.id}
