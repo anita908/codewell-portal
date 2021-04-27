@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component, MouseEvent, ReactElement } from 'react'
+import React, { ChangeEvent, Component, Fragment, MouseEvent, ReactElement } from 'react'
 import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
@@ -16,6 +16,7 @@ type State = {
   selectedStudentId: string
   taughtSessions: ISession[]
   students: IStudent[]
+  showGradesEditor: boolean
 }
 
 const studentsPresenter = new StudentsPresenter(new Fetcher())
@@ -26,7 +27,8 @@ class Students extends Component<{}, State> {
     selectedSessionId: 0,
     selectedStudentId: '',
     taughtSessions: [],
-    students: []
+    students: [],
+    showGradesEditor: false
   }
 
   componentDidMount = (): void => {
@@ -39,7 +41,8 @@ class Students extends Component<{}, State> {
       selectedSessionId,
       selectedStudentId,
       taughtSessions,
-      students
+      students,
+      showGradesEditor
     } = this.state
 
     return (
@@ -59,13 +62,22 @@ class Students extends Component<{}, State> {
           </div>
           <div className='students-contentFlex'>
             <div className='students-container'>
-              <table className='students-table'>
+              <table
+                className='students-table'
+                style={{ width: showGradesEditor ? 'var(--layout-7)' : '' }}
+              >
                 <thead>
                   <tr>
-                    <th>Student Name</th>
-                    <th>Birthdate</th>
-                    <th>City</th>
-                    <th>State</th>
+                    {showGradesEditor ? (
+                      <th>Student Name</th>
+                    ) : (
+                      <Fragment>
+                        <th>Student Name</th>
+                        <th>Birthdate</th>
+                        <th>City</th>
+                        <th>State</th>
+                      </Fragment>
+                    )}
                   </tr>
                 </thead>
                 {!isLoadingStudents ? (
@@ -76,12 +88,20 @@ class Students extends Component<{}, State> {
                         className='students-row'
                         onClick={(event) => this.selectStudent(student.userId, event)}
                       >
-                        <td>
-                          {student.firstName} {student.lastName}
-                        </td>
-                        <td>{student.birthdate}</td>
-                        <td>{student.city}</td>
-                        <td>{student.state}</td>
+                        {showGradesEditor ? (
+                          <td>
+                            {student.firstName} {student.lastName}
+                          </td>
+                        ) : (
+                          <Fragment>
+                            <td>
+                              {student.firstName} {student.lastName}
+                            </td>
+                            <td>{student.birthdate}</td>
+                            <td>{student.city}</td>
+                            <td>{this.getStudentState(student.state)}</td>
+                          </Fragment>
+                        )}
                       </tr>
                     ))}
                   </tbody>
@@ -106,6 +126,16 @@ class Students extends Component<{}, State> {
         <Footer />
       </div>
     )
+  }
+
+  getStudentState = (state: string): string => {
+    if (state.toLocaleLowerCase().includes('cali')) {
+      return 'CA'
+    } else if (state.toLocaleLowerCase().includes('york')) {
+      return 'NY'
+    }
+
+    return ''
   }
 
   selectSession = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
@@ -164,6 +194,7 @@ class Students extends Component<{}, State> {
       siblingRow.classList.toggle('active', false)
     })
     row?.classList.toggle('active', true)
+    this.setState({ showGradesEditor: true })
   }
 }
 
