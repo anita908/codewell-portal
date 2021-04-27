@@ -82,7 +82,3 @@
 .students-row:hover {
   cursor: pointer;
 }
-
-.grades-container {
-  width: 50%;
-}
