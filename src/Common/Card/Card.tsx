@@ -26,6 +26,7 @@ class Card extends Component<Props, {}> {
     return (
       <div
         className='card'
+        data-testid='card'
         style={{ border: `var(--card-border-width) solid var(${cardBorderColor})` }}
       >
         <h4 className='card-header'>{header}</h4>

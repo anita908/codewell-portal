@@ -18,7 +18,7 @@ class HamburgerMenu extends Component<Props, {}> {
     const { onClick } = this.props
 
     return (
-      <button className='hamburgerMenu-icon' onClick={onClick}>
+      <button className='hamburgerMenu-icon' onClick={onClick} data-testid='hamburgerMenu-icon'>
         {icon}
       </button>
     )

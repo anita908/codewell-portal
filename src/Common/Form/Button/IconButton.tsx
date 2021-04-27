@@ -14,7 +14,7 @@ class IconButton extends Component<Props, {}> {
     const { icon, className, onClick } = this.props
 
     return (
-      <button className={`icon-button ${className}`} onClick={onClick}>
+      <button className={`icon-button ${className}`} onClick={onClick} data-testid='iconButton'>
         <FontAwesomeIcon icon={icon} />
       </button>
     )
