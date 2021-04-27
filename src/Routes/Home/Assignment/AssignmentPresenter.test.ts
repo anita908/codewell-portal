@@ -114,20 +114,11 @@ describe('Test assignment presenter', () => {
     }
   })
 
-  it('Should be able to get assignment videos by course id', async () => {
-    fetcher.fetch = jest.fn().mockReturnValue(getMockData())
-    mockAssignmentDataStore.getAssignmentInstructionVideosByCourseId = jest.fn()
-    presenter = new AssignmentPresenter(mockAssignmentDataStore)
-    await presenter.getHomeworkVideosByCourseId(courseId, fetcher)
-
-    expect(fetcher.fetch).toHaveBeenCalled()
-  })
-
   it('Should be able to handle failed request', async () => {
     fetcher.fetch = jest.fn().mockReturnValue(null)
     mockAssignmentDataStore.getHomeworkVideosByCourseId = jest.fn()
     presenter = new AssignmentPresenter(mockAssignmentDataStore)
-    const response = await presenter.getHomeworkVideosByCourseId(courseId, fetcher)
+    const response = await presenter.getHomeworkVideosByCourseId(courseId)
 
     expect(response).toEqual([])
   })
