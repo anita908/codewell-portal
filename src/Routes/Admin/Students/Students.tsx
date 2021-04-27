@@ -135,7 +135,7 @@ class Students extends Component<{}, State> {
       return 'NY'
     }
 
-    return ''
+    return state
   }
 
   selectSession = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
