@@ -20,7 +20,6 @@ type Props = {
 }
 
 type State = {
-  comment: string
   editableEnrollment: IEnrollment
   editableGrades: IGrade[]
   editingRowId: number | null
@@ -34,7 +33,6 @@ const gradeEditorPresenter = new GradeEditorPresenter(new Fetcher())
 
 class GradeEditor extends Component<Props, State> {
   state = {
-    comment: '',
     gradesBackup: [],
     enrollmentBackup: {} as IEnrollment,
     editableEnrollment: {} as IEnrollment,
@@ -119,7 +117,7 @@ class GradeEditor extends Component<Props, State> {
                   <IconButton
                     icon={faCommentAlt}
                     className='comment-icon'
-                    onClick={this.openCommentEditor}
+                    onClick={() => this.openCommentEditor(grade.id)}
                   />
                 </td>
                 <td>
@@ -212,7 +210,7 @@ class GradeEditor extends Component<Props, State> {
     )
   }
 
-  openCommentEditor = async (): Promise<void> => {
+  openCommentEditor = async (gradeId: number): Promise<void> => {
     await Swal.fire({
       input: 'textarea',
       inputLabel: 'Please leave comment below',
@@ -223,13 +221,15 @@ class GradeEditor extends Component<Props, State> {
       showCancelButton: true
     }).then(async (result) => {
       if (result.isConfirmed) {
-        this.setState({ comment: result.value })
+        const gradesCopy = JSON.parse(JSON.stringify(this.state.editableGrades))
+        const gradeObject = gradesCopy.find((grade: IGrade) => grade.id === gradeId) as IGrade
+
+        if (gradeObject) {
+          gradeObject.feedback = result.value
+          this.setState({ editableGrades: gradesCopy })
+        }
       }
     })
-  }
-
-  updateComment = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ comment: event.target.value })
   }
 
   updateStudentGrades = async (): Promise<void> => {
@@ -335,7 +335,6 @@ class GradeEditor extends Component<Props, State> {
 
   resetGradeEditor = (): void => {
     this.setState({
-      comment: '',
       editableGrades: this.mapGradesToEditable(this.state.gradesBackup),
       editableEnrollment: JSON.parse(JSON.stringify(this.state.enrollmentBackup)),
       editingRowId: null
