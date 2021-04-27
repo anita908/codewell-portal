@@ -228,6 +228,8 @@ class GradeEditor extends Component<Props, State> {
           gradeObject.feedback = result.value
           this.setState({ editableGrades: gradesCopy })
         }
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved: ', `${result.isDenied}`)
       }
     })
   }
