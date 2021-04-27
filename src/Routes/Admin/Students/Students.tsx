@@ -62,8 +62,7 @@ class Students extends Component<{}, State> {
               <table className='students-table'>
                 <thead>
                   <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Student Name</th>
                     <th>Birthdate</th>
                     <th>City</th>
                     <th>State</th>
@@ -77,8 +76,9 @@ class Students extends Component<{}, State> {
                         className='students-row'
                         onClick={(event) => this.selectStudent(student.userId, event)}
                       >
-                        <td>{student.firstName}</td>
-                        <td>{student.lastName}</td>
+                        <td>
+                          {student.firstName} {student.lastName}
+                        </td>
                         <td>{student.birthdate}</td>
                         <td>{student.city}</td>
                         <td>{student.state}</td>

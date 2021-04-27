@@ -1,5 +1,7 @@
 import React, { Component, ReactElement } from 'react'
-import { faCheck, faUserEdit } from '@fortawesome/free-solid-svg-icons'
+import swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { faCheck, faUserEdit, faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
 import GradeEditorPresenter from './GradeEditorPresenter'
@@ -10,32 +12,36 @@ import IGrade from './Interfaces/IGrade'
 import ToggleInput from 'Common/Form/Input/ToggleInput'
 import './style.css'
 
+const Swal = withReactContent(swal)
+
 type Props = {
   studentId: string
   sessionId: number
 }
 
 type State = {
-  isLoadingGrades: boolean
-  isUpdatingGrades: boolean
-  enrollmentBackup: IEnrollment
-  gradesBackup: IGrade[]
+  comment: string
   editableEnrollment: IEnrollment
   editableGrades: IGrade[]
   editingRowId: number | null
+  enrollmentBackup: IEnrollment
+  gradesBackup: IGrade[]
+  isLoadingGrades: boolean
+  isUpdatingGrades: boolean
 }
 
 const gradeEditorPresenter = new GradeEditorPresenter(new Fetcher())
 
 class GradeEditor extends Component<Props, State> {
   state = {
-    isLoadingGrades: false,
-    isUpdatingGrades: false,
-    enrollmentBackup: {} as IEnrollment,
+    comment: '',
     gradesBackup: [],
+    enrollmentBackup: {} as IEnrollment,
     editableEnrollment: {} as IEnrollment,
     editableGrades: [],
-    editingRowId: null
+    editingRowId: null,
+    isLoadingGrades: false,
+    isUpdatingGrades: false
   }
 
   componentDidMount = () => {
@@ -109,7 +115,13 @@ class GradeEditor extends Component<Props, State> {
                   />
                   %
                 </td>
-                <td></td>
+                <td>
+                  <IconButton
+                    icon={faCommentAlt}
+                    className='comment-icon'
+                    onClick={this.openCommentEditor}
+                  />
+                </td>
                 <td>
                   <IconButton
                     icon={faUserEdit}
@@ -198,6 +210,26 @@ class GradeEditor extends Component<Props, State> {
         </tfoot>
       </table>
     )
+  }
+
+  openCommentEditor = async (): Promise<void> => {
+    await Swal.fire({
+      input: 'textarea',
+      inputLabel: 'Please leave comment below',
+      inputPlaceholder: 'Type your message here...',
+      inputAttributes: {
+        'aria-label': 'Type your message here'
+      },
+      showCancelButton: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        this.setState({ comment: result.value })
+      }
+    })
+  }
+
+  updateComment = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    this.setState({ comment: event.target.value })
   }
 
   updateStudentGrades = async (): Promise<void> => {
@@ -303,6 +335,7 @@ class GradeEditor extends Component<Props, State> {
 
   resetGradeEditor = (): void => {
     this.setState({
+      comment: '',
       editableGrades: this.mapGradesToEditable(this.state.gradesBackup),
       editableEnrollment: JSON.parse(JSON.stringify(this.state.enrollmentBackup)),
       editingRowId: null
