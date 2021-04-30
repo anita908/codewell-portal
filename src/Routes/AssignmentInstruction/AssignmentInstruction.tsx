@@ -90,9 +90,7 @@ class AssignmentInstruction extends Component<Props, State> {
                   </button>
                 )}
                 <p className='assignmentInstruction-videoTitle'>{video.name}</p>
-                <video controls>
-                  <source src={video.storageUrl} type='video/mp4' />
-                </video>
+                <iframe src={video.storageUrl} allowFullScreen />
               </div>
             )
           })}

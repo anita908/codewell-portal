@@ -8,9 +8,10 @@
   margin: 0 auto;
   width: var(--home-width);
 }
-.assignmentInstruction-playerContent video {
+.assignmentInstruction-playerContent iframe {
   margin-bottom: var(--layout-4);
   width: var(--home-width);
+  height: 450px;
 }
 
 .assignmentInstruction-videoTitle {
