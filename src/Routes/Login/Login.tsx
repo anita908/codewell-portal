@@ -30,7 +30,7 @@ class Login extends Component<{}, State> {
       <div id='login'>
         <div className='login-illustration'>
           <div className='login-image'>
-            <h1>Codewell Learning</h1>
+            <h1>CodeWell Learning</h1>
             <h2>Student Portal</h2>
             <img alt='login' className='login' src={loginIllustration} />
           </div>
