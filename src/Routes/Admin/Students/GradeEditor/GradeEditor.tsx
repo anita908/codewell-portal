@@ -115,6 +115,7 @@ class GradeEditor extends Component<Props, State> {
                 </td>
                 <td>
                   <IconButton
+                    disabled={!editingRowId}
                     icon={faCommentAlt}
                     className='comment-icon'
                     onClick={() => this.openCommentEditor(grade.id)}
@@ -211,27 +212,31 @@ class GradeEditor extends Component<Props, State> {
   }
 
   openCommentEditor = async (gradeId: number): Promise<void> => {
-    await Swal.fire({
-      input: 'textarea',
-      inputLabel: 'Please leave comment below',
-      inputPlaceholder: 'Type your message here...',
-      inputAttributes: {
-        'aria-label': 'Type your message here'
-      },
-      showCancelButton: true
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const gradesCopy = JSON.parse(JSON.stringify(this.state.editableGrades))
-        const gradeObject = gradesCopy.find((grade: IGrade) => grade.id === gradeId) as IGrade
+    const { editingRowId } = this.state
 
-        if (gradeObject) {
-          gradeObject.feedback = result.value
-          this.setState({ editableGrades: gradesCopy })
+    if (editingRowId) {
+      await Swal.fire({
+        input: 'textarea',
+        inputLabel: 'Please leave comment below',
+        inputPlaceholder: 'Type your message here...',
+        inputAttributes: {
+          'aria-label': 'Type your message here'
+        },
+        showCancelButton: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const gradesCopy = JSON.parse(JSON.stringify(this.state.editableGrades))
+          const gradeObject = gradesCopy.find((grade: IGrade) => grade.id === gradeId) as IGrade
+
+          if (gradeObject) {
+            gradeObject.feedback = result.value
+            this.setState({ editableGrades: gradesCopy })
+          }
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved: ', `${result.isDenied}`)
         }
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved: ', `${result.isDenied}`)
-      }
-    })
+      })
+    }
   }
 
   updateStudentGrades = async (): Promise<void> => {

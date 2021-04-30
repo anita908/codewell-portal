@@ -53,6 +53,7 @@
   background-color: rgba(229, 114, 129, 0.3);
   border-spacing: 0;
   width: 100%;
+  color: var(--p);
 }
 
 .grades-homeworkTable thead th {
