@@ -18,7 +18,7 @@ class IconButton extends Component<Props, {}> {
       <button
         className={`icon-button ${className}`}
         onClick={onClick}
-        style={{ cursor: disabled ? 'default' : 'pointer' }}
+        style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
         data-testid='iconButton'
       >
         <FontAwesomeIcon icon={icon} />
