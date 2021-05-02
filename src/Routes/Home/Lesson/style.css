@@ -15,10 +15,10 @@
   display: inline;
 }
 .lesson-toggleExpandButton:hover {
-   cursor: pointer;
+  cursor: pointer;
 }
 .lesson-toggleExpandButton > summary:focus {
-    outline: none;
+  outline: none;
 }
 .lesson-header h3 {
   display: inline;

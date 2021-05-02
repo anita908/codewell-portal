@@ -17,14 +17,14 @@
   text-align: left;
 }
 .assignment-toggleExpandButton {
- display: inline;
+  display: inline;
 }
 .assignment-toggleExpandButton:hover {
   cursor: pointer;
- }
- .assignment-toggleExpandButton > summary:focus {
-   outline: none;
- }
+}
+.assignment-toggleExpandButton > summary:focus {
+  outline: none;
+}
 .assignment-header h3 {
   display: inline;
   margin: 0;
