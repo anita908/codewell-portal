@@ -67,6 +67,7 @@ class Grades extends Component<{}, State> {
                               <th>Submission</th>
                               <th>Submitted</th>
                               <th>Score</th>
+                              <th>Feedback</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -75,7 +76,13 @@ class Grades extends Component<{}, State> {
                                 <td>{homework.homeworkName}</td>
                                 <td>
                                   {homework.homeworkLink ? (
-                                    <a href={homework.homeworkLink}>Link</a>
+                                    <a
+                                      target='_blank'
+                                      rel='noreferrer'
+                                      href={homework.homeworkLink}
+                                    >
+                                      Link
+                                    </a>
                                   ) : (
                                     'N/A'
                                   )}
@@ -94,6 +101,7 @@ class Grades extends Component<{}, State> {
                                 </td>
                                 <td>{homework.submitted === 'true' ? 'Yes' : 'No'}</td>
                                 <td>{homework.homeworkScore || '--'}%</td>
+                                <td className='grades-feedbackRow'>{homework.submissionFeedback}</td>
                               </tr>
                             ))}
                           </tbody>
