@@ -100,7 +100,12 @@ class Grades extends Component<{}, State> {
                                   )}
                                 </td>
                                 <td>{homework.submitted === 'true' ? 'Yes' : 'No'}</td>
-                                <td>{homework.homeworkScore || '--'}%</td>
+                                <td>
+                                  {homework.homeworkScore || homework.homeworkScore === 0
+                                    ? homework.homeworkScore
+                                    : '--'}
+                                  %
+                                </td>
                                 <td className='grades-feedbackRow'>
                                   {homework.submissionFeedback}
                                 </td>
