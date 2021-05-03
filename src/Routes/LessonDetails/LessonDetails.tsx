@@ -29,7 +29,7 @@ class LessonDetails extends Component<Props, {}> {
         <div className='lessonDetails-content'>
           <h2 className='lessonDetails-contentTitle'>Lesson {lessonNo}: </h2>
           <h2 className='lessonDetails-contentTitle'>{lessonName}</h2>
-          {courseSlide && (
+          {courseSlide?.slidesLink ? (
             <Fragment>
               <div className='lessonDetails-slideContent'>
                 <button className='back' onClick={this.back} type='button'>
@@ -38,6 +38,16 @@ class LessonDetails extends Component<Props, {}> {
               </div>
               <iframe className='lessonDetails-slide' src={courseSlide.slidesLink} />
             </Fragment>
+          ) : (
+            <div className='lessonDetails-slideContent'>
+              <button className='back' onClick={this.back} type='button'>
+                Back
+              </button>
+              <p className='lessonDetails-slideTitle note'>
+                There is no course slide for this lesson yet. Please contact your teacher if you
+                have any questions :)
+              </p>
+            </div>
           )}
         </div>
         <Footer />
