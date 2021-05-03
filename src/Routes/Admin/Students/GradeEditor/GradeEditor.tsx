@@ -20,6 +20,7 @@ type Props = {
 }
 
 type State = {
+  comment: object
   editableEnrollment: IEnrollment
   editableGrades: IGrade[]
   editingRowId: number | null
@@ -33,6 +34,7 @@ const gradeEditorPresenter = new GradeEditorPresenter(new Fetcher())
 
 class GradeEditor extends Component<Props, State> {
   state = {
+    comment: { id: null, comment: '' },
     gradesBackup: [],
     enrollmentBackup: {} as IEnrollment,
     editableEnrollment: {} as IEnrollment,
@@ -57,11 +59,12 @@ class GradeEditor extends Component<Props, State> {
 
   render = (): ReactElement => {
     const {
-      isLoadingGrades,
-      isUpdatingGrades,
+      comment,
       editableGrades,
       editableEnrollment,
-      editingRowId
+      editingRowId,
+      isUpdatingGrades,
+      isLoadingGrades
     } = this.state
 
     return (
@@ -115,6 +118,7 @@ class GradeEditor extends Component<Props, State> {
                 </td>
                 <td>
                   <IconButton
+                    disabled={this.shouldDisableCommentEditor(grade.id)}
                     icon={faCommentAlt}
                     className='comment-icon'
                     onClick={() => this.openCommentEditor(grade.id)}
@@ -210,28 +214,56 @@ class GradeEditor extends Component<Props, State> {
     )
   }
 
-  openCommentEditor = async (gradeId: number): Promise<void> => {
-    await Swal.fire({
-      input: 'textarea',
-      inputLabel: 'Please leave comment below',
-      inputPlaceholder: 'Type your message here...',
-      inputAttributes: {
-        'aria-label': 'Type your message here'
-      },
-      showCancelButton: true
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const gradesCopy = JSON.parse(JSON.stringify(this.state.editableGrades))
-        const gradeObject = gradesCopy.find((grade: IGrade) => grade.id === gradeId) as IGrade
+  shouldDisableCommentEditor = (gradeId: number): boolean => {
+    const { editingRowId } = this.state
 
-        if (gradeObject) {
-          gradeObject.feedback = result.value
-          this.setState({ editableGrades: gradesCopy })
+    if (editingRowId) {
+      return editingRowId !== gradeId
+    }
+
+    return !this.hasNoSavedComment()
+  }
+
+  openCommentEditor = async (gradeId: number): Promise<void> => {
+    const { comment, editingRowId } = this.state
+    if (this.hasNoSavedComment() || this.hasSavedCommentForSelectedGrade(gradeId)) {
+      await Swal.fire({
+        input: 'textarea',
+        inputLabel: 'Please leave comment below',
+        inputPlaceholder: 'Type your message here...',
+        inputAttributes: {
+          'aria-label': 'Type your message here'
+        },
+        inputValue: comment.comment || '',
+        showCancelButton: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const gradesCopy = JSON.parse(JSON.stringify(this.state.editableGrades))
+          const gradeObject = gradesCopy.find((grade: IGrade) => grade.id === gradeId) as IGrade
+
+          if (gradeObject) {
+            gradeObject.feedback = result.value
+            this.setState({
+              comment: { id: editingRowId, comment: result.value },
+              editableGrades: gradesCopy
+            })
+          }
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved: ', `${result.isDenied}`)
         }
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved: ', `${result.isDenied}`)
-      }
-    })
+      })
+    }
+  }
+
+  hasNoSavedComment = (): boolean => {
+    const { comment, editingRowId } = this.state
+    return !comment.id && !comment.comment && !!editingRowId
+  }
+
+  hasSavedCommentForSelectedGrade = (gradeId: number): boolean => {
+    const { comment, editingRowId } = this.state
+
+    return comment.id === editingRowId && editingRowId === gradeId && editingRowId !== null
   }
 
   updateStudentGrades = async (): Promise<void> => {

@@ -5,16 +5,22 @@ import './style.css'
 
 type Props = {
   icon: IconDefinition
+  disabled?: boolean
   className?: string
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
 class IconButton extends Component<Props, {}> {
   render = (): ReactElement => {
-    const { icon, className, onClick } = this.props
+    const { disabled, icon, className, onClick } = this.props
 
     return (
-      <button className={`icon-button ${className}`} onClick={onClick} data-testid='iconButton'>
+      <button
+        className={`icon-button ${className}`}
+        onClick={onClick}
+        style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
+        data-testid='iconButton'
+      >
         <FontAwesomeIcon icon={icon} />
       </button>
     )
