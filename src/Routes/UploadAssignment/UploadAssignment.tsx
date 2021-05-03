@@ -52,11 +52,13 @@ class UploadAssignment extends Component<Props, State> {
           <button className='uploadAssignment-back back' onClick={this.back} type='button'>
             Back
           </button>
-          <Dropdown onChange={this.handleSelect}>
-            <Option selected value='Choose homework type' />
-            <Option value='Link' />
-            <Option value='File' />
-          </Dropdown>
+          <div className='uploadAssignment-dropdown'>
+            <Dropdown onChange={this.handleSelect}>
+              <Option selected value='Choose homework type' />
+              <Option value='Link' />
+              <Option value='File' />
+            </Dropdown>
+          </div>
           {assignmentType === 'Link' ? (
             <div>
               <label htmlFor='homeworkUrl' className='inputLabel'>
@@ -85,10 +87,17 @@ class UploadAssignment extends Component<Props, State> {
             </div>
           ) : (
             <div>
-              <label htmlFor='homeworkUrl'>Assignment File:</label>
-              <div>
-                <input type='file' name='file' onChange={this.updateFile} />
-              </div>
+              <label htmlFor='homeworkUrl' className='inputLabel'>
+                Assignment File:
+              </label>
+              <br />
+              <br />
+              <input
+                className='uploadAssignment-file'
+                type='file'
+                name='file'
+                onChange={this.updateFile}
+              />
               <div>
                 <button
                   className='button settings-saveChanges'
