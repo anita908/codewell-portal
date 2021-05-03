@@ -16,13 +16,14 @@
 
 .login-image {
   --logo-margin-top: 100px;
-  
+
   color: var(--illustration-brightOrange);
   position: relative;
   top: var(--logo-margin-top);
 }
 
-.login-input input[type='text']:focus, .login-input input[type='password']:focus {
+.login-input input[type='text']:focus,
+.login-input input[type='password']:focus {
   border-color: var(--link-color);
   box-shadow: var(--input-box-shadow);
   outline: none;
@@ -37,7 +38,8 @@
   top: 40%;
 }
 
-.login-username, .login-password {
+.login-username,
+.login-password {
   margin: var(--spacing-5) auto;
 }
 
@@ -49,7 +51,8 @@
   display: contents;
 }
 
-#username, #password {
+#username,
+#password {
   border: none;
   font-size: var(--m-text-size);
   height: var(--layout-2);
@@ -88,7 +91,8 @@
     top: 35%;
   }
 
-  .login-input, .login-image {
+  .login-input,
+  .login-image {
     height: 55%;
   }
 

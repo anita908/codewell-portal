@@ -1,4 +1,6 @@
-html, body, #app {
+html,
+body,
+#app {
   font-family: var(--font-family);
   height: 100%;
   max-width: 100%;
@@ -26,7 +28,6 @@ html, body, #app {
 .back:hover {
   cursor: pointer;
 }
-
 
 .button {
   border: 0;

@@ -30,23 +30,23 @@
   margin-bottom: var(--spacing-4);
   text-align: left;
   margin-left: 1%;
-  margin-right: 1%
- }
+  margin-right: 1%;
+}
 
- .courseSlides-course-title h2 {
+.courseSlides-course-title h2 {
   display: inline;
   margin: 0;
 }
 
- .courseSlides-toggleExpandButton {
+.courseSlides-toggleExpandButton {
   display: inline;
- }
+}
 
- .courseSlides-toggleExpandButton:hover {
+.courseSlides-toggleExpandButton:hover {
   cursor: pointer;
- }
+}
 
- .courseSlides-toggleExpandButton > summary:focus {
+.courseSlides-toggleExpandButton > summary:focus {
   outline: none;
 }
 

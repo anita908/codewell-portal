@@ -5,9 +5,12 @@
 }
 
 .grades-content {
+  --gradesTable-width: 950px;
   display: inline-block;
-  margin-left: calc(((100% - var(--home-width) - var(--sideNav-width)) / 2) + var(--sideNav-width));
-  margin-right: calc((100% - var(--home-width) - var(--sideNav-width)) / 2);
+  margin-left: calc(
+    ((100% - var(--gradesTable-width) - var(--sideNav-width)) / 2) + var(--sideNav-width)
+  );
+  margin-right: calc((100% - var(--gradesTable-width) - var(--sideNav-width)) / 2);
   text-align: left;
 }
 
@@ -35,7 +38,9 @@
   color: var(--primary);
 }
 
-.grades-table th, .grades-table tr td, .grades-header {
+.grades-table th,
+.grades-table tr td,
+.grades-header {
   text-align: center;
 }
 
@@ -48,7 +53,6 @@
   background-color: rgba(229, 114, 129, 0.3);
   border-spacing: 0;
   width: 100%;
-  color: var(--p)
 }
 
 .grades-homeworkTable thead th {
@@ -59,7 +63,7 @@
   font-weight: normal;
 }
 
-.grades-homeworkTable  .grades-homeworkRow td {
+.grades-homeworkTable .grades-homeworkRow td {
   padding: 2px;
 }
 
@@ -67,6 +71,11 @@
   color: var(--green-50);
   font-size: var(--xl-text-size);
   margin-top: var(--layout-2);
+}
+
+.grades-feedbackRow {
+  --grades-feedbackRowWidth: 300px;
+  max-width: var(--grades-feedbackRowWidth);
 }
 
 @media only screen and (max-width: 1050px) {
