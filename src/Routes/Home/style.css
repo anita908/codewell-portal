@@ -17,7 +17,7 @@
 }
 
 .home-sessionList > .card {
-  width: auto
+  width: auto;
 }
 
 @media only screen and (max-width: 1020px) {

@@ -3,7 +3,7 @@
 :root {
   --background-border-radius: 25px;
   --button-border-radius: 8px;
-  --card-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  --card-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   --content-border-radius: 10px;
   --card-border-width: 3px;
   --card-height: 150px;
@@ -26,53 +26,53 @@
   --l-text-size: 22px;
   --xl-text-size: 28px;
 
-  --primary: #FFF;
+  --primary: #fff;
   --black: #000;
-  --warning: #FF0000;
-  --background-color: #B1B1B1;
+  --warning: #ff0000;
+  --background-color: #b1b1b1;
   --on-background: #354954;
 
-  --blue-10: #D3E8F9;
-  --blue-20: #9ACEF9;
-  --blue-30: #4897D8;
-  --blue-40: #4f89B9;
-  --blue-50: #2971AD;
+  --blue-10: #d3e8f9;
+  --blue-20: #9acef9;
+  --blue-30: #4897d8;
+  --blue-40: #4f89b9;
+  --blue-50: #2971ad;
 
-  --indigo-10: #D7D8FA;
-  --indigo-20: #A3A5FA;
-  --indigo-30: #565ADE;
-  --indigo-40: #5B5DBE;
-  --indigo-50: #3135B1;
+  --indigo-10: #d7d8fa;
+  --indigo-20: #a3a5fa;
+  --indigo-30: #565ade;
+  --indigo-40: #5b5dbe;
+  --indigo-50: #3135b1;
 
-  --yellow-10: #FFFED5; 
-  --yellow-20: #FFE497;
-  --yellow-30: #FFE262;
-  --yellow-40: #DBB855;
-  --yellow-50: #CCA229;
+  --yellow-10: #fffed5;
+  --yellow-20: #ffe497;
+  --yellow-30: #ffe262;
+  --yellow-40: #dbb855;
+  --yellow-50: #cca229;
 
-  --tangerine-10: #FFE3D5;
-  --tangerine-20: #FFB897;
-  --tangerine-30: #FF8449;
-  --tangerine-40: #DB8055;
-  --tangerine-50: #CC5E29;
+  --tangerine-10: #ffe3d5;
+  --tangerine-20: #ffb897;
+  --tangerine-30: #ff8449;
+  --tangerine-40: #db8055;
+  --tangerine-50: #cc5e29;
 
   --green: #11912e;
-  --green-10: #D0FaEB;
-  --green-20: #93FAD6;
-  --green-30: #3EDBA4;
-  --green-40: #49BB93;
-  --green-50: #24AF7E;
+  --green-10: #d0faeb;
+  --green-20: #93fad6;
+  --green-30: #3edba4;
+  --green-40: #49bb93;
+  --green-50: #24af7e;
 
-  --illustration-darkPurple: #73325A;
-  --illustration-purple: #9A3B82;
-  --illustration-chocolate: #A0505A;
-  --illustration-brightOrange: #FE5244;
-  --illustration-dustPink: #E57281;
-  --illustration-lightGrey: #E6E6E6;
-  --illustration-turquoise: #3FB1B5;
-  --illustration-brightYellow: #FFCF2D;
-  --illustration-skyBlue: #66B0F0;
-  --illustration-lightTurquoise: #D0F0E4;
+  --illustration-darkPurple: #73325a;
+  --illustration-purple: #9a3b82;
+  --illustration-chocolate: #a0505a;
+  --illustration-brightOrange: #fe5244;
+  --illustration-dustPink: #e57281;
+  --illustration-lightGrey: #e6e6e6;
+  --illustration-turquoise: #3fb1b5;
+  --illustration-brightYellow: #ffcf2d;
+  --illustration-skyBlue: #66b0f0;
+  --illustration-lightTurquoise: #d0f0e4;
 
   --text-size-1: 11px;
   --text-size-2: 13px;

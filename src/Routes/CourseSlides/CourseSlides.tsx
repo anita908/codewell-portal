@@ -6,10 +6,22 @@ import IChapter from './Interfaces/IChapter'
 import SideNav from '../../Common/SideNav'
 import './style.css'
 
+type State = {
+  slides: IChapter[]
+}
+
 const presenter = new HomePresenter(homeDataStore)
-class CourseSlides extends Component {
+class CourseSlides extends Component<{}, State> {
+  state = {
+    slides: []
+  }
+
+  componentDidMount(): void {
+    this.setState({ slides: presenter.courseSlides })
+  }
+
   render(): ReactElement {
-    const slides = presenter.courseSlides
+    const { slides } = this.state
     const courseLinks = slides.map((slide: IChapter) => slide.slidesLink)
 
     return (

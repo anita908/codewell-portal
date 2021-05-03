@@ -1,7 +1,7 @@
 .card {
-  border: var(--card-border-width) solid var(  --illustration-lightGrey);
+  border: var(--card-border-width) solid var(--illustration-lightGrey);
   border-radius: var(--background-border-radius);
-  box-shadow:  var(--card-shadow);
+  box-shadow: var(--card-shadow);
   height: var(--card-height);
   margin: var(--spacing-3);
   padding: var(--spacing-3);
@@ -9,7 +9,7 @@
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-header {
@@ -36,7 +36,6 @@
 .card-loading:hover {
   box-shadow: var(--card-shadow);
 }
-
 
 @media only screen and (max-width: 410px) {
   .card {

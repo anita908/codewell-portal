@@ -38,22 +38,22 @@
 
 div .assignmentInstruction-loadingContent {
   --loading-height: 280px;
-  
+
   height: var(--loading-height);
   width: var(--playerContent);
 }
 
 @media only screen and (max-width: 1250px) {
-  .assignmentInstruction-playerContent { 
+  .assignmentInstruction-playerContent {
     width: var(--playerContent);
   }
   .assignmentInstruction-playerContent video {
     width: var(--playerContent);
   }
- }
+}
 
- @media only screen and (max-width: 890px) {
-  .assignmentInstruction-playerContent { 
+@media only screen and (max-width: 890px) {
+  .assignmentInstruction-playerContent {
     margin: 0 auto;
     width: 400px;
   }
@@ -61,24 +61,24 @@ div .assignmentInstruction-loadingContent {
   .assignmentInstruction-back {
     font-size: var(--m-text-size);
   }
- }
+}
 
- @media only screen and (max-width: 680px) {
+@media only screen and (max-width: 680px) {
   .assignmentInstruction-contentTitle {
     font-size: var(--m-text-size);
   }
 
-  .assignmentInstruction-playerContent { 
+  .assignmentInstruction-playerContent {
     margin: 0 auto;
     width: 300px;
   }
   .assignmentInstruction-playerContent video {
     width: 450px;
   }
- }
+}
 
- @media only screen and (max-width: 650px) {
+@media only screen and (max-width: 650px) {
   .assignmentInstruction-playerContent video {
     width: 300px;
   }
- }
+}
