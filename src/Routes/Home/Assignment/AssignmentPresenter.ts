@@ -10,12 +10,8 @@ class AssignmentPresenter implements IAssignmentPresenter {
     this.subscribers = []
   }
 
-  public async getHomeworkVideosByLessonId(
-    courseId: number,
-    lessonId: number
-  ): Promise<IAssignmentVideo[]> {
-    await this.getHomeworkVideosByCourseId(courseId)
-    return this.assignmentDataStore.getVideosByLessonId(lessonId)
+  public async getHomeworkVideosByHomeworkId(homeworkId: number): Promise<IAssignmentVideo[]> {
+    return this.assignmentDataStore.getVideosByHomeworkId(homeworkId)
   }
 
   public getVideos(): IAssignmentVideo[] {
@@ -28,10 +24,6 @@ class AssignmentPresenter implements IAssignmentPresenter {
 
   public update(): void {
     this.subscribers.forEach((subscriber) => subscriber.update())
-  }
-
-  public async getHomeworkVideosByCourseId(courseId: number): Promise<IAssignmentVideo[]> {
-    return assignmentDataStore.getAssignmentInstructionVideosByCourseId(courseId)
   }
 }
 

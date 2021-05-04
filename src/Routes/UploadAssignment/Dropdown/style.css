@@ -1,0 +1,7 @@
+#assignmentType {
+  border-radius: var(--spacing-2);
+  font-family: var(--font-family);
+  font-size: var(--text-size-3);
+  margin: var(--spacing-4);
+  padding: var(--spacing-2) 0;
+}

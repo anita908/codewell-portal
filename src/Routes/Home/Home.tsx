@@ -145,20 +145,10 @@ class Home extends Component<{}, State> implements ISubscriber {
     homePresenter.setSelectedSession(session)
     const name = LocalStorageHelper.getUserFirstName()
 
-    this.setState(
-      {
-        name,
-        lessons: homePresenter.lessons
-      },
-      () => this.getAssignmentVideos()
-    )
-  }
-
-  getAssignmentVideos = async () => {
-    const response = await assignmentPresenter.getHomeworkVideosByCourseId(
-      homePresenter.selectedSession.courseId
-    )
-    this.setState({ videos: response })
+    this.setState({
+      name,
+      lessons: homePresenter.lessons
+    })
   }
 
   update = () => {
