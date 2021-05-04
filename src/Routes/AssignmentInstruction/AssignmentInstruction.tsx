@@ -33,11 +33,10 @@ class AssignmentInstruction extends Component<Props, State> {
   }
 
   async componentDidMount(): Promise<void> {
-    const { courseId, lessonNo } = this.props.location.state.content
+    const { homeworkId } = this.props.location.state.content
     this.setState({ isLoading: true })
-    const videos = await new AssignmentPresenter(assignmentDataStore).getHomeworkVideosByLessonId(
-      courseId,
-      parseInt(lessonNo, 10)
+    const videos = await new AssignmentPresenter(assignmentDataStore).getHomeworkVideosByHomeworkId(
+      homeworkId
     )
 
     this.setState({ isLoading: false, videos })
