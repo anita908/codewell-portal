@@ -17,8 +17,31 @@
   width: 80%;
 }
 
+.lessonDetails-slideTitle {
+  font-size: var(--l-text-size);
+  margin-bottom: var(--spacing-2);
+  text-align: left;
+}
+
+@media only screen and (max-width: 1250px) {
+  .lessonDetails-slideContent {
+    width: var(--playerContent);
+  }
+}
+
 @media only screen and (max-width: 890px) {
   .lessonDetails-slide {
     margin-left: 0;
+  }
+  .lessonDetails-slideContent {
+    margin: 0 auto;
+    width: 400px;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .lessonDetails-slideContent {
+    margin: 0 auto;
+    width: 300px;
   }
 }
