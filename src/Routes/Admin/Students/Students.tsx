@@ -3,7 +3,7 @@ import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
 import GradeEditor from './GradeEditor/GradeEditor'
-import ISession from './Interfaces/ISession'
+import IAdminSession from './Interfaces/IAdminSession'
 import IStudent from './Interfaces/IStudent'
 import Select from 'Common/Form/Select/Select'
 import SideNav from 'Common/SideNav'
@@ -14,7 +14,7 @@ type State = {
   isLoadingStudents: boolean
   selectedSessionId: number
   selectedStudentId: string
-  taughtSessions: ISession[]
+  taughtSessions: IAdminSession[]
   students: IStudent[]
   showGradesEditor: boolean
 }
@@ -53,7 +53,7 @@ class Students extends Component<{}, State> {
           <div className='students-sessionSelect'>
             <label>Session:</label>
             <Select size='md' value={selectedSessionId} onChange={this.selectSession}>
-              {taughtSessions.map((session: ISession) => (
+              {taughtSessions.map((session: IAdminSession) => (
                 <option key={session.id} value={session.id}>
                   {`${session.course.name}: ${session.beginDate} - ${session.endDate}`}
                 </option>
@@ -161,7 +161,7 @@ class Students extends Component<{}, State> {
   getAllStudents = async (): Promise<void> => {
     this.setState({ isLoadingStudents: true })
     const taughtSessions = await studentsPresenter.getTaughtSessions()
-    taughtSessions.forEach((session: ISession) => {
+    taughtSessions.forEach((session: IAdminSession) => {
       session.beginDate = DateHelper.convertStringToMoment(session.beginDate)?.format(
         'MM/DD/YYYY'
       ) as string

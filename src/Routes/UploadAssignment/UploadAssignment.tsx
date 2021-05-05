@@ -186,7 +186,6 @@ class UploadAssignment extends Component<Props, State> {
 
   updateFile = (event: React.ChangeEvent): void => {
     const files = (event.target as HTMLInputElement).files
-    console.log(files)
     this.setState({ assignmentFile: files })
   }
 }
