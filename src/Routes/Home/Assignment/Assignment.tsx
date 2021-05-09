@@ -53,7 +53,7 @@ class Assignment extends Component<Prop, State> {
               ) as IChapterProgress
 
               return (
-                <Fragment key={lesson.chapterId}>
+                <Fragment key={homework.homeworkId}>
                   <Card
                     activity={'assignment'}
                     content={{
