@@ -14,10 +14,6 @@
   text-align: left;
 }
 
-.uploadAssignment-file {
-  margin-bottom: var(--spacing-3);
-}
-
 @media only screen and (max-width: 1020px) {
   .uploadAssignment-content {
     margin: 0 auto;

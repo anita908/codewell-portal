@@ -1,35 +1,38 @@
-import { uploadAssignmentLink } from '../../Utilities/Url'
+import { uploadAssignmentFile, uploadAssignmentUrl } from '../../Utilities/Url'
+import Fetcher from 'Drivers/Fetcher'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
 
 class UploadAssignmentPresenter {
   constructor(private readonly fetcher: IFetcher) {}
 
-  public async uploadAssignmentLink(params: {
-    sessionId: number
-    homeworkId: number
+  public async uploadAssignmentLink(
+    homeworkId: number,
+    sessionId: number,
     assignmentUrl: string
-  }): Promise<any> {
-    const { assignmentUrl, homeworkId, sessionId } = params
-
+  ): Promise<any> {
     return this.fetcher.fetch({
       body: {},
       method: 'PUT',
-      url: `${uploadAssignmentLink}?homeworkId=${homeworkId}&sessionId=${sessionId}&url=${assignmentUrl}`
+      url: `${uploadAssignmentUrl}?homeworkId=${homeworkId}&sessionId=${sessionId}&url=${assignmentUrl}`
     })
   }
 
-  public async uploadAssignmentFile(params: {
-    sessionId: number
-    homeworkId: number
-    assignmentFile: FileList | null
-  }): Promise<any> {
-    const { assignmentFile, homeworkId, sessionId } = params
-
-    return this.fetcher.fetch({
-      body: {},
-      method: 'PUT',
-      url: `${uploadAssignmentLink}?homeworkId=${homeworkId}&sessionId=${sessionId}&url=${assignmentFile}`
-    })
+  public async uploadAssignmentFile(
+    homeworkId: number,
+    sessionId: number,
+    assignmentFile: File
+  ): Promise<any> {
+    const formData = new FormData()
+    formData.append('file', assignmentFile)
+    return this.fetcher
+      .method('PUT')
+      .url(uploadAssignmentFile)
+      .queryParams({
+        homeworkId,
+        sessionId
+      })
+      .body(formData)
+      .execute()
   }
 }
 

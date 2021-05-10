@@ -8,7 +8,8 @@ export const homeData = `${baseUrl}/api/v1/learning/progress`
 
 export const homeworkVideo = `${baseUrl}/api/v1/homework/videos?homeworkId=`
 export const homeworkVideoByCourseId = `${baseUrl}/api/v1/homework/videos/course?courseId=`
-export const uploadAssignmentLink = `${baseUrl}/api/v1/homework/upload`
+export const uploadAssignmentUrl = `${baseUrl}/api/v1/homework/upload/url`
+export const uploadAssignmentFile = `${baseUrl}/api/v1/homework/upload/file`
 
 export const resetPassword = `${baseUrl}/api/v1/auth/updateCredentials`
 export const sendEmail = `${baseUrl}/api/v1/auth/reset/sendEmail/`

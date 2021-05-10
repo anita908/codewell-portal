@@ -9,7 +9,7 @@ type Props = {
 class Dropdown extends Component<Props, {}> {
   render = (): ReactElement => {
     return (
-      <select id='assignmentType' name='assignmentType' onChange={this.props.onChange}>
+      <select className='dropdown' onChange={this.props.onChange}>
         {this.props.children}
       </select>
     )
