@@ -71,6 +71,11 @@ class Fetcher implements IFetcher {
           : this._body
     }
     const result = await fetch(urlWithQueryParams, request as RequestInit)
+    if (result) {
+      const responseBody = await result.text()
+      return responseBody ? JSON.parse(responseBody) : {}
+    }
+    return null
   }
 
   public async fetch(params: { body: any; method: string; url: string }): Promise<any> {
