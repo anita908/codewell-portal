@@ -10,7 +10,7 @@ class UploadAssignmentPresenter {
     sessionId: number,
     assignmentUrl: string
   ): Promise<any> {
-    return this.fetcher.fetch({
+    return await this.fetcher.fetch({
       body: {},
       method: 'PUT',
       url: `${uploadAssignmentUrl}?homeworkId=${homeworkId}&sessionId=${sessionId}&url=${assignmentUrl}`
@@ -24,7 +24,7 @@ class UploadAssignmentPresenter {
   ): Promise<any> {
     const formData = new FormData()
     formData.append('file', assignmentFile)
-    return this.fetcher
+    return await this.fetcher
       .method('PUT')
       .url(uploadAssignmentFile)
       .queryParams({
