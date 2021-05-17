@@ -54,34 +54,30 @@ class UploadAssignment extends Component<Props, State> {
           <button className='uploadAssignment-back back' onClick={this.back} type='button'>
             Back
           </button>
-          <div>
-            {sessionGradesModel.map((chapterProgress: IChapterGradesModel) => (
-              <div key={chapterProgress.chapterId}>
-                {chapterProgress.chapterNo === lessonNumber ? (
-                  <div>
-                    {chapterProgress.homeworkProgress.map((homework: IHomeworkProgress) => (
-                      <div key={homework.homeworkName}>
-                        {homework.homeworkId === homeworkId ? (
-                          <div>
-                            {homework.submissionUrl ? (
-                              <div>
-                                <a>Your previous submission: </a>
-                                <a target='_blank' rel='noreferrer' href={homework.submissionUrl}>
-                                  Submission
-                                </a>
-                              </div>
-                            ) : (
-                              <p>You haven't submitted any homework yet </p>
-                            )}
-                          </div>
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ))}
-          </div>
+          {sessionGradesModel.map((chapterProgress: IChapterGradesModel) => (
+            <div key={chapterProgress.chapterId}>
+              {chapterProgress.chapterNo === lessonNumber ? (
+                <div>
+                  {chapterProgress.homeworkProgress.map((homework: IHomeworkProgress) => (
+                    <div key={homework.homeworkName}>
+                      {homework.homeworkId === homeworkId ? (
+                        <div>
+                          {homework.submissionUrl ? (
+                            <div className='uploadAssignment-message'>
+                              <a>Your previous submission: </a>
+                              <a target='_blank' rel='noreferrer' href={homework.submissionUrl}>
+                                Submission
+                              </a>
+                            </div>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ))}
           <div className='uploadAssignment-dropdown'>
             <Dropdown onChange={this.selectUploadFormat}>
               <option value={URL}>Url</option>
