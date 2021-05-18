@@ -9,6 +9,7 @@ interface ISession {
   enrollDate: string
   enrollmentId: number
   graduated: string
+  withdrawn: string
   overallGrade: number
   sessionId: number
   sessionProgressModel: IChapterProgress[]

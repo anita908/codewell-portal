@@ -174,6 +174,18 @@ class GradeEditor extends Component<Props, State> {
                 />
               </td>
               <td>
+                {`Withdrawn: `}
+                <ToggleInput
+                  active={editingRowId === 0}
+                  type='checkbox'
+                  value={editableEnrollment.withdrawn}
+                  checked={editableEnrollment.withdrawn === 'true' ? true : false}
+                  onChange={(event) =>
+                    this.updateEnrollmentField(event.target.checked.toString(), 'withdrawn')
+                  }
+                />
+              </td>
+              <td>
                 {`Overall Grade: ${GradeHelper.determineGradeCategory(
                   editableEnrollment.overallGrade
                 )} `}
