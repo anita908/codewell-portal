@@ -105,7 +105,13 @@ describe('Test assignment presenter', () => {
   let presenter: IAssignmentPresenter
   beforeEach(() => {
     fetcher = {
-      fetch: jest.fn()
+      fetch: jest.fn(),
+      method: jest.fn(),
+      headers: jest.fn(),
+      url: jest.fn(),
+      queryParams: jest.fn(),
+      body: jest.fn(),
+      execute: jest.fn()
     }
 
     mockAssignmentDataStore = {

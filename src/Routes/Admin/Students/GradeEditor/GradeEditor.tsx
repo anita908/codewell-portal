@@ -59,7 +59,6 @@ class GradeEditor extends Component<Props, State> {
 
   render = (): ReactElement => {
     const {
-      comment,
       editableGrades,
       editableEnrollment,
       editingRowId,

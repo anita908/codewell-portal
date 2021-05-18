@@ -1,5 +1,4 @@
 import { uploadAssignmentFile, uploadAssignmentUrl } from '../../Utilities/Url'
-import Fetcher from 'Drivers/Fetcher'
 import homeDataStore from 'Model/HomeDataStore'
 import IChapterGradesModel from './Interfaces/IChapterGradesModel'
 import IChapterProgress from 'Routes/Home/Interfaces/IChapterProgress'
