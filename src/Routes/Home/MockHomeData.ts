@@ -19,6 +19,7 @@ export const mockHomeData = {
       endDate: '2021-06-03T00:00:00Z',
       currentChapter: 1,
       graduated: 'false',
+      withdrawn: 'false',
       overallGrade: 100.0,
       sessionProgressModel: [
         {
@@ -402,6 +403,7 @@ export const mockHomeData = {
       endDate: '2021-06-03T00:00:00Z',
       currentChapter: 2,
       graduated: 'false',
+      withdrawn: 'false',
       overallGrade: 100.0,
       sessionProgressModel: [
         {
@@ -799,6 +801,7 @@ export const mockHomeDataWithOneSession = {
       endDate: '2021-06-03T00:00:00Z',
       currentChapter: 1,
       graduated: 'false',
+      withdrawn: 'false',
       overallGrade: 100.0,
       sessionProgressModel: [
         {

@@ -59,7 +59,6 @@ class GradeEditor extends Component<Props, State> {
 
   render = (): ReactElement => {
     const {
-      comment,
       editableGrades,
       editableEnrollment,
       editingRowId,
@@ -170,6 +169,18 @@ class GradeEditor extends Component<Props, State> {
                   checked={editableEnrollment.graduated === 'true' ? true : false}
                   onChange={(event) =>
                     this.updateEnrollmentField(event.target.checked.toString(), 'graduated')
+                  }
+                />
+              </td>
+              <td>
+                {`Withdrawn: `}
+                <ToggleInput
+                  active={editingRowId === 0}
+                  type='checkbox'
+                  value={editableEnrollment.withdrawn}
+                  checked={editableEnrollment.withdrawn === 'true' ? true : false}
+                  onChange={(event) =>
+                    this.updateEnrollmentField(event.target.checked.toString(), 'withdrawn')
                   }
                 />
               </td>
