@@ -5,6 +5,7 @@ interface IEnrollment {
   enrollDate: string
   currentChapter: number
   graduated: string
+  withdrawn: string
   overallGrade: number
 }
 

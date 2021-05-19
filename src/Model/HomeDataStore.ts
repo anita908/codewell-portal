@@ -23,6 +23,7 @@ const homeDataStore: IHomeDataStore = observable({
       enrollDate: '',
       enrollmentId: -1,
       graduated: '',
+      withdrawn: '',
       overallGrade: -1,
       sessionId: LocalStorageHelper.getCurrentSessionId() || -1,
       sessionProgressModel: [] as IChapterProgress[]

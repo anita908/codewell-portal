@@ -14,8 +14,14 @@
   text-align: left;
 }
 
-.uploadAssignment-file {
-  margin-bottom: var(--spacing-3);
+.uploadAssignment-message {
+  background-color: var(--illustration-lightTurquoise);
+  border-color: var(--illustration-lightTurquoise);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: thin;
+  margin: 0 20%;
+  padding: var(--spacing-5) 0;
 }
 
 @media only screen and (max-width: 1020px) {
