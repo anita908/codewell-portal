@@ -2,3 +2,21 @@
   margin: 0 auto;
   width: 80%;
 }
+
+.forgotPassword-emailInput {
+  line-height: 2.3em;
+  width: 30%;
+}
+
+.forgotPassword-formControl {
+  margin: var(--spacing-5);
+}
+
+.forgotPassword-requestButton {
+  background-color: var(--illustration-skyBlue);
+  color: var(--primary);
+  font-weight: bold;
+}
+.forgotPassword-requestButton:hover {
+  cursor: pointer;
+}

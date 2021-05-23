@@ -4,13 +4,14 @@ import Cookies from 'Utilities/Cookies'
 import Fetcher from 'Drivers/Fetcher'
 import JwtValidator from 'Utilities/JwtValidator'
 import ResetPasswordPresenter from './ResetPasswordPresenter'
+import PasswordForm from 'Common/FormElements/Forms/PasswordForm'
 
 type State = {
-  username: string
-  newPassword: string
   confirmPassword: string
   invalidFormMessage: string
   isLoading: boolean
+  newPassword: string
+  username: string
 }
 
 const resetPasswordPresenter = new ResetPasswordPresenter(new Fetcher())
@@ -28,6 +29,7 @@ class ResetPassword extends Component<RouteComponentProps, State> {
   render(): ReactElement {
     const { username, newPassword, confirmPassword, invalidFormMessage, isLoading } = this.state
     const token: string | null = new URLSearchParams(this.props.location.search).get('token')
+
     if (!JwtValidator.validate(token)) {
       this.props.history.replace('/login')
     }
@@ -35,39 +37,16 @@ class ResetPassword extends Component<RouteComponentProps, State> {
 
     return (
       <div id='resetPassword'>
-        <h1>Reset Password</h1>
-        <h4>Please enter and confirm your new password below.</h4>
-        <div id='resetPassword-content'>
-          <form onSubmit={this.submitForm}>
-            <p>Username</p>
-            <input
-              type='text'
-              value={username}
-              onChange={(e) => this.updateInputField(e, 'username')}
-              required={true}
-            />
-            <p>New Password</p>
-            <input
-              type='password'
-              value={newPassword}
-              onChange={(e) => this.updateInputField(e, 'newPassword')}
-              required={true}
-            />
-            <p>Confirm Password</p>
-            <input
-              type='password'
-              value={confirmPassword}
-              onChange={(e) => this.updateInputField(e, 'confirmPassword')}
-              required={true}
-            />
-            <div>
-              <button className='button resetPassword-reset' type='submit' disabled={isLoading}>
-                Reset Password
-              </button>
-            </div>
-          </form>
-          <p>{invalidFormMessage}</p>
-        </div>
+        <PasswordForm
+          confirmPassword={confirmPassword}
+          invalidFormMessage={invalidFormMessage}
+          isLoading={isLoading}
+          newPassword={newPassword}
+          submitForm={this.submitForm}
+          title={'Reset Password'}
+          username={username}
+          updateInputField={this.updateInputField}
+        />
       </div>
     )
   }
@@ -91,6 +70,7 @@ class ResetPassword extends Component<RouteComponentProps, State> {
       this.setState({ invalidFormMessage: 'Passwords must match' })
     } else {
       this.setState({ isLoading: true })
+
       const response = await resetPasswordPresenter.resetPassword({
         username: this.state.username,
         password: this.state.newPassword

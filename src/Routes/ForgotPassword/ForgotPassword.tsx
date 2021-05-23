@@ -18,18 +18,26 @@ class ForgotPassword extends Component<{}, State> {
 
   render(): ReactElement {
     const { message } = this.state
+
     return (
       <div id='forgotPassword'>
         <div className='forgotPassword-content'>
+          <h1>Let's get your account back :)</h1>
           <p>{message}</p>
           <p>Please enter your email below to receive further instruction</p>
           <button className='assignmentInstruction-back' onClick={this.back} type='button'>
             Back
           </button>
           <form onSubmit={this.submit}>
-            <input type='email' id='email' name='email' onChange={this.updateEmail} />
-            <div>
-              <button className='button' type='submit'>
+            <input
+              className='forgotPassword-emailInput'
+              type='email'
+              id='email'
+              name='email'
+              onChange={this.updateEmail}
+            />
+            <div className='forgotPassword-formControl'>
+              <button className='button forgotPassword-requestButton' type='submit'>
                 Request password link
               </button>
             </div>
