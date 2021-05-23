@@ -1,4 +1,4 @@
-import Fetcher from 'Drivers/Fetcher'
+import Fetcher from '../../Drivers/Fetcher'
 import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
 import IChapterProgress from './Interfaces/IChapterProgress'
 import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'

@@ -1,8 +1,8 @@
 import React, { Component, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
+import login from '../../images/login.svg'
 import Cookies from 'Utilities/Cookies'
 import Fetcher from 'Drivers/Fetcher'
-import loginIllustration from '../../images/login.svg'
 import LoginPresenter from './LoginPresenter'
 import './style.css'
 
@@ -32,7 +32,7 @@ class Login extends Component<{}, State> {
           <div className='login-image'>
             <h1>CodeWell Learning</h1>
             <h2>Student Portal</h2>
-            <img alt='login' className='login' src={loginIllustration} />
+            <img alt='login' className='login' src={login} />
           </div>
         </div>
         <div className='login-input'>
@@ -58,7 +58,7 @@ class Login extends Component<{}, State> {
                   onChange={this.updatePassword}
                   type='password'
                 />
-                <div>
+                <div className='login-forgotPassword'>
                   <Link to={{ pathname: `/forgotPassword` }}>Forgot password?</Link>
                 </div>
               </div>

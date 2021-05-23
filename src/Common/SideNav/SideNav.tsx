@@ -1,8 +1,8 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import CacheHelper from 'Utilities/CacheHelper'
-import Cookies from 'Utilities/Cookies'
-import Fetcher from 'Drivers/Fetcher'
+import CacheHelper from '../../Utilities/CacheHelper'
+import Cookies from '../../Utilities/Cookies'
+import Fetcher from '../../Drivers/Fetcher'
 import HamburgerMenu from './HanburgerMenu/HamburgerMenu'
 import LogoutPresenter from '../../Routes/Logout/LogoutPresenter'
 import './style.css'
@@ -37,7 +37,7 @@ class SideNav extends Component<Props, State> {
 
   renderAdminNav = (): ReactElement => {
     const { open } = this.state
-    const name = localStorage.getItem('username')
+    const name = localStorage.getItem('firstname')
 
     return (
       <nav id='sideNav'>
@@ -113,7 +113,8 @@ class SideNav extends Component<Props, State> {
   renderStudentNav = (): ReactElement => {
     const { pendingTab } = this.props
     const { open } = this.state
-    const name = localStorage.getItem('username')
+    const name = localStorage.getItem('firstname')
+    console.log('name ', name)
 
     return (
       <nav id='sideNav'>
