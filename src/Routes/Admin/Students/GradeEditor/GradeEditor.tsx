@@ -6,10 +6,10 @@ import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
 import GradeEditorPresenter from './GradeEditorPresenter'
 import GradeHelper from 'Utilities/GradeHelper'
-import IconButton from 'Common/Form/Button/IconButton'
+import IconButton from 'Common/FormElements/Button/IconButton'
 import IEnrollment from './Interfaces/IEnrollment'
 import IGrade from './Interfaces/IGrade'
-import ToggleInput from 'Common/Form/Input/ToggleInput'
+import ToggleInput from 'Common/FormElements/Input/ToggleInput'
 import './style.css'
 
 const Swal = withReactContent(swal)

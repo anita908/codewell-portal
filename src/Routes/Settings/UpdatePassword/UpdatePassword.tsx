@@ -1,16 +1,17 @@
 import React, { ChangeEvent, Component, FormEvent, ReactElement } from 'react'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from '../../../Common/Footer/Footer'
+import PasswordForm from 'Common/FormElements/Forms/PasswordForm'
 import SideNav from '../../../Common/SideNav/SideNav'
 import UpdatePasswordPresenter from './UpdatePasswordPresenter'
 import './style.css'
 
 type State = {
-  username: string
-  newPassword: string
   confirmPassword: string
-  invalidFormMessage: string
   isLoading: boolean
+  invalidFormMessage: string
+  newPassword: string
+  username: string
 }
 
 const updatePasswordPresenter = new UpdatePasswordPresenter(new Fetcher())
@@ -27,62 +28,20 @@ class UpdatePassword extends Component<{}, State> {
 
   render(): ReactElement {
     const { username, newPassword, confirmPassword, invalidFormMessage, isLoading } = this.state
+
     return (
       <div id='updatePassword'>
         <SideNav />
-        <h1>Reset Password</h1>
-        <h4>Please enter and confirm your new password below.</h4>
-        <div className='updatePassword-back'>
-          <button className='back' onClick={this.back} type='button'>
-            Back
-          </button>
-        </div>
-        <div className='updatePassword-content'>
-          <form onSubmit={this.submitForm}>
-            <label htmlFor='username' className='inputLabel'>
-              Username:
-            </label>
-            <div className='inputWrapper'>
-              <input
-                className='input'
-                onChange={(e) => this.updateInputField(e, 'username')}
-                required={true}
-                type='text'
-                value={username}
-              />
-            </div>
-            <label htmlFor='password' className='inputLabel'>
-              New Password:
-            </label>
-            <div className='inputWrapper'>
-              <input
-                className='input'
-                onChange={(e) => this.updateInputField(e, 'newPassword')}
-                required={true}
-                type='password'
-                value={newPassword}
-              />
-            </div>
-            <label htmlFor='confirmPassword' className='inputLabel'>
-              Confirm Password:
-            </label>
-            <div className='inputWrapper'>
-              <input
-                className='input'
-                onChange={(e) => this.updateInputField(e, 'confirmPassword')}
-                required={true}
-                type='password'
-                value={confirmPassword}
-              />
-            </div>
-            <div>
-              <button className='button updatePassword-reset' type='submit' disabled={isLoading}>
-                Reset Password
-              </button>
-            </div>
-          </form>
-          <p>{invalidFormMessage}</p>
-        </div>
+        <PasswordForm
+          confirmPassword={confirmPassword}
+          invalidFormMessage={invalidFormMessage}
+          isLoading={isLoading}
+          newPassword={newPassword}
+          title={'Update Password'}
+          updateInputField={this.updateInputField}
+          username={username}
+          submitForm={this.submitForm}
+        />
         <Footer />
       </div>
     )
