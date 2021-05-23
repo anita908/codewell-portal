@@ -23,7 +23,8 @@ describe('Test home presenter', () => {
           graduated: '2020-01-01',
           overallGrade: 100.0,
           sessionId: 2,
-          sessionProgressModel: []
+          sessionProgressModel: [],
+          withdrawn: 'false'
         } as ISession,
         userData: {
           birthdate: '2000-01-01',
