@@ -30,7 +30,7 @@ class Grades extends Component<{}, State> {
 
     return (
       <div id='grades'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='grades-content'>
           <div className='grades-header'>Grades</div>
           <button className='back lessonDetails-back' onClick={this.back} type='button'>

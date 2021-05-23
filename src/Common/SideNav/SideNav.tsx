@@ -10,6 +10,7 @@ import './style.css'
 type Props = {
   pendingTab?: boolean
   isAdmin?: boolean
+  username: string
 }
 
 type State = {
@@ -36,8 +37,8 @@ class SideNav extends Component<Props, State> {
   }
 
   renderAdminNav = (): ReactElement => {
+    const { username } = this.props
     const { open } = this.state
-    const name = localStorage.getItem('firstname')
 
     return (
       <nav id='sideNav'>
@@ -47,7 +48,7 @@ class SideNav extends Component<Props, State> {
         <div className='sideNav-regular-menu'>
           <ul>
             <li className='sideNav-userName'>
-              <h3>{name ? `Hi, ${name}!` : 'Hi!'}</h3>
+              <h3>{username ? `Hi, ${username}!` : 'Hi!'}</h3>
             </li>
             <li onClick={this.setActiveLink} className='/'>
               <Link
@@ -78,7 +79,7 @@ class SideNav extends Component<Props, State> {
           <div className='sideNav-hamburger-menu'>
             <ul>
               <li className='sideNav-userName'>
-                <h3>{name ? `Hi, ${name}!` : 'Hi!'}</h3>
+                <h3>{username ? `Hi, ${username}!` : 'Hi!'}</h3>
               </li>
               <li onClick={this.setActiveLink} className='/'>
                 <Link
@@ -111,10 +112,8 @@ class SideNav extends Component<Props, State> {
   }
 
   renderStudentNav = (): ReactElement => {
-    const { pendingTab } = this.props
+    const { pendingTab, username } = this.props
     const { open } = this.state
-    const name = localStorage.getItem('firstname')
-    console.log('name ', name)
 
     return (
       <nav id='sideNav'>
@@ -124,7 +123,7 @@ class SideNav extends Component<Props, State> {
         <div className='sideNav-regular-menu'>
           <ul>
             <li className='sideNav-userName'>
-              <h3>{name ? `Hi, ${name}!` : 'Hi!'}</h3>
+              <h3>{username ? `Hi, ${username}!` : 'Hi!'}</h3>
             </li>
             {!pendingTab && (
               <Fragment>
@@ -177,7 +176,7 @@ class SideNav extends Component<Props, State> {
           <div className='sideNav-hamburger-menu'>
             <ul>
               <li className='sideNav-userName'>
-                <h3>{name ? `Hi, ${name}!` : 'Hi!'}</h3>
+                <h3>{username ? `Hi, ${username}!` : 'Hi!'}</h3>
               </li>
               {!pendingTab && (
                 <Fragment>

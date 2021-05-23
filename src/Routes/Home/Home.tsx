@@ -53,7 +53,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
     return (
       <div id='home'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='home-content'>
           <Profile currentChapterName={this.getCurrentChapterName()} />
           <Lesson
@@ -80,7 +80,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
     return (
       <div id='home'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='home-content'>
           <Profile currentChapterName={this.getCurrentChapterName()} />
           <Lesson homePresenter={new HomePresenter(homeDataStore)} lessons={[]} userName={name} />
@@ -101,7 +101,7 @@ class Home extends Component<{}, State> implements ISubscriber {
   renderChooseOneSession = (): ReactElement => {
     return (
       <div id='home'>
-        <SideNav pendingTab />
+        <SideNav pendingTab username={localStorage.getItem('firstname') || ''} />
         <div className='home-content'>
           <h1>Please choose the session you'd like to view</h1>
           <div className='home-sessionList'>

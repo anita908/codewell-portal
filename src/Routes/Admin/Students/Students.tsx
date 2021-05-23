@@ -47,7 +47,7 @@ class Students extends Component<{}, State> {
 
     return (
       <div id='students'>
-        <SideNav isAdmin={true} />
+        <SideNav isAdmin={true} username={localStorage.getItem('firstname') || ''} />
         <div className='students-content'>
           <h3>Students</h3>
           <div className='students-sessionSelect'>

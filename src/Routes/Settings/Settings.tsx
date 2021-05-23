@@ -43,7 +43,7 @@ class Settings extends Component<{}, State> {
 
     return (
       <div id='settings'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='settings-content'>
           <h1>Settings</h1>
           <Link to='/settings/resetPassword'>Change Password</Link>

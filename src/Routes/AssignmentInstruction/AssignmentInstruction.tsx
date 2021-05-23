@@ -56,7 +56,7 @@ class AssignmentInstruction extends Component<Props, State> {
 
     return (
       <div id='assignmentInstruction'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='assignmentInstruction-content'>
           <h2 className='assignmentInstruction-contentTitle'>Lesson {lessonNo}: </h2>
           <h2 className='assignmentInstruction-contentTitle'>
@@ -104,7 +104,7 @@ class AssignmentInstruction extends Component<Props, State> {
 
     return (
       <div id='assignmentInstruction'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='assignmentInstruction-content'>
           <h2 className='assignmentInstruction-contentTitle'>Lesson {lessonNo}: </h2>
           <h2 className='assignmentInstruction-contentTitle'>
@@ -140,7 +140,7 @@ class AssignmentInstruction extends Component<Props, State> {
 
     return (
       <div id='assignmentInstruction'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='assignmentInstruction-content'>
           <h2 className='assignmentInstruction-contentTitle'>Lesson {lessonNo}: </h2>
           <h2 className='assignmentInstruction-contentTitle'>

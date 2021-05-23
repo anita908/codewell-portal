@@ -31,7 +31,7 @@ class UpdatePassword extends Component<{}, State> {
 
     return (
       <div id='updatePassword'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <PasswordForm
           confirmPassword={confirmPassword}
           invalidFormMessage={invalidFormMessage}
