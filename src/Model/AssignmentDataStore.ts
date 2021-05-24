@@ -1,9 +1,9 @@
 import { observable } from 'mobx'
-import { homeworkVideo } from 'Utilities/Url'
-import Fetcher from 'Drivers/Fetcher'
+import { homeworkVideo } from '../Utilities/Url'
+import Fetcher from '../Drivers/Fetcher'
 import IAssignmentDataStore from './Interfaces/IAssignmentDataStore'
-import IAssignmentVideo from 'Routes/Home/Interfaces/IAssignmentVideo'
-import IFetcher from 'Drivers/Interfaces/IFetcher'
+import IAssignmentVideo from '../Routes/Home/Interfaces/IAssignmentVideo'
+import IFetcher from '../Drivers/Interfaces/IFetcher'
 
 const fetcher: IFetcher = new Fetcher()
 const assignmentDataStore: IAssignmentDataStore = observable({

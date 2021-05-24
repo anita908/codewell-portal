@@ -25,7 +25,7 @@ class LessonDetails extends Component<Props, {}> {
 
     return (
       <div id='lessonDetails'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='lessonDetails-content'>
           <h2 className='lessonDetails-contentTitle'>Lesson {lessonNo}: </h2>
           <h2 className='lessonDetails-contentTitle'>{lessonName}</h2>

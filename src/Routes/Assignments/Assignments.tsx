@@ -7,7 +7,7 @@ class Assignments extends Component {
   render(): ReactElement {
     return (
       <div id='assignments'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='assignments-content'>Assignments</div>
         <Footer />
       </div>

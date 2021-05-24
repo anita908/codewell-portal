@@ -1,6 +1,6 @@
 import React, { Component, ReactElement } from 'react'
-import LocalStorageHelper from 'Utilities/LocalStorageHelper'
-import profileIllustration from '../../../images/profile.svg'
+import LocalStorageHelper from '../../../Utilities/LocalStorageHelper'
+import profile from '../../../images/profile.svg'
 import './style.css'
 
 type Props = {
@@ -20,7 +20,7 @@ class Profile extends Component<Props, {}> {
       <div id='profile'>
         <div className='profile-header'>
           <h3>My Profile</h3>
-          <img alt='login' className='login' src={profileIllustration} />
+          <img alt='login' className='login' src={profile} />
         </div>
         <div className='profile-content'>
           Hi <span className='profile-studentName'>{name}!</span> Great job on completing{' '}
@@ -35,7 +35,7 @@ class Profile extends Component<Props, {}> {
       <div id='profile'>
         <div className='profile-header'>
           <h3>My Profile</h3>
-          <img alt='login' className='login' src={profileIllustration} />
+          <img alt='login' className='login' src={profile} />
         </div>
         <div className='profile-content loading' />
       </div>

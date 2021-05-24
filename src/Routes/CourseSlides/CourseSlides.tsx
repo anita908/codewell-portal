@@ -26,7 +26,7 @@ class CourseSlides extends Component<{}, State> {
 
     return (
       <div id='courseSlides'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='courseSlides-content'>
           <div className='courseSlides-header'>Course Slides</div>
           <button className='back courseSlides-back' onClick={this.back} type='button'>

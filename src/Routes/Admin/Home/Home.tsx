@@ -6,7 +6,7 @@ class Home extends Component {
   render(): ReactElement {
     return (
       <div id='adminHome'>
-        <SideNav isAdmin={true} />
+        <SideNav isAdmin={true} username={localStorage.getItem('firstname') || ''} />
         <div className='adminHome-content'>
           <h3>Welcome Admin</h3>
         </div>

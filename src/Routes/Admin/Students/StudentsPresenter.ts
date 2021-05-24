@@ -1,6 +1,6 @@
 import { allStudents, taughtSessions } from 'Utilities/Url'
 import IFetcher from 'Drivers/Interfaces/IFetcher'
-import ISession from './Interfaces/ISession'
+import IAdminSession from './Interfaces/IAdminSession'
 import IStudent from './Interfaces/IStudent'
 
 class StudentsPresenter {
@@ -10,7 +10,7 @@ class StudentsPresenter {
     this.fetcher = fetcher
   }
 
-  public async getTaughtSessions(): Promise<ISession[]> {
+  public async getTaughtSessions(): Promise<IAdminSession[]> {
     const response = await this.fetcher.fetch({
       body: {},
       method: 'GET',

@@ -1,18 +1,18 @@
 import React, { Component, Fragment, ReactElement } from 'react'
+import assignmentDataStore from '../../Model/AssignmentDataStore'
 import Assignment from './Assignment'
-import assignmentDataStore from 'Model/AssignmentDataStore'
 import AssignmentPresenter from './Assignment/AssignmentPresenter'
 import Card from '../../Common/Card/Card'
 import Feedback from './Feedback'
 import Footer from '../../Common/Footer'
-import homeDataStore from 'Model/HomeDataStore'
+import homeDataStore from '../../Model/HomeDataStore'
 import HomePresenter from './HomePresenter'
 import IAssignmentVideo from './Interfaces/IAssignmentVideo'
 import IChapterProgress from './Interfaces/IChapterProgress'
 import ISession from './Interfaces/ISession'
-import ISubscriber from 'UseCases/ISubscriber'
+import ISubscriber from '../../UseCases/ISubscriber'
 import Lesson from './Lesson'
-import LocalStorageHelper from 'Utilities/LocalStorageHelper'
+import LocalStorageHelper from '../../Utilities/LocalStorageHelper'
 import Profile from './Profile'
 import SideNav from '../../Common/SideNav'
 import './style.css'
@@ -53,7 +53,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
     return (
       <div id='home'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='home-content'>
           <Profile currentChapterName={this.getCurrentChapterName()} />
           <Lesson
@@ -80,7 +80,7 @@ class Home extends Component<{}, State> implements ISubscriber {
 
     return (
       <div id='home'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='home-content'>
           <Profile currentChapterName={this.getCurrentChapterName()} />
           <Lesson homePresenter={new HomePresenter(homeDataStore)} lessons={[]} userName={name} />
@@ -101,7 +101,7 @@ class Home extends Component<{}, State> implements ISubscriber {
   renderChooseOneSession = (): ReactElement => {
     return (
       <div id='home'>
-        <SideNav pendingTab />
+        <SideNav pendingTab username={localStorage.getItem('firstname') || ''} />
         <div className='home-content'>
           <h1>Please choose the session you'd like to view</h1>
           <div className='home-sessionList'>

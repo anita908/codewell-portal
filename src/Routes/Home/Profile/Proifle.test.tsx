@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import Profile from './Profile'
-import LocalStorageHelper from 'Utilities/LocalStorageHelper'
+import LocalStorageHelper from '../../../Utilities/LocalStorageHelper'
 
 function getContainer(currentChapterName: string) {
   return render(<Profile currentChapterName={currentChapterName} />).container

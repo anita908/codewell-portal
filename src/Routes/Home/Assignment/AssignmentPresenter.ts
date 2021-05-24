@@ -1,4 +1,4 @@
-import assignmentDataStore from 'Model/AssignmentDataStore'
+import assignmentDataStore from '../../../Model/AssignmentDataStore'
 import IAssignmentPresenter from './IAssignmentPresenter'
 import IAssignmentVideo from '../Interfaces/IAssignmentVideo'
 import ISubscriber from 'UseCases/ISubscriber'

@@ -1,10 +1,10 @@
 import ICourse from './ICourse'
 
-interface ISession {
+interface IAdminSession {
   id: number
   course: ICourse
   beginDate: string
   endDate: string
 }
 
-export default ISession
+export default IAdminSession

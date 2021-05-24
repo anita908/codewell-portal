@@ -3,11 +3,13 @@ import ILogoutPresenter from './ILogoutPresenter'
 import LogoutPresenter from './LogoutPresenter'
 
 describe('Test logout presenter', () => {
-  const username: string = 'username'
+  let username: string
   let fetcher: IFetcher
   let presenter: ILogoutPresenter
   beforeEach(() => {
+    username = 'username'
     fetcher = {
+      ...fetcher,
       fetch: jest.fn()
     }
   })

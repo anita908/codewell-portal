@@ -47,7 +47,7 @@ class UploadAssignment extends Component<Props, State> {
 
     return (
       <div id='uploadAssignment'>
-        <SideNav />
+        <SideNav username={localStorage.getItem('firstname') || ''} />
         <div className='uploadAssignment-content'>
           <h2>Lesson {lessonNumber}</h2>
           <h2>Upload {chapterName} Assignment</h2>
