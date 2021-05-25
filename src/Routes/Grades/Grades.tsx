@@ -1,7 +1,8 @@
 import React, { Component, Fragment, ReactElement } from 'react'
+import homeDataStore from 'Model/HomeDataStore'
+import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
-import DateHelper from 'Utilities/DateHelper'
 import GradesPresenter from './GradesPresenter'
 import IChapterGradesModel from './Interfaces/IChapterGradesModel'
 import IHomeworkProgress from 'Routes/Home/Interfaces/IHomeworkProgress'
@@ -13,16 +14,15 @@ type State = {
   overallGrade: number | null
 }
 
-const gradesPresenter = new GradesPresenter(new Fetcher())
-
 class Grades extends Component<{}, State> {
   state = {
     sessionGradesModel: [],
     overallGrade: null
   }
 
-  componentDidMount(): void {
-    this.getChapterProgressModels()
+  async componentDidMount(): Promise<void> {
+    await homeDataStore.syncHomeData(new Fetcher(), false)
+    await this.getChapterProgressModels()
   }
 
   render(): ReactElement {
@@ -94,7 +94,13 @@ class Grades extends Component<{}, State> {
                                 </td>
                                 <td>
                                   {homework.submissionUrl ? (
-                                    <a href={homework.submissionUrl}>Submission</a>
+                                    <a
+                                      target='_blank'
+                                      rel='noreferrer'
+                                      href={homework.submissionUrl}
+                                    >
+                                      Submission
+                                    </a>
                                   ) : (
                                     'N/A'
                                   )}
@@ -207,9 +213,13 @@ class Grades extends Component<{}, State> {
   }
 
   async getChapterProgressModels(): Promise<void> {
+    const gradesPresenter = new GradesPresenter(new Fetcher())
+    const gradesModel = await gradesPresenter.getSessionGradesModel()
+    const overallGrade = await gradesPresenter.getOverallGrade()
+
     this.setState({
-      sessionGradesModel: await gradesPresenter.getSessionGradesModel(),
-      overallGrade: await gradesPresenter.getOverallGrade()
+      sessionGradesModel: gradesModel,
+      overallGrade
     })
   }
 }

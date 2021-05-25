@@ -3,13 +3,16 @@ import IChapter from 'Routes/CourseSlides/Interfaces/IChapter'
 import IHomeDataStore from 'Model/Interfaces/IHomeDataStore'
 import IHomePresenter from './IHomePresenter'
 import ISession from './Interfaces/ISession'
+import ISubscriber from 'UseCases/ISubscriber'
 import IUserData from './Interfaces/IUserData'
 
 describe('Test home presenter', () => {
+  let anotherSubscriber: ISubscriber
   let homePresenter: IHomePresenter
   let mockHomeDataStore: IHomeDataStore
   let courseChapters: IChapter[]
   let session: ISession
+  let subscriber: ISubscriber
   let userData: IUserData
 
   beforeEach(() => {
@@ -32,7 +35,16 @@ describe('Test home presenter', () => {
       graduated: '2020-01-01',
       overallGrade: 100.0,
       sessionId: 2,
-      sessionProgressModel: [],
+      sessionProgressModel: [
+        {
+          activities: [],
+          chapterId: 1,
+          chapterName: 'chapter name',
+          chapterNo: 20,
+          homeworkProgress: [],
+          slidesLink: 'slide link'
+        }
+      ],
       withdrawn: 'false'
     }
     userData = {
@@ -45,9 +57,15 @@ describe('Test home presenter', () => {
       state: 'UT',
       userId: '100'
     }
+    subscriber = {
+      update: jest.fn()
+    }
+    anotherSubscriber = {
+      update: jest.fn()
+    }
     mockHomeDataStore = {
       home: {
-        courseChapters: courseChapters,
+        courseChapters,
         enrolledSessions: [],
         lessons: [],
         selectedSession: session,
@@ -64,12 +82,34 @@ describe('Test home presenter', () => {
       syncHomeData: jest.fn()
     }
     homePresenter = new HomePresenter(mockHomeDataStore)
+    homePresenter.update = jest.fn()
   })
 
-  it('Should return home data as received', () => {
+  it('Should return home data as received', async () => {
     expect(homePresenter.selectedSession.sessionId).toBe(2)
     expect(homePresenter.enrolledSessions).toEqual([])
     expect(homePresenter.lessons).toEqual([])
-    expect(homePresenter.courseSlides).toEqual(courseChapters)
+    expect(await homePresenter.getCourseSlides()).toBe(courseChapters)
+  })
+
+  it('Should update subscribers after fetching home data', async () => {
+    await homePresenter.getHomeData()
+    expect(homePresenter.update).toHaveBeenCalled()
+  })
+
+  it('Should be able to set selected session', () => {
+    homePresenter.setSelectedSession(session)
+
+    expect(mockHomeDataStore.setSelectedSession).toHaveBeenCalled()
+    expect(mockHomeDataStore.setCourseChapters).toHaveBeenCalled()
+    expect(mockHomeDataStore.home.selectedSession).toEqual(session)
+  })
+
+  it('Should be able to subscribe subscribers', async () => {
+    homePresenter.subscribe(subscriber)
+    homePresenter.subscribe(anotherSubscriber)
+
+    // @ts-ignore
+    expect(homePresenter.subscribers).toEqual([subscriber, anotherSubscriber])
   })
 })

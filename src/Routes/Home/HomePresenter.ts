@@ -27,11 +27,7 @@ class HomePresenter implements IHomePresenter {
     return this.homeDataStore.home.lessons
   }
 
-  public get courseSlides(): IChapter[] {
-    if (this.homeDataStore.home.courseChapters.length < 1) {
-      this.homeDataStore.syncHomeData(new Fetcher(), true)
-    }
-
+  public getCourseSlides(): IChapter[] {
     return this.homeDataStore.home.courseChapters
   }
 

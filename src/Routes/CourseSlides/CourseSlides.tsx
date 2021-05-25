@@ -16,8 +16,14 @@ class CourseSlides extends Component<{}, State> {
     slides: []
   }
 
-  componentDidMount(): void {
-    this.setState({ slides: presenter.courseSlides })
+  async componentDidMount(): Promise<void> {
+    const slides = presenter.getCourseSlides()
+
+    if (slides && !slides.length) {
+      await presenter.getHomeData()
+    }
+
+    this.setState({ slides: presenter.getCourseSlides() })
   }
 
   render(): ReactElement {

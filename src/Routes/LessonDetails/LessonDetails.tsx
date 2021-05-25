@@ -15,13 +15,37 @@ type Props = {
   }
 }
 
+type State = {
+  slides: IChapter[]
+}
+
 const presenter = new HomePresenter(homeDataStore)
-class LessonDetails extends Component<Props, {}> {
+class LessonDetails extends Component<Props, State> {
+  state = {
+    slides: [
+      {
+        id: -1,
+        chapterNo: -1,
+        name: '',
+        slidesLink: ''
+      }
+    ]
+  }
+
+  async componentDidMount(): Promise<void> {
+    const slides = presenter.getCourseSlides()
+
+    if (slides && !slides.length) {
+      await presenter.getHomeData()
+    }
+
+    this.setState({ slides: presenter.getCourseSlides() })
+  }
+
   render(): ReactElement {
     const { lessonNo, lessonName } = this.props.location.state
-    const courseSlide = presenter.courseSlides.find(
-      (slide: IChapter) => slide.chapterNo === parseInt(lessonNo, 10)
-    )
+    const { slides } = this.state
+    const courseSlide = slides.find((slide: IChapter) => slide.chapterNo === parseInt(lessonNo, 10))
 
     return (
       <div id='lessonDetails'>

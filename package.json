@@ -38,7 +38,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "npm run lint && react-scripts test",
-    "test-coverage": "npm run test -- --coverage --watchAll=false",
+    "test-coverage": "npm run lint && npm run test -- --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
     "format": "prettier --write 'src/**/*.{ts,tsx,scss,css,json}'"
