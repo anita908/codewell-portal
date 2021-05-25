@@ -86,7 +86,7 @@ class Students extends Component<{}, State> {
                       <tr
                         key={student.id}
                         className='students-row'
-                        onClick={(event) => this.selectStudent(student.userId, event)}
+                        onClick={event => this.selectStudent(student.userId, event)}
                       >
                         {showGradesEditor ? (
                           <td>
@@ -190,7 +190,7 @@ class Students extends Component<{}, State> {
   toggleActiveRow = (target: HTMLTableDataCellElement): void => {
     const row = target.parentElement
     const siblingRows = row?.parentElement?.children || []
-    Array.from(siblingRows).forEach((siblingRow) => {
+    Array.from(siblingRows).forEach(siblingRow => {
       siblingRow.classList.toggle('active', false)
     })
     row?.classList.toggle('active', true)

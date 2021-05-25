@@ -59,7 +59,7 @@ class HomePresenter implements IHomePresenter {
   }
 
   public update(): void {
-    this.subscribers.forEach((subscriber) => subscriber.update())
+    this.subscribers.forEach(subscriber => subscriber.update())
   }
 }
 

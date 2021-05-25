@@ -60,7 +60,7 @@ class Settings extends Component<{}, State> {
             <input
               className='input'
               id='firstname'
-              onChange={(e) => this.updateInputField(e, 'firstName')}
+              onChange={e => this.updateInputField(e, 'firstName')}
               required={true}
               type='text'
               value={userProfile.firstName}
@@ -73,7 +73,7 @@ class Settings extends Component<{}, State> {
             <input
               className='input'
               id='lastname'
-              onChange={(e) => this.updateInputField(e, 'lastName')}
+              onChange={e => this.updateInputField(e, 'lastName')}
               required={true}
               type='text'
               value={userProfile.lastName}
@@ -86,7 +86,7 @@ class Settings extends Component<{}, State> {
             <input
               className='input'
               id='email'
-              onChange={(e) => this.updateInputField(e, 'email')}
+              onChange={e => this.updateInputField(e, 'email')}
               required={true}
               type='text'
               value={userProfile.email}
@@ -99,7 +99,7 @@ class Settings extends Component<{}, State> {
             <input
               className='input'
               id='birthdate'
-              onChange={(e) => this.updateInputField(e, 'birthdate')}
+              onChange={e => this.updateInputField(e, 'birthdate')}
               required={true}
               type='date'
               value={userProfile.birthdate}
@@ -112,7 +112,7 @@ class Settings extends Component<{}, State> {
             <input
               className='input'
               id='city'
-              onChange={(e) => this.updateInputField(e, 'city')}
+              onChange={e => this.updateInputField(e, 'city')}
               required={true}
               type='text'
               value={userProfile.city}

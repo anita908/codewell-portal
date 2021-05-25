@@ -44,7 +44,8 @@ class PasswordForm extends Component<Props, {}> {
             <div className='inputWrapper'>
               <input
                 className='input'
-                onChange={(e) => updateInputField(e, 'username')}
+                // eslint-disable-next-line prettier/prettier
+                onChange={e => updateInputField(e, 'username')}
                 required={true}
                 type='text'
                 value={username}
@@ -56,7 +57,8 @@ class PasswordForm extends Component<Props, {}> {
             <div className='inputWrapper'>
               <input
                 className='input'
-                onChange={(e) => updateInputField(e, 'newPassword')}
+                // eslint-disable-next-line prettier/prettier
+                onChange={e => updateInputField(e, 'newPassword')}
                 required={true}
                 type='password'
                 value={newPassword}
@@ -68,7 +70,8 @@ class PasswordForm extends Component<Props, {}> {
             <div className='inputWrapper'>
               <input
                 className='input'
-                onChange={(e) => updateInputField(e, 'confirmPassword')}
+                // eslint-disable-next-line prettier/prettier
+                onChange={e => updateInputField(e, 'confirmPassword')}
                 required={true}
                 type='password'
                 value={confirmPassword}

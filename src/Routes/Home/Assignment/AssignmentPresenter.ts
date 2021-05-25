@@ -23,7 +23,7 @@ class AssignmentPresenter implements IAssignmentPresenter {
   }
 
   public update(): void {
-    this.subscribers.forEach((subscriber) => subscriber.update())
+    this.subscribers.forEach(subscriber => subscriber.update())
   }
 }
 

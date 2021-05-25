@@ -68,6 +68,11 @@ class UploadAssignment extends Component<Props, State> {
                               <a target='_blank' rel='noreferrer' href={homework.submissionUrl}>
                                 Submission
                               </a>
+                              <a>
+                                {' '}
+                                at {new Date(homework.submissionDate).toLocaleDateString()}{' '}
+                                {new Date(homework.submissionDate).toLocaleTimeString()}
+                              </a>
                             </div>
                           ) : null}
                         </div>

@@ -233,8 +233,8 @@ class SideNav extends Component<Props, State> {
   setActiveLink = (): void => {
     this.setState({ open: false })
     const navList = Array.from(document.querySelectorAll('nav'))
-    const linkLists = navList.map((nav) => Array.from(nav.querySelectorAll('li > a')))
-    linkLists.forEach((links) => {
+    const linkLists = navList.map(nav => Array.from(nav.querySelectorAll('li > a')))
+    linkLists.forEach(links => {
       for (let i: number = 0; i < links.length; ++i) {
         if (window.location.pathname === links[i].getAttribute('href')) {
           links[i].classList.add('active')

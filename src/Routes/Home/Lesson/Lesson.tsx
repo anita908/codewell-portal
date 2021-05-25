@@ -60,7 +60,7 @@ class Lesson extends Component<Prop, State> {
 
   toggleSection = (): void => {
     this.setState(
-      (prevState) => ({
+      prevState => ({
         showMore: !prevState.showMore
       }),
       () => {

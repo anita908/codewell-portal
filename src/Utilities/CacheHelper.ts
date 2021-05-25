@@ -35,6 +35,7 @@ class CacheHelper {
       return false
     }
 
+    // eslint-disable-next-line no-prototype-builtins
     if (cache.hasOwnProperty('data') && cache.data !== null) {
       return true
     }

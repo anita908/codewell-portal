@@ -4,12 +4,12 @@ import withReactContent from 'sweetalert2-react-content'
 import { faCheck, faUserEdit, faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
-import GradeEditorPresenter from './GradeEditorPresenter'
 import GradeHelper from 'Utilities/GradeHelper'
 import IconButton from 'Common/FormElements/Button/IconButton'
+import ToggleInput from 'Common/FormElements/Input/ToggleInput'
+import GradeEditorPresenter from './GradeEditorPresenter'
 import IEnrollment from './Interfaces/IEnrollment'
 import IGrade from './Interfaces/IGrade'
-import ToggleInput from 'Common/FormElements/Input/ToggleInput'
 import './style.css'
 
 const Swal = withReactContent(swal)
@@ -74,6 +74,7 @@ class GradeEditor extends Component<Props, State> {
             <th>Due Date</th>
             <th>Submitted</th>
             <th>Submission Link</th>
+            <th>Submission Date</th>
             <th>Score</th>
             <th>Feedback</th>
             <th></th>
@@ -89,7 +90,7 @@ class GradeEditor extends Component<Props, State> {
                     active={editingRowId === grade.id}
                     type='date'
                     value={grade.dueDate || '--'}
-                    onChange={(event) => this.updateGradeField(event.target.value, 'dueDate')}
+                    onChange={event => this.updateGradeField(event.target.value, 'dueDate')}
                   />
                 </td>
                 <td>
@@ -97,8 +98,8 @@ class GradeEditor extends Component<Props, State> {
                     active={editingRowId === grade.id}
                     type='checkbox'
                     value={grade.submitted}
-                    checked={grade.submitted === 'true' ? true : false}
-                    onChange={(event) =>
+                    checked={grade.submitted === 'true'}
+                    onChange={event =>
                       this.updateGradeField(event.target.checked.toString(), 'submitted')
                     }
                   />
@@ -107,9 +108,17 @@ class GradeEditor extends Component<Props, State> {
                 <td>
                   <ToggleInput
                     active={editingRowId === grade.id}
+                    type='date'
+                    value={grade.submissionDate || '--'}
+                    onChange={event => this.updateGradeField(event.target.value, 'submissionDate')}
+                  />
+                </td>
+                <td>
+                  <ToggleInput
+                    active={editingRowId === grade.id}
                     type='number'
                     value={grade.score?.toString() || '--'}
-                    onChange={(event) =>
+                    onChange={event =>
                       this.updateGradeField(this.parseScore(event.target.value), 'score')
                     }
                   />
@@ -152,7 +161,7 @@ class GradeEditor extends Component<Props, State> {
                   active={editingRowId === 0}
                   type='number'
                   value={editableEnrollment.currentChapter}
-                  onChange={(event) =>
+                  onChange={event =>
                     this.updateEnrollmentField(
                       this.parseCurrentChapter(event.target.value),
                       'currentChapter'
@@ -166,8 +175,8 @@ class GradeEditor extends Component<Props, State> {
                   active={editingRowId === 0}
                   type='checkbox'
                   value={editableEnrollment.graduated}
-                  checked={editableEnrollment.graduated === 'true' ? true : false}
-                  onChange={(event) =>
+                  checked={editableEnrollment.graduated === 'true'}
+                  onChange={event =>
                     this.updateEnrollmentField(event.target.checked.toString(), 'graduated')
                   }
                 />
@@ -178,8 +187,8 @@ class GradeEditor extends Component<Props, State> {
                   active={editingRowId === 0}
                   type='checkbox'
                   value={editableEnrollment.withdrawn}
-                  checked={editableEnrollment.withdrawn === 'true' ? true : false}
-                  onChange={(event) =>
+                  checked={editableEnrollment.withdrawn === 'true'}
+                  onChange={event =>
                     this.updateEnrollmentField(event.target.checked.toString(), 'withdrawn')
                   }
                 />
@@ -247,7 +256,7 @@ class GradeEditor extends Component<Props, State> {
         },
         inputValue: comment.comment || '',
         showCancelButton: true
-      }).then(async (result) => {
+      }).then(async result => {
         if (result.isConfirmed) {
           const gradesCopy = JSON.parse(JSON.stringify(this.state.editableGrades))
           const gradeObject = gradesCopy.find((grade: IGrade) => grade.id === gradeId) as IGrade
@@ -286,6 +295,13 @@ class GradeEditor extends Component<Props, State> {
         grade.dueDate = DateHelper.convertStringToMoment(grade.dueDate)?.format() as string
       } else {
         grade.dueDate = null
+      }
+      if (grade.submissionDate) {
+        grade.submissionDate = DateHelper.convertStringToMoment(
+          grade.submissionDate
+        )?.format() as string
+      } else {
+        grade.submissionDate = null
       }
     })
     await gradeEditorPresenter.updateEnrollmentRecord(this.state.editableEnrollment)
@@ -333,11 +349,11 @@ class GradeEditor extends Component<Props, State> {
     const parsedScore = parseInt(score)
     if (parsedScore < 0) {
       return 0
-    } else if (parsedScore > 100) {
-      return 100
-    } else {
-      return parsedScore
     }
+    if (parsedScore > 100) {
+      return 100
+    }
+    return parsedScore
   }
 
   parseCurrentChapter = (chapterNo: string): number => {
@@ -347,11 +363,11 @@ class GradeEditor extends Component<Props, State> {
     const parsedChapterNo = parseInt(chapterNo)
     if (parsedChapterNo < 0) {
       return 0
-    } else if (parsedChapterNo > this.state.editableGrades.length) {
-      return this.state.editableGrades.length
-    } else {
-      return parsedChapterNo
     }
+    if (parsedChapterNo > this.state.editableGrades.length) {
+      return this.state.editableGrades.length
+    }
+    return parsedChapterNo
   }
 
   activateRowEdit = (gradeId: number): void => {
@@ -391,6 +407,11 @@ class GradeEditor extends Component<Props, State> {
     editableGrades.forEach((grade: IGrade) => {
       if (grade.dueDate) {
         grade.dueDate = DateHelper.convertStringToMoment(grade.dueDate)
+          ?.format()
+          .substring(0, 10) as string
+      }
+      if (grade.submissionDate) {
+        grade.submissionDate = DateHelper.convertStringToMoment(grade.submissionDate)
           ?.format()
           .substring(0, 10) as string
       }

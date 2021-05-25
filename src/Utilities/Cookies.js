@@ -6,7 +6,7 @@ const defaultAttributes = {
 const dayInMilliseconds = 864e5
 
 const Cookies = {
-  get: (key) => {
+  get: key => {
     const cookies = document.cookie ? document.cookie.split('; ') : []
     const jar = {}
 
@@ -50,7 +50,7 @@ const Cookies = {
     return (document.cookie = `${key}=${value}${stringifiedAttributes}`)
   },
 
-  remove: (key) => {
+  remove: key => {
     Cookies.set(key, '', { expires: -1 })
   }
 }

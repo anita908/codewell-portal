@@ -5,6 +5,7 @@ interface IHomeworkProgress {
   homeworkScore: number
   submitted: string
   submissionUrl: string
+  submissionDate: string
   submissionFeedback: string
   dueDate: string
 }
