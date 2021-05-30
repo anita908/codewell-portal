@@ -16,7 +16,6 @@ type State = {
   selectedStudentId: string
   taughtSessions: IAdminSession[]
   students: IStudent[]
-  showGradesEditor: boolean
 }
 
 const studentsPresenter = new StudentsPresenter(new Fetcher())
@@ -41,8 +40,7 @@ class Students extends Component<{}, State> {
       selectedSessionId,
       selectedStudentId,
       taughtSessions,
-      students,
-      showGradesEditor
+      students
     } = this.state
 
     return (
@@ -53,6 +51,7 @@ class Students extends Component<{}, State> {
           <div className='students-sessionSelect'>
             <label>Session:</label>
             <Select size='md' value={selectedSessionId} onChange={this.selectSession}>
+              <option>Select a course session</option>
               {taughtSessions.map((session: IAdminSession) => (
                 <option key={session.id} value={session.id}>
                   {`${session.course.name}: ${session.beginDate} - ${session.endDate}`}
@@ -60,67 +59,19 @@ class Students extends Component<{}, State> {
               ))}
             </Select>
           </div>
-          <div className='students-contentFlex'>
-            <div className='students-container'>
-              <table
-                className='students-table'
-                style={{ width: showGradesEditor ? 'var(--layout-7)' : '' }}
-              >
-                <thead>
-                  <tr>
-                    {showGradesEditor ? (
-                      <th>Student Name</th>
-                    ) : (
-                      <Fragment>
-                        <th>Student Name</th>
-                        <th>Birthdate</th>
-                        <th>City</th>
-                        <th>State</th>
-                      </Fragment>
-                    )}
-                  </tr>
-                </thead>
-                {!isLoadingStudents ? (
-                  <tbody>
-                    {students.map((student: IStudent) => (
-                      <tr
-                        key={student.id}
-                        className='students-row'
-                        onClick={event => this.selectStudent(student.userId, event)}
-                      >
-                        {showGradesEditor ? (
-                          <td>
-                            {student.firstName} {student.lastName}
-                          </td>
-                        ) : (
-                          <Fragment>
-                            <td>
-                              {student.firstName} {student.lastName}
-                            </td>
-                            <td>{student.birthdate}</td>
-                            <td>{student.city}</td>
-                            <td>{this.getStudentState(student.state)}</td>
-                          </Fragment>
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
-                ) : (
-                  <div>
-                    <p>Loading Students...</p>
-                  </div>
-                )}
-              </table>
-            </div>
-            <div className='grades-container'>
-              {selectedSessionId && selectedStudentId ? (
-                <GradeEditor studentId={selectedStudentId} sessionId={selectedSessionId} />
-              ) : (
-                <div>
-                  <p>Select a student</p>
-                </div>
-              )}
-            </div>
+          <div className='students-studentDropdown'>
+            <label>Student Name: </label>
+            <Select size='md' onChange={this.selectStudent}>
+              <option>Select a student name</option>
+              {students.map((student: IStudent) => (
+                <option key={student.id} value={student.id}>
+                  {student.firstName} {student.lastName}
+                </option>
+              ))}
+            </Select>
+          </div>
+          <div className='grades-container'>
+            <GradeEditor studentId={selectedStudentId} sessionId={selectedSessionId} />
           </div>
         </div>
         <Footer />
@@ -151,29 +102,25 @@ class Students extends Component<{}, State> {
     })
   }
 
-  selectStudent = (studentId: string, event: MouseEvent<HTMLTableRowElement>): void => {
+  selectStudent = (event: React.ChangeEvent): void => {
+    const target = event.target as HTMLInputElement
+    const selectedStudentId = target.value
+
     this.setState({
-      selectedStudentId: studentId
+      selectedStudentId
     })
-    this.toggleActiveRow(event.target as HTMLTableDataCellElement)
   }
 
   getAllStudents = async (): Promise<void> => {
     this.setState({ isLoadingStudents: true })
-    const taughtSessions = await studentsPresenter.getTaughtSessions()
-    taughtSessions.forEach((session: IAdminSession) => {
-      session.beginDate = DateHelper.convertStringToMoment(session.beginDate)?.format(
-        'MM/DD/YYYY'
-      ) as string
-      session.endDate = DateHelper.convertStringToMoment(session.endDate)?.format(
-        'MM/DD/YYYY'
-      ) as string
-    })
-    this.setState({
-      selectedSessionId: taughtSessions[0].id,
-      taughtSessions: taughtSessions
-    })
+    const taughtSessions = await this.getTaughtSessions()
+
     if (taughtSessions.length > 0) {
+      this.setState({
+        selectedSessionId: taughtSessions[0].id,
+        taughtSessions: taughtSessions
+      })
+
       const students = await studentsPresenter.getStudentsInSession(taughtSessions[0].id)
       students.forEach((student: IStudent) => {
         student.birthdate = DateHelper.convertStringToMoment(student.birthdate)?.format(
@@ -187,14 +134,19 @@ class Students extends Component<{}, State> {
     }
   }
 
-  toggleActiveRow = (target: HTMLTableDataCellElement): void => {
-    const row = target.parentElement
-    const siblingRows = row?.parentElement?.children || []
-    Array.from(siblingRows).forEach(siblingRow => {
-      siblingRow.classList.toggle('active', false)
+  getTaughtSessions = async (): Promise<IAdminSession[]> => {
+    const taughtSessions = await studentsPresenter.getTaughtSessions()
+
+    return taughtSessions.map((session: IAdminSession) => {
+      session.beginDate = DateHelper.convertStringToMoment(session.beginDate)?.format(
+        'MM/DD/YYYY'
+      ) as string
+      session.endDate = DateHelper.convertStringToMoment(session.endDate)?.format(
+        'MM/DD/YYYY'
+      ) as string
+
+      return session
     })
-    row?.classList.toggle('active', true)
-    this.setState({ showGradesEditor: true })
   }
 }
 

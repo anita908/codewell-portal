@@ -10,22 +10,16 @@
   margin-right: 2%;
 }
 
-.students-contentFlex {
-  display: flex;
-  gap: 1%;
-  margin-bottom: var(--spacing-5);
-}
-
 .students-container {
   width: 50%;
 }
 
-.students-sessionSelect {
+.students-sessionSelect, .students-studentDropdown {
   margin-bottom: 2%;
   text-align: left;
 }
 
-.students-sessionSelect label {
+.students-sessionSelect, .students-studentDropdown label {
   display: block;
   margin-bottom: 10px;
 }
