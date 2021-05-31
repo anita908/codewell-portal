@@ -43,12 +43,12 @@ class Students extends Component<{}, State> {
           <div className='students-sessionSelectContainer'>
             <label>Session:</label>
             <Select
-              size='md'
               classname='students-sessionDropdown'
-              value={selectedSessionId}
               onChange={this.selectSession}
+              size='md'
+              value={selectedSessionId}
             >
-              <option>Select a course session</option>
+              <option value={-1}>Select a course session</option>
               {taughtSessions.map((session: IAdminSession) => (
                 <option key={session.id} value={session.id}>
                   {`${session.course.name}: ${session.beginDate} - ${session.endDate}`}
@@ -58,17 +58,24 @@ class Students extends Component<{}, State> {
           </div>
           <div className='students-studentDropdownContainer'>
             <label>Student Name: </label>
-            <Select classname='students-studentDropdown' size='md' onChange={this.selectStudent}>
+            <Select
+              classname='students-studentDropdown'
+              disabled={selectedSessionId < 0}
+              size='md'
+              onChange={this.selectStudent}
+            >
               <option>Select a student name</option>
               {students.map((student: IStudent) => (
                 <option key={student.userId} value={student.userId}>
-                  {student.firstName} {student.lastName}
+                  {student.firstName} {student.lastName} ({this.getStudentState(student.state)})
                 </option>
               ))}
             </Select>
           </div>
-          <div className='grades-container'>
-            <GradeEditor studentId={selectedStudentId} sessionId={selectedSessionId} />
+          <div className='students-gradesContainer'>
+            {selectedSessionId > 0 && selectedStudentId && (
+              <GradeEditor studentId={selectedStudentId} sessionId={selectedSessionId} />
+            )}
           </div>
         </div>
         <Footer />

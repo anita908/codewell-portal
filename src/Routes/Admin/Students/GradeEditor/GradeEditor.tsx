@@ -81,7 +81,6 @@ class GradeEditor extends Component<Props, State> {
             <th></th>
           </tr>
         </thead>
-        {!isLoadingGrades ? (
           <tbody>
             {editableGrades.map((grade: IGrade) => (
               <tr key={grade.id}>
@@ -148,13 +147,8 @@ class GradeEditor extends Component<Props, State> {
               </tr>
             ))}
           </tbody>
-        ) : (
-          <div>
-            <p>Loading Grades...</p>
-          </div>
-        )}
         <tfoot>
-          {!isLoadingGrades ? (
+          {!isLoadingGrades && (
             <tr>
               <td>
                 {'Current Chapter: '}
@@ -213,7 +207,7 @@ class GradeEditor extends Component<Props, State> {
                 />
               </td>
             </tr>
-          ) : null}
+          )}
           <tr>
             <td colSpan={2}>
               <button

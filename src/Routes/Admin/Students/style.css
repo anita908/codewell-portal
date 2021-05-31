@@ -81,8 +81,24 @@
   cursor: pointer;
 }
 
+.students-gradesContainer {
+  overflow-x: auto;
+}
+
 @media only screen and (max-width: 1020px) {
  .students-content {
   margin-left: 0;
  }
+}
+
+@media only screen and (max-width: 425px) {
+  .students-sessionDropdown, .students-studentDropdown, .students-sessionSelectContainer label, .students-studentDropdownContainer label {
+    font-size: var(--text-size-2);
+  }
+}
+
+@media only screen and (max-width: 352px) {
+  .students-sessionDropdown, .students-studentDropdown, .students-sessionSelectContainer label, .students-studentDropdownContainer label {
+    font-size: var(--text-size-1);
+  }
 }

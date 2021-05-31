@@ -3,6 +3,7 @@ import './style.css'
 
 type Props = {
   classname: string
+  disabled?: boolean
   size?: string
   value?: string | number
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void
@@ -10,9 +11,14 @@ type Props = {
 
 class Select extends Component<Props, {}> {
   render = (): ReactElement => {
-    const { classname, size, value, onChange, children } = this.props
+    const { classname, disabled, size, value, onChange, children } = this.props
     return (
-      <select className={`select ${size} ${classname}`} value={value} onChange={onChange}>
+      <select
+        disabled={disabled}
+        className={`select ${size} ${classname}`}
+        onChange={onChange}
+        value={value}
+      >
         {children}
       </select>
     )
