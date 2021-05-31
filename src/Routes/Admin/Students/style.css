@@ -14,12 +14,16 @@
   width: 50%;
 }
 
-.students-sessionSelect, .students-studentDropdown {
+.students-sessionSelectContainer, .students-studentDropdownContainer {
   margin-bottom: 2%;
   text-align: left;
 }
 
-.students-sessionSelect, .students-studentDropdown label {
+.students-sessionDropdown, .students-studentDropdown {
+  font-family: var(--font-family);
+}
+
+.students-sessionSelectContainer label, .students-studentDropdownContainer label {
   display: block;
   margin-bottom: 10px;
 }
@@ -75,4 +79,10 @@
 
 .students-row:hover {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 91px) {
+ .student-content {
+   margin: auto var(--spacing-4);
+ }
 }

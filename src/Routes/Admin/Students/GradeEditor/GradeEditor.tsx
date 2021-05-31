@@ -71,7 +71,7 @@ class GradeEditor extends Component<Props, State> {
       <table className='gradeEditor-table'>
         <thead>
           <tr>
-            <th>Homework Name</th>
+            <th>Homework Title</th>
             <th>Due Date</th>
             <th>Submitted</th>
             <th>Submission Link</th>

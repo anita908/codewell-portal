@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component, Fragment, MouseEvent, ReactElement } from 'react'
+import React, { Component, ReactElement } from 'react'
 import DateHelper from 'Utilities/DateHelper'
 import Fetcher from 'Drivers/Fetcher'
 import Footer from 'Common/Footer'
@@ -11,7 +11,6 @@ import StudentsPresenter from './StudentsPresenter'
 import './style.css'
 
 type State = {
-  isLoadingStudents: boolean
   selectedSessionId: number
   selectedStudentId: string
   taughtSessions: IAdminSession[]
@@ -22,8 +21,7 @@ const studentsPresenter = new StudentsPresenter(new Fetcher())
 
 class Students extends Component<{}, State> {
   state = {
-    isLoadingStudents: false,
-    selectedSessionId: 0,
+    selectedSessionId: -1,
     selectedStudentId: '',
     taughtSessions: [],
     students: [],
@@ -35,22 +33,21 @@ class Students extends Component<{}, State> {
   }
 
   render = (): ReactElement => {
-    const {
-      isLoadingStudents,
-      selectedSessionId,
-      selectedStudentId,
-      taughtSessions,
-      students
-    } = this.state
+    const { selectedSessionId, selectedStudentId, taughtSessions, students } = this.state
 
     return (
       <div id='students'>
         <SideNav isAdmin={true} username={localStorage.getItem('firstname') || ''} />
         <div className='students-content'>
           <h3>Students</h3>
-          <div className='students-sessionSelect'>
+          <div className='students-sessionSelectContainer'>
             <label>Session:</label>
-            <Select size='md' value={selectedSessionId} onChange={this.selectSession}>
+            <Select
+              size='md'
+              classname='students-sessionDropdown'
+              value={selectedSessionId}
+              onChange={this.selectSession}
+            >
               <option>Select a course session</option>
               {taughtSessions.map((session: IAdminSession) => (
                 <option key={session.id} value={session.id}>
@@ -59,12 +56,12 @@ class Students extends Component<{}, State> {
               ))}
             </Select>
           </div>
-          <div className='students-studentDropdown'>
+          <div className='students-studentDropdownContainer'>
             <label>Student Name: </label>
-            <Select size='md' onChange={this.selectStudent}>
+            <Select classname='students-studentDropdown' size='md' onChange={this.selectStudent}>
               <option>Select a student name</option>
               {students.map((student: IStudent) => (
-                <option key={student.id} value={student.id}>
+                <option key={student.userId} value={student.userId}>
                   {student.firstName} {student.lastName}
                 </option>
               ))}
@@ -89,15 +86,15 @@ class Students extends Component<{}, State> {
     return state
   }
 
-  selectSession = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
-    const sessionId = parseInt(event.target.value)
+  selectSession = async (event: React.ChangeEvent): Promise<void> => {
+    const target = event.target as HTMLInputElement
+    const sessionId = parseInt(target.value)
+
     this.setState({
-      isLoadingStudents: true,
       selectedSessionId: sessionId
     })
     const students = await studentsPresenter.getStudentsInSession(sessionId)
     this.setState({
-      isLoadingStudents: false,
       students: students
     })
   }
@@ -112,12 +109,10 @@ class Students extends Component<{}, State> {
   }
 
   getAllStudents = async (): Promise<void> => {
-    this.setState({ isLoadingStudents: true })
     const taughtSessions = await this.getTaughtSessions()
 
     if (taughtSessions.length > 0) {
       this.setState({
-        selectedSessionId: taughtSessions[0].id,
         taughtSessions: taughtSessions
       })
 
@@ -128,7 +123,6 @@ class Students extends Component<{}, State> {
         ) as string
       })
       this.setState({
-        isLoadingStudents: false,
         students: students
       })
     }
