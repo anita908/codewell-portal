@@ -26,6 +26,12 @@
   padding: 1%;
 }
 
+.gradeEditor-tableControl {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: var(--layout-2);
+}
+
 .gradeEditor-scoreInput {
   width: var(--spacing-8);
 }
@@ -74,5 +80,15 @@
 @media only screen and (max-width: 560px) {
   .gradeEditor-table {
     font-size: var(--text-size-1);
+  }
+}
+
+@media only screen and (max-width: 521px) {
+  .save-button, .reset-button {
+    width: var(--layout-6);
+  }
+  
+  .gradeEditor-tableControl {
+    margin-bottom: var(--layout-1);
   }
 }

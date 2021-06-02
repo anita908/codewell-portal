@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { Component, ReactElement } from 'react'
+import React, { Component, Fragment, ReactElement } from 'react'
 import swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { faCheck, faUserEdit, faCommentAlt } from '@fortawesome/free-solid-svg-icons'
@@ -68,172 +68,170 @@ class GradeEditor extends Component<Props, State> {
     } = this.state
 
     return (
-      <table className='gradeEditor-table'>
-        <thead>
-          <tr>
-            <th>Homework Title</th>
-            <th>Due Date</th>
-            <th>Submitted</th>
-            <th>Submission Link</th>
-            <th>Submission Date</th>
-            <th>Score</th>
-            <th>Feedback</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {editableGrades.map((grade: IGrade) => (
-            <tr key={grade.id}>
-              <td>{grade.homeworkName}</td>
-              <td>
-                <ToggleInput
-                  active={editingRowId === grade.id}
-                  type='date'
-                  value={grade.dueDate || '--'}
-                  onChange={event => this.updateGradeField(event.target.value, 'dueDate')}
-                />
-              </td>
-              <td>
-                <ToggleInput
-                  active={editingRowId === grade.id}
-                  type='checkbox'
-                  value={grade.submitted}
-                  checked={grade.submitted === 'true'}
-                  onChange={event =>
-                    this.updateGradeField(event.target.checked.toString(), 'submitted')
-                  }
-                />
-              </td>
-              <td>{grade.submissionUrl ? <a href={grade.submissionUrl}>Submission</a> : '--'}</td>
-              <td>
-                <ToggleInput
-                  active={editingRowId === grade.id}
-                  type='date'
-                  value={grade.submissionDate || '--'}
-                  onChange={event => this.updateGradeField(event.target.value, 'submissionDate')}
-                />
-              </td>
-              <td>
-                <ToggleInput
-                  active={editingRowId === grade.id}
-                  className='gradeEditor-scoreInput'
-                  type='number'
-                  value={grade.score?.toString() || '--'}
-                  onChange={event =>
-                    this.updateGradeField(this.parseScore(event.target.value), 'score')
-                  }
-                />
-              </td>
-              <td>
-                <IconButton
-                  disabled={this.shouldDisableCommentEditor(grade.id)}
-                  icon={faCommentAlt}
-                  className='comment-icon'
-                  onClick={() => this.openCommentEditor(grade.id)}
-                />
-              </td>
-              <td>
-                <IconButton
-                  icon={faUserEdit}
-                  className='edit-icon'
-                  onClick={() => this.activateRowEdit(grade.id)}
-                />
-                {editingRowId === grade.id ? (
-                  <IconButton
-                    icon={faCheck}
-                    className='check-icon'
-                    onClick={() => this.deactivateRowEdit(grade.id)}
-                  />
-                ) : (
-                  <span></span>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          {!isLoadingGrades && (
+      <Fragment>
+        <table className='gradeEditor-table'>
+          <thead>
             <tr>
-              <td>
-                {'Current Chapter: '}
-                <ToggleInput
-                  active={editingRowId === 0}
-                  type='number'
-                  value={editableEnrollment.currentChapter}
-                  onChange={event =>
-                    this.updateEnrollmentField(
-                      this.parseCurrentChapter(event.target.value),
-                      'currentChapter'
-                    )
-                  }
-                />
-              </td>
-              <td>
-                {`Graduated: `}
-                <ToggleInput
-                  active={editingRowId === 0}
-                  type='checkbox'
-                  value={editableEnrollment.graduated}
-                  checked={editableEnrollment.graduated === 'true'}
-                  onChange={event =>
-                    this.updateEnrollmentField(event.target.checked.toString(), 'graduated')
-                  }
-                />
-              </td>
-              <td>
-                {`Withdrawn: `}
-                <ToggleInput
-                  active={editingRowId === 0}
-                  type='checkbox'
-                  value={editableEnrollment.withdrawn}
-                  checked={editableEnrollment.withdrawn === 'true'}
-                  onChange={event =>
-                    this.updateEnrollmentField(event.target.checked.toString(), 'withdrawn')
-                  }
-                />
-              </td>
-              <td>
-                {`Overall Grade: ${GradeHelper.determineGradeCategory(
-                  editableEnrollment.overallGrade
-                )} `}
-                ({editableEnrollment.overallGrade}%)
-              </td>
-              <td>
-                <IconButton
-                  icon={faUserEdit}
-                  className='edit-icon'
-                  onClick={() => this.activateRowEdit(0)}
-                />
-                {editingRowId === 0 ? (
-                  <IconButton
-                    icon={faCheck}
-                    className='check-icon'
-                    onClick={() => this.deactivateRowEdit(0)}
-                  />
-                ) : (
-                  <span></span>
-                )}
-              </td>
+              <th>Homework Title</th>
+              <th>Due Date</th>
+              <th>Submitted</th>
+              <th>Submission Link</th>
+              <th>Submission Date</th>
+              <th>Score</th>
+              <th>Feedback</th>
+              <th>Edit</th>
             </tr>
-          )}
-          <tr>
-            <td colSpan={2}>
-              <button
-                className='gradeEditor-button save-button'
-                onClick={this.updateStudentGrades}
-                disabled={isUpdatingGrades || !!editingRowId}
-              >
-                Save
-              </button>
-            </td>
-            <td colSpan={2}>
-              <button className='gradeEditor-button reset-button' onClick={this.resetGradeEditor}>
-                Reset
-              </button>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+          </thead>
+          <tbody>
+            {editableGrades.map((grade: IGrade) => (
+              <tr key={grade.id}>
+                <td>{grade.homeworkName}</td>
+                <td>
+                  <ToggleInput
+                    active={editingRowId === grade.id}
+                    type='date'
+                    value={grade.dueDate || '--'}
+                    onChange={event => this.updateGradeField(event.target.value, 'dueDate')}
+                  />
+                </td>
+                <td>
+                  <ToggleInput
+                    active={editingRowId === grade.id}
+                    type='checkbox'
+                    value={grade.submitted}
+                    checked={grade.submitted === 'true'}
+                    onChange={event =>
+                      this.updateGradeField(event.target.checked.toString(), 'submitted')
+                    }
+                  />
+                </td>
+                <td>{grade.submissionUrl ? <a href={grade.submissionUrl}>Submission</a> : '--'}</td>
+                <td>
+                  <ToggleInput
+                    active={editingRowId === grade.id}
+                    type='date'
+                    value={grade.submissionDate || '--'}
+                    onChange={event => this.updateGradeField(event.target.value, 'submissionDate')}
+                  />
+                </td>
+                <td>
+                  <ToggleInput
+                    active={editingRowId === grade.id}
+                    className='gradeEditor-scoreInput'
+                    type='number'
+                    value={grade.score?.toString() || '--'}
+                    onChange={event =>
+                      this.updateGradeField(this.parseScore(event.target.value), 'score')
+                    }
+                  />
+                </td>
+                <td>
+                  <IconButton
+                    disabled={this.shouldDisableCommentEditor(grade.id)}
+                    icon={faCommentAlt}
+                    className='comment-icon'
+                    onClick={() => this.openCommentEditor(grade.id)}
+                  />
+                </td>
+                <td>
+                  <IconButton
+                    icon={faUserEdit}
+                    className='edit-icon'
+                    onClick={() => this.activateRowEdit(grade.id)}
+                  />
+                  {editingRowId === grade.id ? (
+                    <IconButton
+                      icon={faCheck}
+                      className='check-icon'
+                      onClick={() => this.deactivateRowEdit(grade.id)}
+                    />
+                  ) : (
+                    <span></span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            {!isLoadingGrades && (
+              <tr>
+                <td>
+                  {'Current Chapter: '}
+                  <ToggleInput
+                    active={editingRowId === 0}
+                    type='number'
+                    value={editableEnrollment.currentChapter}
+                    onChange={event =>
+                      this.updateEnrollmentField(
+                        this.parseCurrentChapter(event.target.value),
+                        'currentChapter'
+                      )
+                    }
+                  />
+                </td>
+                <td>
+                  {`Graduated: `}
+                  <ToggleInput
+                    active={editingRowId === 0}
+                    type='checkbox'
+                    value={editableEnrollment.graduated}
+                    checked={editableEnrollment.graduated === 'true'}
+                    onChange={event =>
+                      this.updateEnrollmentField(event.target.checked.toString(), 'graduated')
+                    }
+                  />
+                </td>
+                <td>
+                  {`Withdrawn: `}
+                  <ToggleInput
+                    active={editingRowId === 0}
+                    type='checkbox'
+                    value={editableEnrollment.withdrawn}
+                    checked={editableEnrollment.withdrawn === 'true'}
+                    onChange={event =>
+                      this.updateEnrollmentField(event.target.checked.toString(), 'withdrawn')
+                    }
+                  />
+                </td>
+                <td>
+                  {`Overall Grade: ${GradeHelper.determineGradeCategory(
+                    editableEnrollment.overallGrade
+                  )} `}
+                  ({editableEnrollment.overallGrade}%)
+                </td>
+                <td>
+                  <IconButton
+                    icon={faUserEdit}
+                    className='edit-icon'
+                    onClick={() => this.activateRowEdit(0)}
+                  />
+                  {editingRowId === 0 ? (
+                    <IconButton
+                      icon={faCheck}
+                      className='check-icon'
+                      onClick={() => this.deactivateRowEdit(0)}
+                    />
+                  ) : (
+                    <span></span>
+                  )}
+                </td>
+              </tr>
+            )}
+          </tfoot>
+        </table>
+        <div className='gradeEditor-tableControl'>
+          <button
+            className='gradeEditor-button save-button'
+            onClick={this.updateStudentGrades}
+            disabled={isUpdatingGrades || !!editingRowId}
+          >
+            Save
+          </button>
+          <button className='gradeEditor-button reset-button' onClick={this.resetGradeEditor}>
+            Reset
+          </button>
+        </div>
+      </Fragment>
     )
   }
 
