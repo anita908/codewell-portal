@@ -78,75 +78,79 @@ class GradeEditor extends Component<Props, State> {
             <th>Submission Date</th>
             <th>Score</th>
             <th>Feedback</th>
-            <th></th>
+            <th>Edit</th>
           </tr>
         </thead>
-          <tbody>
-            {editableGrades.map((grade: IGrade) => (
-              <tr key={grade.id}>
-                <td>{grade.homeworkName}</td>
-                <td>
-                  <ToggleInput
-                    active={editingRowId === grade.id}
-                    type='date'
-                    value={grade.dueDate || '--'}
-                    onChange={event => this.updateGradeField(event.target.value, 'dueDate')}
-                  />
-                </td>
-                <td>
-                  <ToggleInput
-                    active={editingRowId === grade.id}
-                    type='checkbox'
-                    value={grade.submitted}
-                    checked={grade.submitted === 'true'}
-                    onChange={event =>
-                      this.updateGradeField(event.target.checked.toString(), 'submitted')
-                    }
-                  />
-                </td>
-                <td>{grade.submissionUrl ? <a href={grade.submissionUrl}>Submission</a> : '--'}</td>
-                <td>
-                  <ToggleInput
-                    active={editingRowId === grade.id}
-                    type='date'
-                    value={grade.submissionDate || '--'}
-                    onChange={event => this.updateGradeField(event.target.value, 'submissionDate')}
-                  />
-                </td>
-                <td>
-                  <ToggleInput
-                    active={editingRowId === grade.id}
-                    type='number'
-                    value={grade.score?.toString() || '--'}
-                    onChange={event =>
-                      this.updateGradeField(this.parseScore(event.target.value), 'score')
-                    }
-                  />
-                  %
-                </td>
-                <td>
-                  <IconButton
-                    disabled={this.shouldDisableCommentEditor(grade.id)}
-                    icon={faCommentAlt}
-                    className='comment-icon'
-                    onClick={() => this.openCommentEditor(grade.id)}
-                  />
-                </td>
-                <td>
-                  <IconButton
-                    icon={faUserEdit}
-                    className='edit-icon'
-                    onClick={() => this.activateRowEdit(grade.id)}
-                  />
+        <tbody>
+          {editableGrades.map((grade: IGrade) => (
+            <tr key={grade.id}>
+              <td>{grade.homeworkName}</td>
+              <td>
+                <ToggleInput
+                  active={editingRowId === grade.id}
+                  type='date'
+                  value={grade.dueDate || '--'}
+                  onChange={event => this.updateGradeField(event.target.value, 'dueDate')}
+                />
+              </td>
+              <td>
+                <ToggleInput
+                  active={editingRowId === grade.id}
+                  type='checkbox'
+                  value={grade.submitted}
+                  checked={grade.submitted === 'true'}
+                  onChange={event =>
+                    this.updateGradeField(event.target.checked.toString(), 'submitted')
+                  }
+                />
+              </td>
+              <td>{grade.submissionUrl ? <a href={grade.submissionUrl}>Submission</a> : '--'}</td>
+              <td>
+                <ToggleInput
+                  active={editingRowId === grade.id}
+                  type='date'
+                  value={grade.submissionDate || '--'}
+                  onChange={event => this.updateGradeField(event.target.value, 'submissionDate')}
+                />
+              </td>
+              <td>
+                <ToggleInput
+                  active={editingRowId === grade.id}
+                  className='gradeEditor-scoreInput'
+                  type='number'
+                  value={grade.score?.toString() || '--'}
+                  onChange={event =>
+                    this.updateGradeField(this.parseScore(event.target.value), 'score')
+                  }
+                />
+              </td>
+              <td>
+                <IconButton
+                  disabled={this.shouldDisableCommentEditor(grade.id)}
+                  icon={faCommentAlt}
+                  className='comment-icon'
+                  onClick={() => this.openCommentEditor(grade.id)}
+                />
+              </td>
+              <td>
+                <IconButton
+                  icon={faUserEdit}
+                  className='edit-icon'
+                  onClick={() => this.activateRowEdit(grade.id)}
+                />
+                {editingRowId === grade.id ? (
                   <IconButton
                     icon={faCheck}
                     className='check-icon'
                     onClick={() => this.deactivateRowEdit(grade.id)}
                   />
-                </td>
-              </tr>
-            ))}
-          </tbody>
+                ) : (
+                  <span></span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
         <tfoot>
           {!isLoadingGrades && (
             <tr>
@@ -200,11 +204,15 @@ class GradeEditor extends Component<Props, State> {
                   className='edit-icon'
                   onClick={() => this.activateRowEdit(0)}
                 />
-                <IconButton
-                  icon={faCheck}
-                  className='check-icon'
-                  onClick={() => this.deactivateRowEdit(0)}
-                />
+                {editingRowId === 0 ? (
+                  <IconButton
+                    icon={faCheck}
+                    className='check-icon'
+                    onClick={() => this.deactivateRowEdit(0)}
+                  />
+                ) : (
+                  <span></span>
+                )}
               </td>
             </tr>
           )}

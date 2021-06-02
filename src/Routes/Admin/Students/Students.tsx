@@ -40,37 +40,39 @@ class Students extends Component<{}, State> {
         <SideNav isAdmin={true} username={localStorage.getItem('firstname') || ''} />
         <div className='students-content'>
           <h3>Students</h3>
-          <div className='students-sessionSelectContainer'>
-            <label>Session:</label>
-            <Select
-              classname='students-sessionDropdown'
-              onChange={this.selectSession}
-              size='md'
-              value={selectedSessionId}
-            >
-              <option value={-1}>Select a course session</option>
-              {taughtSessions.map((session: IAdminSession) => (
-                <option key={session.id} value={session.id}>
-                  {`${session.course.name}: ${session.beginDate} - ${session.endDate}`}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <div className='students-studentDropdownContainer'>
-            <label>Student Name: </label>
-            <Select
-              classname='students-studentDropdown'
-              disabled={selectedSessionId < 0}
-              size='md'
-              onChange={this.selectStudent}
-            >
-              <option>Select a student name</option>
-              {students.map((student: IStudent) => (
-                <option key={student.userId} value={student.userId}>
-                  {student.firstName} {student.lastName} ({this.getStudentState(student.state)})
-                </option>
-              ))}
-            </Select>
+          <div className='students-dropDowns'>
+            <div className='students-sessionSelectContainer'>
+              <label>Session:</label>
+              <Select
+                classname='students-sessionDropdown'
+                onChange={this.selectSession}
+                size='md'
+                value={selectedSessionId}
+              >
+                <option value={-1}>Select a course session</option>
+                {taughtSessions.map((session: IAdminSession) => (
+                  <option key={session.id} value={session.id}>
+                    {`${session.course.name}: ${session.beginDate} - ${session.endDate}`}
+                  </option>
+                ))}
+              </Select>
+            </div>
+            <div className='students-studentDropdownContainer'>
+              <label>Student Name: </label>
+              <Select
+                classname='students-studentDropdown'
+                disabled={selectedSessionId < 0}
+                size='md'
+                onChange={this.selectStudent}
+              >
+                <option>Select a student name</option>
+                {students.map((student: IStudent) => (
+                  <option key={student.userId} value={student.userId}>
+                    {student.firstName} {student.lastName} ({this.getStudentState(student.state)})
+                  </option>
+                ))}
+              </Select>
+            </div>
           </div>
           <div className='students-gradesContainer'>
             {selectedSessionId > 0 && selectedStudentId && (
