@@ -307,12 +307,12 @@ class GradeEditor extends Component<Props, State> {
     })
     await gradeEditorPresenter.updateEnrollmentRecord(this.state.editableEnrollment)
     const updatedGrades = await gradeEditorPresenter.updateStudentGrades(
-      studentId,
+      parseInt(studentId, 10),
       sessionId,
       newGrades
     )
     const updatedEnrollmentRecord = await gradeEditorPresenter.getEnrollmentRecord(
-      studentId,
+      parseInt(studentId, 10),
       sessionId
     )
     this.setState({
@@ -384,8 +384,8 @@ class GradeEditor extends Component<Props, State> {
   getGrades = async (studentId: string, sessionId: number): Promise<void> => {
     this.setState({ isLoadingGrades: true })
     const responses = await Promise.all([
-      gradeEditorPresenter.getEnrollmentRecord(studentId, sessionId),
-      gradeEditorPresenter.getStudentGrades(studentId, sessionId)
+      gradeEditorPresenter.getEnrollmentRecord(parseInt(studentId, 10), sessionId),
+      gradeEditorPresenter.getStudentGrades(parseInt(studentId, 10), sessionId)
     ])
     this.setState({
       enrollmentBackup: responses[0],

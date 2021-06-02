@@ -44,7 +44,7 @@ class Students extends Component<{}, State> {
             <div className='students-sessionSelectContainer'>
               <label>Session:</label>
               <Select
-                classname='students-sessionDropdown'
+                className='students-sessionDropdown'
                 onChange={this.selectSession}
                 size='md'
                 value={selectedSessionId}
@@ -60,7 +60,7 @@ class Students extends Component<{}, State> {
             <div className='students-studentDropdownContainer'>
               <label>Student Name: </label>
               <Select
-                classname='students-studentDropdown'
+                className='students-studentDropdown'
                 disabled={selectedSessionId < 0}
                 size='md'
                 onChange={this.selectStudent}
