@@ -2,31 +2,33 @@ import React, { ChangeEvent, Component, ReactElement } from 'react'
 
 type Props = {
   active: boolean
+  checked?: boolean
+  className?: string
   type?: string
   value?: string | number | null
-  checked?: boolean
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 class ToggleInput extends Component<Props, {}> {
   render = (): ReactElement => {
-    const { active, type, value, checked, onChange } = this.props
+    const { active, checked, className, onChange, type, value } = this.props
 
     if (type === 'checkbox') {
       return (
         <input
+          className={className}
+          checked={checked}
+          disabled={!active}
+          onChange={onChange}
           type={type}
           value={value || ''}
-          checked={checked}
-          onChange={onChange}
-          disabled={!active}
         />
       )
     } else {
       return active ? (
-        <input type={type} value={value || ''} onChange={onChange} />
+        <input className={className} type={type} value={value || ''} onChange={onChange} />
       ) : (
-        <span>{value}</span>
+        <span className={className}>{value}</span>
       )
     }
   }

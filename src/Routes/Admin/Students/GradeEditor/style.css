@@ -1,8 +1,13 @@
 .gradeEditor-table {
-  width: 100%;
+  width: 80%;
   border-spacing: 0;
   border: 1px solid black;
   border-radius: 5px;
+  margin: var(--spacing-4) auto;
+}
+
+.gradeEditor-table input {
+  height: var(--layout-2);
 }
 
 .gradeEditor-table th {
@@ -19,6 +24,16 @@
 
 .gradeEditor-table tfoot tr td {
   padding: 1%;
+}
+
+.gradeEditor-tableControl {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: var(--layout-2);
+}
+
+.gradeEditor-scoreInput {
+  width: var(--spacing-8);
 }
 
 .edit-icon {
@@ -50,4 +65,30 @@
 .reset-button {
   color: black;
   background: var(--yellow-20);
+}
+
+.swal2-textarea {
+  font-family: var(--font-family);
+}
+
+@media only screen and (max-width: 680px) {
+  .gradeEditor-table {
+    font-size: var(--text-size-2);
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .gradeEditor-table {
+    font-size: var(--text-size-1);
+  }
+}
+
+@media only screen and (max-width: 521px) {
+  .save-button, .reset-button {
+    width: var(--layout-6);
+  }
+  
+  .gradeEditor-tableControl {
+    margin-bottom: var(--layout-1);
+  }
 }
