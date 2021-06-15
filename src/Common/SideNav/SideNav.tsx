@@ -145,6 +145,15 @@ class SideNav extends Component<Props, State> {
                     Course Slides
                   </Link>
                 </li>
+                <li onClick={this.setActiveLink} className='assignment'>
+                  <Link
+                    to={{
+                      pathname: `/assignment`
+                    }}
+                  >
+                    Assignment
+                  </Link>
+                </li>
                 <li onClick={this.setActiveLink} className='grades'>
                   <Link
                     to={{
