@@ -1,0 +1,86 @@
+#assignmentSubmission {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.assignmentSubmission-content {
+  display: inline-block;
+  margin-left: calc(((100% - var(--home-width) - var(--sideNav-width)) / 2) + var(--sideNav-width));
+  margin-right: calc((100% - var(--home-width) - var(--sideNav-width)) / 2);
+}
+
+.assignmentSubmission-header {
+  margin-top: var(--layout-2);
+  text-align: center;
+  font-size: var(--xl-text-size);
+  color: var(--green-50);
+}
+
+.assignmentSubmission-course {
+  margin-top: var(--layout-3);
+  margin-bottom: var(--layout-5);
+}
+
+.assignmentSubmission-course-title {
+  border-bottom: 1px solid var(--illustration-turquoise);
+  color: var(--illustration-turquoise);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+  text-align: left;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.assignmentSubmission-course-title h2 {
+  display: inline;
+  margin: 0;
+}
+
+.assignmentSubmission-toggleExpandButton {
+  display: inline;
+}
+
+.assignmentSubmission-toggleExpandButton:hover {
+  cursor: pointer;
+}
+
+.assignmentSubmission-toggleExpandButton > summary:focus {
+  outline: none;
+}
+
+.assignmentSubmission-links {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height);
+  margin-top: var(--layout-3);
+  margin-bottom: var(--layout-2);
+  text-align: left;
+  display: inline-block;
+  word-break: break-word;
+}
+
+.assignmentSubmission-link {
+  color: var(--blue-50);
+  display: block;
+  line-height: 2.3em;
+}
+
+@media only screen and (max-width: 1050px) {
+  .assignmentSubmission-content {
+    width: 740px;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .assignmentSubmission-content {
+    width: 670px;
+  }
+}
+
+@media only screen and (max-width: 890px) {
+  .assignmentSubmission-content {
+    width: 670px;
+    margin-left: 0;
+  }
+}
